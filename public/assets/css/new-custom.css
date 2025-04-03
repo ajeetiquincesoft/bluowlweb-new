@@ -1,0 +1,289 @@
+.error {
+    color: red;
+}
+.file-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+}
+
+.upload-file {
+    border: 2px dashed #505153;
+    color: #9b9b9b;
+    background-color: white;
+    width: 100%;
+    height: 250px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    height: auto;
+}
+
+.upload-btn-wrapper input[type="file"] {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+    min-height: 300px;
+}
+
+.success {
+    display: none;
+}
+
+.success i {
+    font-size: 22px;
+    margin-left: 6px;
+    margin-top: 10px;
+    color: #00b665;
+}
+
+.font-50 {
+    font-size: 100px;
+}
+
+.d-block {
+    display: block;
+}
+
+.btn .upload-file {
+    font-size: 13px;
+}
+
+.upload-btn {
+    display: block;
+    font-size: 18px;
+    color: #508acc;
+}
+.select2-selection__choice {
+    background-color: #405189 !important;
+}
+.date_css {
+    background: #0ab39c !important;
+    color: white !important;
+    text-align: center !important;
+}
+.back-btn {
+    position: absolute;
+    bottom: 40px;
+    right: 30px;
+}
+
+.edit-form .card-title {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+}
+.edit-form .in-box .form-label {
+    color: #333;
+    font-size: 14px;
+    font-weight: normal;
+}
+.edit-form .in-box label.error {
+    bottom: -26px;
+    font-size: 11px;
+    left: 200px;
+    position: absolute;
+}
+.edit-form .in-box .file-wrapper {
+    display: block;
+    width: 100%;
+}
+.edit-form .in-box .file-wrapper .upload-file {
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    display: flex;
+    gap: 15px;
+}
+.edit-form .in-box .file-wrapper .upload-file .upload-btn i {
+    color: #000;
+    font-size: 18px;
+}
+.edit-form .in-box .file-wrapper .upload-file .success i {
+    margin: 0;
+    padding: 0;
+}
+.edit-form .in-box .file-wrapper .upload-file .success i {
+    margin: 0;
+    padding: 2px 0 0;
+}
+.edit-form .cancel-btn {
+    background-color: #f06548;
+    border: 1px solid #f06548;
+}
+.edit-table table {
+    border: 1px solid #ebebf1;
+    box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.05);
+    margin: 50px 0 0;
+    width: 100%;
+}
+.edit-table th {
+    background-color: #f3f3f3;
+    color: #000;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 15px 28px;
+}
+.edit-table td {
+    border-bottom: 1px solid #d9d9d9;
+    color: #656565;
+    font-size: 14px;
+    padding: 12px 28px;
+}
+.edit-table td button {
+    background-color: #0ab39c;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 13px;
+    padding: 3px 12px;
+    transition: all ease 1s;
+}
+.edit-table td button:hover {
+    background-color: #f06548;
+}
+.note-editor.note-frame.panel.panel-default {
+    width: 100%;
+}
+.edit-form .in-box .note-editable p {
+    text-align: center;
+}
+.edit-form .in-box .note-editable p img {
+    width: 100% !important;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+    .main-content .mob-sr {
+        display: block !important;
+    }
+    .main-content .mob-sr .search-box,
+    .main-content .mob-sr .col-xxl-3 {
+        margin: 0 0 10px !important;
+    }
+    .main-content .mob-sr .btn.btn-primary {
+        margin: 0 !important;
+    }
+    .mob-sr.dd .search-box .search-icon {
+        margin-left: 10px;
+    }
+    .mob-sr.dd select.form-select {
+        margin: 0 0 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .edit-form .in-box {
+        display: flex;
+        align-items: center;
+    }
+    .edit-form .in-box .form-label {
+        margin: 0;
+        width: 250px;
+    }
+    .edit-form .in-box.dd .form-label {
+        width: 200px;
+    }
+}
+.file-block .file-delete span {
+    transform: none;
+    color: #fff;
+}
+.file-block {
+    background-color: #405189 !important;
+    color: #fff !important;
+    padding: 7px 10px;
+}
+.file-block .name {
+    padding-right: 10px;
+    width: max-content;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+}
+.file-block .file-delete {
+    border-radius: 50%;
+    height: 24px;
+}
+.file-block:hover .file-delete {
+    background-color: #fff;
+}
+.file-block:hover .file-delete span {
+    color: #f06548;
+    color: #f06548;
+}
+#files-area {
+    margin: 0 auto;
+}
+
+.file-block {
+    border-radius: 10px;
+    background-color: rgba(144, 163, 203, 0.2);
+    margin: 5px;
+    color: initial;
+    display: inline-flex;
+
+    & > span.name {
+        padding-right: 10px;
+        width: max-content;
+        display: inline-flex;
+    }
+}
+
+.file-delete {
+    display: flex;
+    width: 24px;
+    color: initial;
+    background-color: #6eb4ff00;
+    font-size: large;
+    justify-content: center;
+    margin-right: 3px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(144, 163, 203, 0.2);
+        border-radius: 10px;
+    }
+
+    & > span {
+        transform: rotate(45deg);
+    }
+}
+.normal-list table .text-muted p,
+.normal-list table .text-muted p span {
+    word-break: break-all;
+}
+.normal-list table th {
+    width: 145px;
+}
+.brand-avatar
+{
+	height: 2.5rem;
+	width: 2.5rem;
+}
+.coming-soon-text-custom {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #727272bb !important;
+  }
+.custom-search-format{
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+    width: 84%;
+    border: 1px solid #efe3e3;
+}
+.custom-search-format ul li{
+border-bottom: 1px solid #e3dbdb;
+}
