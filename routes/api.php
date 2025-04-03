@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\MasterApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,43 +26,52 @@ use App\Http\Controllers\Api\CustomerController;
 
 
 // Authentication Routes
-Route::post('login', [UserController::class, 'login']);
-Route::post('logout', [UserController::class, 'logout']);
-Route::post('register', [UserController::class, 'register']);
-Route::post('passwordUpdate', [UserController::class, 'passwordUpdate']);
-Route::post('getdetail', [UserController::class, 'getdetail']);
-Route::post('AddEmployee', [UserController::class, 'AddEmployee']);
-Route::post('profileImage', [UserController::class, 'profileImage']);
-Route::post('editemployee', [UserController::class, 'editemployee']);
-Route::post('employeelist', [UserController::class, 'employeelist']);
-Route::post('deleteemployee', [UserController::class, 'deleteemployee']);
+Route::group(['middleware' => 'api'], function ($router) {
+    Route::POST('Sign_up', [MasterApiController::class, 'Register']);
+    Route::POST('login', [MasterApiController::class, 'Login']);
+    Route::POST('signout', [MasterApiController::class, 'Logout']);
+    Route::POST('getCurrentUser', [MasterApiController::class, 'GetCurrentUser']);
+    Route::POST('handleCallback', [MasterApiController::class, 'handleCallback'])->name('handleCallback');
+    Route::GET('terms-and-conditions', [MasterApiController::class, 'termsAndConditionsPage'])->name('terms-and-conditions');
+    Route::GET('settingData', [MasterApiController::class, 'settingData']);
+});
+// Route::post('login', [UserController::class, 'login']);
+// Route::post('logout', [UserController::class, 'logout']);
+// Route::post('register', [UserController::class, 'register']);
+// Route::post('passwordUpdate', [UserController::class, 'passwordUpdate']);
+// Route::post('getdetail', [UserController::class, 'getdetail']);
+// Route::post('AddEmployee', [UserController::class, 'AddEmployee']);
+// Route::post('profileImage', [UserController::class, 'profileImage']);
+// Route::post('editemployee', [UserController::class, 'editemployee']);
+// Route::post('employeelist', [UserController::class, 'employeelist']);
+// Route::post('deleteemployee', [UserController::class, 'deleteemployee']);
 
-// Area Routes
-Route::post('addarea', [AreaController::class, 'addarea']);
-Route::post('allarea', [AreaController::class, 'allarea']);
-Route::post('editarea', [AreaController::class, 'editarea']);
-Route::post('deletearea', [AreaController::class, 'deletearea']);
-Route::post('area_module', [AreaController::class, 'area_module']);
+// // Area Routes
+// Route::post('addarea', [AreaController::class, 'addarea']);
+// Route::post('allarea', [AreaController::class, 'allarea']);
+// Route::post('editarea', [AreaController::class, 'editarea']);
+// Route::post('deletearea', [AreaController::class, 'deletearea']);
+// Route::post('area_module', [AreaController::class, 'area_module']);
 
-// Subscription Routes
-Route::post('subscription', [UserController::class, 'register']);
-Route::post('getlocationdetail', [UserController::class, 'getlocationdetail']);
-Route::post('cancelsubscription', [SubscriptionController::class, 'cancelsubscription']);
-Route::post('resubscribe', [SubscriptionController::class, 'resubscribe']);
+// // Subscription Routes
+// Route::post('subscription', [UserController::class, 'register']);
+// Route::post('getlocationdetail', [UserController::class, 'getlocationdetail']);
+// Route::post('cancelsubscription', [SubscriptionController::class, 'cancelsubscription']);
+// Route::post('resubscribe', [SubscriptionController::class, 'resubscribe']);
 
-// Service Routes
-Route::post('servicecategory', [ServiceController::class, 'servicecategory']);
-Route::post('serviceoffered', [ServiceController::class, 'serviceoffered']);
-Route::post('getservicequestion', [ServiceController::class, 'getservicequestion']);
-Route::post('getserviceallquestion', [ServiceController::class, 'getserviceallquestion']);
-Route::post('updateservicedetail', [ServiceController::class, 'updateservicedetail']);
+// // Service Routes
+// Route::post('servicecategory', [ServiceController::class, 'servicecategory']);
+// Route::post('serviceoffered', [ServiceController::class, 'serviceoffered']);
+// Route::post('getservicequestion', [ServiceController::class, 'getservicequestion']);
+// Route::post('getserviceallquestion', [ServiceController::class, 'getserviceallquestion']);
+// Route::post('updateservicedetail', [ServiceController::class, 'updateservicedetail']);
 
-// Customer Routes
-Route::post('customerrequest', [CustomerController::class, 'customerrequest']);
-Route::post('enquirylist', [CustomerController::class, 'enquirylist']);
-Route::post('markcomplete', [CustomerController::class, 'markcomplete']);
+// // Customer Routes
+// Route::post('customerrequest', [CustomerController::class, 'customerrequest']);
+// Route::post('enquirylist', [CustomerController::class, 'enquirylist']);
+// Route::post('markcomplete', [CustomerController::class, 'markcomplete']);
 
-// Transaction & Invoice Routes
-Route::post('gettoken', [UserController::class, 'gettoken']);
-Route::post('getinvoice', [UserController::class, 'getinvoice']);
-Route::post('gettransaction', [UserController::class, 'gettransaction']);
+// // Transaction & Invoice Routes
+// Route::post('gettoken', [UserController::class, 'gettoken']);
+// Route::post('getinvoice', [UserController::class, 'getinvoice']);
+// Route::post('gettransaction', [UserController::class, 'gettransaction']);
