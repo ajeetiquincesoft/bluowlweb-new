@@ -78,7 +78,8 @@
                                         <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
                                     </div>
                                     <div class="col-auto dropdown-tabs">
-                                        <button class="badge bg-danger read_all badge-soft-light fs-13">Read all</button>
+                                        <button class="badge bg-danger read_all badge-soft-light fs-13">Read
+                                            all</button>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +111,8 @@
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{ asset('storage/uploads/' . Auth::user()->profile_pic) }}"
+                            <img class="rounded-circle header-profile-user"
+                                src="{{ Auth::user()->profile_pic ? asset('storage/uploads/' . Auth::user()->profile_pic) : asset('storage/uploads/17436829592146840487PI.png') }}"
                                 alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span
@@ -192,4 +194,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
