@@ -26,7 +26,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <div class="profile-user position-relative d-inline-block mx-auto  ">
-                                    <img src="{{ asset('storage/uploads/' . Auth::user()->profile_pic) }}"
+                                    <img src="{{ Auth::user()->profile_pic ? asset('storage/uploads/' . Auth::user()->profile_pic) : asset('storage/uploads/17436829592146840487PI.png') }}"
                                         class="rounded-circle avatar-xl img-thumbnail user-profile-image"
                                         alt="user-profile-image">
                                     <form method="POST" enctype="multipart/form-data" id="profile_pic_form">
@@ -81,8 +81,9 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="firstnameInput" class="form-label">Full Name</label>
-                                                    <input type="text" class="form-control" name="fullname" id="firstnameInput"
-                                                        placeholder="Enter your firstname" value="{{Auth::user()->name}}">
+                                                    <input type="text" class="form-control" name="fullname"
+                                                        id="firstnameInput" placeholder="Enter your firstname"
+                                                        value="{{ Auth::user()->name }}">
                                                 </div>
                                             </div>
                                             <!--end col-->
@@ -91,8 +92,9 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="phonenumberInput" class="form-label">Phone Number</label>
-                                                    <input type="text" class="form-control" name="phone" id="phonenumberInput"
-                                                        placeholder="Enter your phone number" value="{{Auth::user()->phone}}">
+                                                    <input type="text" class="form-control" name="phone"
+                                                        id="phonenumberInput" placeholder="Enter your phone number"
+                                                        value="{{ Auth::user()->phone }}">
                                                 </div>
                                             </div>
                                             <!--end col-->
@@ -100,7 +102,8 @@
                                                 <div class="mb-3">
                                                     <label for="emailInput" class="form-label">Email Address</label>
                                                     <input type="email" class="form-control" id="emailInput"
-                                                        placeholder="Enter your email" readonly value="{{Auth::user()->email}}">
+                                                        placeholder="Enter your email" readonly
+                                                        value="{{ Auth::user()->email }}">
                                                 </div>
                                             </div>
 
@@ -108,8 +111,9 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="websiteInput1" class="form-label">Website</label>
-                                                    <input type="text" class="form-control" name="website" id="websiteInput1"
-                                                        placeholder="www.example.com" value="{{Auth::user()->website_url}}" />
+                                                    <input type="text" class="form-control" name="website"
+                                                        id="websiteInput1" placeholder="www.example.com"
+                                                        value="{{ Auth::user()->website_url }}" />
                                                 </div>
                                             </div>
                                             <!--end col-->
@@ -117,9 +121,10 @@
                                             <!--end col-->
                                             <div class="col-lg-12">
                                                 <div class="mb-3 pb-2">
-                                                    <label for="exampleFormControlTextarea"
-                                                        class="form-label">About Company & Services</label>
-                                                    <textarea class="form-control" name="description" id="exampleFormControlTextarea" placeholder="Enter your description" rows="3">{{auth::user()->about_service}}</textarea>
+                                                    <label for="exampleFormControlTextarea" class="form-label">About
+                                                        Company & Services</label>
+                                                    <textarea class="form-control" name="description" id="exampleFormControlTextarea"
+                                                        placeholder="Enter your description" rows="3">{{ auth::user()->about_service }}</textarea>
                                                 </div>
                                             </div>
                                             <!--end col-->
