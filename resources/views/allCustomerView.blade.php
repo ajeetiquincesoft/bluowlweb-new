@@ -7,6 +7,9 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12">
+                            @if (count($customers) === 0)
+                                <p>No Customer Data Available.</p>
+                            @endif
                             <div id="teamlist">
                                 <div class="team-list grid-view-filter row" id="team-member-list">
                                     @foreach ($customers as $customerdata)
@@ -90,7 +93,8 @@
                                                             <li><a class="dropdown-item" href="javascript:void(0);"><i
                                                                         class="ri-check-line me-2 align-middle"></i>Active</a>
                                                             </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"> <i class="fa-solid fa-exclamation me-2 align-middle"></i>Pending</a>
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"> <i
+                                                                        class="fa-solid fa-exclamation me-2 align-middle"></i>Pending</a>
                                                             </li>
                                                         </ul>
                                                     </div>
