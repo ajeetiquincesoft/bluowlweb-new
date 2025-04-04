@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use App\Models\User;
+use App\Models\VendorService;
+use App\Models\VendorServiceArea;
+use App\Models\VendorServiceOffere;
+use Illuminate\Support\Facades\DB;
 
 class MasterApiController extends Controller
 {
@@ -75,7 +79,7 @@ class MasterApiController extends Controller
             'password' => Hash::make($request->password),
             'role'     => "1",
             'phone'    => $request->phone,
-            'gender'=> $request->gender,
+            'gender' => $request->gender,
         ]);
         return response()->json([
             'user_id' => $user->id,
@@ -105,9 +109,9 @@ class MasterApiController extends Controller
             'password' => Hash::make($request->password),
             'role'     => "2",
             'phone'    => $request->phone,
-            'website'=> $request->website_url,
-            'yelp_url'=> $request->yelp_url,
-            'licence_number'=> $request->licence_number,
+            'website' => $request->website_url,
+            'yelp_url' => $request->yelp_url,
+            'licence_number' => $request->licence_number,
         ]);
         return response()->json([
             'user_id' => $user->id,
@@ -117,13 +121,12 @@ class MasterApiController extends Controller
     }
     public function getservices()
     {
-        $services=Service::where('status',1)->get();
+        $services = Service::where('status', 1)->get();
         return response()->json([
             'data' => $services,
             'message' => 'service data',
             'success' => true,
         ]);
-
     }
     public function gerServiceOffered(Request $request)
     {
@@ -135,35 +138,115 @@ class MasterApiController extends Controller
             $errors = $validator->errors()->all();
             return response()->json(['message' => $errors, 'success' => false], 400);
         }
-        $offereddata=ServiceCategory::where('service_id',$request->servive_id)->get();
+        $offereddata = ServiceCategory::where('service_id', $request->servive_id)->get();
         return response()->json([
             'data' => $offereddata,
             'message' => 'Services Offered data',
             'success' => true,
         ]);
-
     }
     public function vendorMetaData(Request $request)
     {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'profile_pic'  => 'required',
+                'service_id'   => 'required',
+                'cetegory_id'  => 'required|array',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+
+            // Find authenticated user
+            $user = User::findOrFail(Auth::id());
+            $user->profile_pic = $request->profile_pic;
+            $user->save();
+
+            // Save service
+            $vendorService = new VendorService();
+            $vendorService->user_id = Auth::id();
+            $vendorService->service_id = $request->service_id;
+            $vendorService->save();
+
+            // Save service offered
+            foreach ($request->cetegory_id as $c_id) {
+                $vendorServiceOffered = new VendorServiceOffere();
+                $vendorServiceOffered->user_id = Auth::id();
+                $vendorServiceOffered->service_id = $request->service_id; // Fixed incorrect assignment
+                $vendorServiceOffered->service_category_id = $c_id;
+                $vendorServiceOffered->save();
+            }
+            DB::commit();
+            return response()->json([
+                'message' => 'User Meta Added successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => 'Something went wrong!',
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
+    public function ChangePassword(Request $request)
+    {
+        $user      = auth()->user();
         $validator = Validator::make($request->all(), [
-            'profile_pic'     => 'required',
-            'service_id'    => 'required|email|unique:users',
-            'cetegory_id' => 'required|array',
+            'old_password' => 'required|string|min:6',
+            'password'     => 'required|string|confirmed|min:6',
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors()->all();
             return response()->json(['message' => $errors, 'success' => false], 400);
         }
-        $user=User::findorFail(Auth::user()->id);
-        $user->profile_pic=$request->profile_pic;
+        if (! Hash::check($request->input('old_password'), $user->password)) {
+            return response()->json(['message' => 'Old password does not matched', 'success' => false], 401);
+        }
+        $user->password = Hash::make($request->password);
         $user->save();
-
-        return response()->json([
-            'user_id' => $user->id,
-            'message' => 'User Registered successfully',
-            'success' => true,
-        ]);
+        return response()->json(['message' => 'Password Update successfully', 'success' => true]);
     }
+    public function addVendorServiceArea(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'latitude'  => 'required',
+                'longitude'   => 'required',
+                'address'  => 'required',
+            ]);
 
-
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $vendorServiceArea = new VendorServiceArea();
+            $vendorServiceArea->user_id = Auth::id();
+            $vendorServiceArea->latitude = $request->latitude;
+            $vendorServiceArea->longitude = $request->longitude;
+            $vendorServiceArea->address = $request->address;
+            $vendorServiceArea->save();
+            DB::commit();
+            return response()->json([
+                'message' => 'User Meta Added successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => 'Something went wrong!',
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
 }
