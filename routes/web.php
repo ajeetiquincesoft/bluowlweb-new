@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServicesAndPricingController;
 use App\Http\Controllers\ServiceCategoriesController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
    Route::get('/get-categories', [ServiceCategoriesController::class, 'getCategories'])->name('get-categories');
    Route::POST('/add-cetegory', [ServiceCategoriesController::class, 'addCategory'])->name('add-cetegory');
    Route::POST('/edit-Service-category/{id}', [ServiceCategoriesController::class, 'editServiceCatogery'])->name('edit-Service-category');
+
+   //CustomerController
+   Route::GET('/customers', [CustomerController::class, 'index'])->name('customers');
    // Route::view('/vendors-details', 'vendors-details');
    // Route::view('/transactions', 'transactions');
    // Route::view('/settings', 'settings');

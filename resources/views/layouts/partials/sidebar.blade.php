@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('customer') ? 'active' : '' }}" href="">
+                    <a class="nav-link menu-link {{ request()->is('customers') ? 'active' : '' }}" href="{{route('customers')}}">
                         <i class="fas fa-users" style="font-size: 20px;"></i> <span data-key="t-widgets">Customer</span>
                     </a>
                 </li>
