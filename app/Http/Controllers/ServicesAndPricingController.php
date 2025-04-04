@@ -25,12 +25,12 @@ class ServicesAndPricingController extends Controller
         if ($category_id) {
             $query->where('service_category_id', $category_id);
         }
-        $servicepricingdata = $query->with('servicewithpricing', 'categorywithpricing')->get();
+        $servicepricingdata = $query->with('servicewithpricing', 'categorywithpricing')->paginate(20);
         return view('servicesAndPricing', compact('services', 'category', 'servicepricingdata'));
     }
     public function ourServices()
     {
-        $services = Service::get();
+        $services = Service::orderBy('name', 'asc')->paginate(20);
         return view('ourServices', compact('services'));
     }
     public function addServices(Request $request)

@@ -229,6 +229,9 @@
                                                 any orders for you search.</p>
                                         </div>
                                     </div>
+                                    <div class="d-flex justify-content-end px-2">
+                                        {{ $category->links('vendor.pagination.custom') }}
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- end card -->

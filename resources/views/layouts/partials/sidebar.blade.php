@@ -7,7 +7,7 @@
 </style>
 <div class="app-menu navbar-menu">
     <!-- LOGO -->
-    <div class="navbar-brand-box p-3">
+    <div class="navbar-brand-box p-2">
         <!-- Dark Logo-->
         <a class="logo logo-dark" href="{{route('home')}}">
             <span class="logo-sm">

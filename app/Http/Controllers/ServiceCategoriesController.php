@@ -19,7 +19,7 @@ class ServiceCategoriesController extends Controller
         if ($service_id) {
             $query->where('service_id', $service_id);
         }
-        $category = $query->get();
+        $category = $query->orderBy('category_name', 'asc')->paginate(20);
         return view('service-categories', compact('services', 'category'));
     }
     public function addCategory(Request $request)
