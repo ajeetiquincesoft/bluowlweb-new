@@ -40,13 +40,6 @@ class MasterApiController extends Controller
             return response()->json(['message' => 'Your Credentials do not match.', 'success' => false]);
         }
 
-        // Check if the user's status is "1"
-        $user = auth()->user();
-        if ($user->status != 1) {
-            return response()->json(['message' => ' Your account is pending approval. Once the GotGas admin approves your account, we will notify you via email.', 'success' => false], 403);
-        }
-
-        // Generate token and respond
         return $this->respondWithToken($token);
     }
     protected function respondWithToken($token)
