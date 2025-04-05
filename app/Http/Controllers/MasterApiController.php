@@ -336,4 +336,14 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
+    public function getUserData()
+    {
+        $user=User::findorFail(Auth::id());
+        return response()->json([
+            'userData'=> $user,
+            'message' => 'User Data',
+            'success' => true,
+        ]);
+
+    }
 }
