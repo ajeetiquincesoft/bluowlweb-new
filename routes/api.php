@@ -30,11 +30,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::POST('customerRegister', [MasterApiController::class, 'customerRegister']);
     Route::POST('vendorRegister', [MasterApiController::class, 'vendorRegister']);
     Route::POST('login', [MasterApiController::class, 'Login']);
-    Route::POST('signout', [MasterApiController::class, 'Logout']);
-    Route::POST('getCurrentUser', [MasterApiController::class, 'GetCurrentUser']);
-    Route::POST('handleCallback', [MasterApiController::class, 'handleCallback'])->name('handleCallback');
-    Route::GET('terms-and-conditions', [MasterApiController::class, 'termsAndConditionsPage'])->name('terms-and-conditions');
-    Route::GET('settingData', [MasterApiController::class, 'settingData']);
+    Route::POST('signout', [MasterApiController::class, 'logout']);
 });
 Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router) {
     Route::GET('getservices', [MasterApiController::class, 'getservices']);

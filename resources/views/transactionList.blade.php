@@ -17,12 +17,12 @@
                                             <thead class="table-light">
                                                 <tr>
                                                     <th scope="col" style="width: 50px;">
-                                                        
+
                                                     </th>
                                                     <th class="sort" data-sort="customer_name">Company Name</th>
                                                     <th class="sort" data-sort="email">Due Date</th>
                                                     <th class="sort" data-sort="phone">Issue Date</th>
-                                                    <th class="sort" data-sort="date">Amount</th>
+                                                    <th class="sort" data-sort="date">Amount ($)</th>
                                                     <th class="sort" data-sort="status">Status</th>
                                                     <th >Action</th>
                                                 </tr>
@@ -30,14 +30,14 @@
                                             <tbody class="list form-check-all">
                                                 <tr>
                                                     <th scope="row">
-                                                       
+
                                                     </th>
                                                     <td class="id" style="display:none;"><a href="javascript:void(0);"
                                                             class="fw-medium link-primary">#VZ10</a></td>
                                                     <td class="customer_name">Timothy Smith</td>
                                                     <td class="email">timothysmith@velzon.com</td>
                                                     <td class="phone">973-277-6950</td>
-                                                    <td class="date">13 Dec, 2021</td>
+                                                    <td class="date">$10</td>
                                                     <td class="status"><span
                                                             class="badge badge-soft-success text-uppercase">Active</span>
                                                     </td>
@@ -48,20 +48,20 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#showModal">View</button>
                                                             </div>
-                                                          
+
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">
-                                                      
+
                                                     </th>
                                                     <td class="id" style="display:none;"><a href="javascript:void(0);"
                                                             class="fw-medium link-primary">#VZ9</a></td>
                                                     <td class="customer_name">Herbert Stokes</td>
                                                     <td class="email">herbertstokes@velzon.com</td>
                                                     <td class="phone">312-944-1448</td>
-                                                    <td class="date">20 Jul, 2021</td>
+                                                    <td class="date">$10</td>
                                                     <td class="status"><span
                                                             class="badge badge-soft-danger text-uppercase">Block</span>
                                                     </td>
@@ -72,13 +72,13 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#showModal">View</button>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">
-                                                        
+
                                                     </th>
                                                     <td class="id" style="display:none;"><a
                                                             href="javascript:void(0);"
@@ -86,7 +86,7 @@
                                                     <td class="customer_name">Charles Kubik</td>
                                                     <td class="email">charleskubik@velzon.com</td>
                                                     <td class="phone">231-480-8536</td>
-                                                    <td class="date">25 Sep, 2021</td>
+                                                    <td class="date">$10</td>
                                                     <td class="status"><span
                                                             class="badge badge-soft-danger text-uppercase">Block</span>
                                                     </td>
@@ -97,13 +97,13 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#showModal">View</button>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">
-                                                        
+
                                                     </th>
                                                     <td class="id" style="display:none;"><a
                                                             href="javascript:void(0);"
@@ -111,7 +111,7 @@
                                                     <td class="customer_name">Glen Matney</td>
                                                     <td class="email">glenmatney@velzon.com</td>
                                                     <td class="phone">02 Nov, 2021</td>
-                                                    <td class="date">515-395-1069</td>
+                                                    <td class="date">$10</td>
                                                     <td class="status"><span
                                                             class="badge badge-soft-success text-uppercase">Active</span>
                                                     </td>
@@ -122,13 +122,13 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#showModal">View</button>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">
-                                                       
+
                                                     </th>
                                                     <td class="id" style="display:none;"><a
                                                             href="javascript:void(0);"
@@ -136,7 +136,7 @@
                                                     <td class="customer_name">Carolyn Jones</td>
                                                     <td class="email">carolynjones@velzon.com</td>
                                                     <td class="phone">414-453-5725</td>
-                                                    <td class="date">07 Jun, 2021</td>
+                                                    <td class="date">$10</td>
                                                     <td class="status"><span
                                                             class="badge badge-soft-success text-uppercase">Active</span>
                                                     </td>
@@ -147,13 +147,13 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#showModal">View</button>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">
-                                                       
+
                                                     </th>
                                                     <td class="id" style="display:none;"><a
                                                             href="javascript:void(0);"
@@ -161,7 +161,7 @@
                                                     <td class="customer_name">Kevin Dawson</td>
                                                     <td class="email">kevindawson@velzon.com</td>
                                                     <td class="phone">213-741-4294</td>
-                                                    <td class="date">14 Mar, 2021</td>
+                                                    <td class="date">$10</td>
                                                     <td class="status"><span
                                                             class="badge badge-soft-success text-uppercase">Active</span>
                                                     </td>
@@ -172,13 +172,13 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#showModal">View</button>
                                                             </div>
-                                                          
+
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">
-                                                       
+
                                                     </th>
                                                     <td class="id" style="display:none;"><a
                                                             href="javascript:void(0);"
@@ -186,7 +186,7 @@
                                                     <td class="customer_name">Michael Morris</td>
                                                     <td class="email">michaelmorris@velzon.com</td>
                                                     <td class="phone">805-447-8398</td>
-                                                    <td class="date">19 May, 2021</td>
+                                                    <td class="date">$10</td>
                                                     <td class="status"><span
                                                             class="badge badge-soft-danger text-uppercase">Block</span>
                                                     </td>
@@ -197,13 +197,13 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#showModal">View</button>
                                                             </div>
-                                                           
+
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">
-                                                        
+
                                                     </th>
                                                     <td class="id" style="display:none;"><a
                                                             href="javascript:void(0);"
@@ -211,11 +211,11 @@
                                                     <td class="customer_name"></td>
                                                     <td class="email"></td>
                                                     <th class="phone"> <span class="text-bold text-danger">Totel paid</span> </td>
-                                                    <th class="date">$25</td>
+                                                    <th class="date">$70</td>
                                                     <td class="status">
                                                     </td>
                                                     <td>
-                                                        
+
                                                     </td>
                                                 </tr>
                                             </tbody>

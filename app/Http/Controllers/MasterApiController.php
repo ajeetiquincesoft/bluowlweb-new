@@ -44,6 +44,15 @@ class MasterApiController extends Controller
 
         return $this->respondWithToken($token);
     }
+    public function logout()
+    {
+        Auth::guard('api')->logout();
+
+        return response()->json([
+            'success' => true,
+            'message' => ' User logout',
+        ], 200);
+    }
     protected function respondWithToken($token)
     {
         return response()->json([
@@ -185,9 +194,9 @@ class MasterApiController extends Controller
                     $image = str_replace('data:image/' . $ext . ';base64,', '', $imageData);
                     $image = str_replace(' ', '+', $image);
                     Storage::put('public/uploads/' . $filename, base64_decode($image));
-                    $userGallery=UserGallery::make();
-                    $userGallery->user_id =Auth::user()->id;
-                    $userGallery->image =$filename;
+                    $userGallery = UserGallery::make();
+                    $userGallery->user_id = Auth::user()->id;
+                    $userGallery->image = $filename;
                     $userGallery->save();
                 }
             }
@@ -290,8 +299,8 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
-            $employeeData=new User();
-            $employeeData->name=$request->employee_name;
+            $employeeData = new User();
+            $employeeData->name = $request->employee_name;
             if ($request->employee_pic) {
                 $imageData = $request->employee_pic;
                 $ext       = explode('/', mime_content_type($imageData))[1];
@@ -307,9 +316,9 @@ class MasterApiController extends Controller
             $employeeData->save();
 
             //Create reletion employee and vendor
-            $vendorEmployee=new VendorEmployee();
+            $vendorEmployee = new VendorEmployee();
             $vendorEmployee->vendor_user_id = Auth::id();
-            $vendorEmployee->employee_user_id  =$employeeData->id;
+            $vendorEmployee->employee_user_id  = $employeeData->id;
             $vendorEmployee->save();
             DB::commit();
             return response()->json([

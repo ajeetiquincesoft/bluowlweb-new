@@ -1,6 +1,7 @@
 @extends('layouts.Myapp')
 
 @section('content')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <div class="page-content">
         <div class="container-fluid">
 
@@ -13,20 +14,18 @@
                                     <div class="d-flex align-items-center">
                                         <div class="avatar-sm flex-shrink-0">
                                             <span class="avatar-title bg-soft-primary text-primary rounded-2 fs-2">
-                                                <i data-feather="briefcase" class="text-primary"></i>
+                                                <i class="fas fa-users" class="text-primary"></i>
                                             </span>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden ms-3">
-                                            <p class="text-uppercase fw-medium text-muted text-truncate mb-3">Active
-                                                Projects</p>
+                                            <p class="text-uppercase fw-medium text-muted text-truncate mb-3">Totel
+                                                Customers
+                                            </p>
                                             <div class="d-flex align-items-center mb-3">
                                                 <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
                                                         data-target="825">0</span></h4>
-                                                <span class="badge badge-soft-danger fs-12"><i
-                                                        class="ri-arrow-down-s-line fs-13 align-middle me-1"></i>5.02
-                                                    %</span>
+
                                             </div>
-                                            <p class="text-muted text-truncate mb-0">Projects this month</p>
                                         </div>
                                     </div>
                                 </div><!-- end card body -->
@@ -39,18 +38,16 @@
                                     <div class="d-flex align-items-center">
                                         <div class="avatar-sm flex-shrink-0">
                                             <span class="avatar-title bg-soft-warning text-warning rounded-2 fs-2">
-                                                <i data-feather="award" class="text-warning"></i>
+                                                <i class="las la-user-cog" class="text-warning"></i>
                                             </span>
                                         </div>
                                         <div class="flex-grow-1 ms-3">
-                                            <p class="text-uppercase fw-medium text-muted mb-3">New Leads</p>
+                                            <p class="text-uppercase fw-medium text-muted mb-3">Totel Vendors</p>
                                             <div class="d-flex align-items-center mb-3">
                                                 <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
                                                         data-target="7522">0</span></h4>
-                                                <span class="badge badge-soft-success fs-12"><i
-                                                        class="ri-arrow-up-s-line fs-13 align-middle me-1"></i>3.58 %</span>
+
                                             </div>
-                                            <p class="text-muted mb-0">Leads this month</p>
                                         </div>
                                     </div>
                                 </div><!-- end card body -->
@@ -63,21 +60,17 @@
                                     <div class="d-flex align-items-center">
                                         <div class="avatar-sm flex-shrink-0">
                                             <span class="avatar-title bg-soft-info text-info rounded-2 fs-2">
-                                                <i data-feather="clock" class="text-info"></i>
+                                                <i class=" fas fa-cogs" class="text-info"></i>
                                             </span>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden ms-3">
-                                            <p class="text-uppercase fw-medium text-muted text-truncate mb-3">Total Hours
+                                            <p class="text-uppercase fw-medium text-muted text-truncate mb-3">Total Services
                                             </p>
                                             <div class="d-flex align-items-center mb-3">
                                                 <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
-                                                        data-target="168">0</span>h <span class="counter-value"
-                                                        data-target="40">0</span>m</h4>
-                                                <span class="badge badge-soft-danger fs-12"><i
-                                                        class="ri-arrow-down-s-line fs-13 align-middle me-1"></i>10.35
-                                                    %</span>
+                                                        data-target="7522">0</span></h4>
                                             </div>
-                                            <p class="text-muted text-truncate mb-0">Work this month</p>
+
                                         </div>
                                     </div>
                                 </div><!-- end card body -->
@@ -85,26 +78,10 @@
                         </div><!-- end col -->
                     </div><!-- end row -->
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-xl-12">
                             <div class="card">
-                                <div class="card-header border-0 align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1">Projects Overview</h4>
-                                    <div>
-                                        <button type="button" class="btn btn-soft-secondary btn-sm">
-                                            ALL
-                                        </button>
-                                        <button type="button" class="btn btn-soft-secondary btn-sm">
-                                            1M
-                                        </button>
-                                        <button type="button" class="btn btn-soft-secondary btn-sm">
-                                            6M
-                                        </button>
-                                        <button type="button" class="btn btn-soft-primary btn-sm">
-                                            1Y
-                                        </button>
-                                    </div>
-                                </div><!-- end card header -->
+
 
                                 <div class="card-header p-0 border-0 bg-soft-light">
                                     <div class="row g-0 text-center">
@@ -112,7 +89,7 @@
                                             <div class="p-3 border border-dashed border-start-0">
                                                 <h5 class="mb-1"><span class="counter-value" data-target="9851">0</span>
                                                 </h5>
-                                                <p class="text-muted mb-0">Number of Projects</p>
+                                                <p class="text-muted mb-0">Number of Orders</p>
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -151,7 +128,7 @@
                                 </div><!-- end card body -->
                             </div><!-- end card -->
                         </div><!-- end col -->
-                    </div><!-- end row -->
+                    </div><!-- end row --> --}}
                 </div><!-- end col -->
             </div><!-- end row -->
 
@@ -159,7 +136,7 @@
                 <div class="col-xl-7">
                     <div class="card card-height-100">
                         <div class="card-header d-flex align-items-center">
-                            <h4 class="card-title flex-grow-1 mb-0">Active Projects</h4>
+                            <h4 class="card-title flex-grow-1 mb-0">Recent Activity</h4>
                             <div class="flex-shrink-0">
                                 <a href="javascript:void(0);" class="btn btn-soft-info btn-sm">Export Report</a>
                             </div>
@@ -401,166 +378,9 @@
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1 py-1">My Tasks</h4>
-                            <div class="flex-shrink-0">
-                                <div class="dropdown card-header-dropdown">
-                                    <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <span class="text-muted">All Tasks <i
-                                                class="mdi mdi-chevron-down ms-1"></i></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">All Tasks</a>
-                                        <a class="dropdown-item" href="#">Completed </a>
-                                        <a class="dropdown-item" href="#">Inprogress</a>
-                                        <a class="dropdown-item" href="#">Pending</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div><!-- end card header -->
                         <div class="card-body">
-                            <div class="table-responsive table-card">
-                                <table class="table table-borderless table-nowrap table-centered align-middle mb-0">
-                                    <thead class="table-light text-muted">
-                                        <tr>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Dedline</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Assignee</th>
-                                        </tr>
-                                    </thead><!-- end thead -->
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input fs-15" type="checkbox" value=""
-                                                        id="checkTask1">
-                                                    <label class="form-check-label ms-1" for="checkTask1">
-                                                        Create new Admin Template
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="text-muted">03 Nov 2021</td>
-                                            <td><span class="badge badge-soft-success">Completed</span></td>
-                                            <td>
-                                                <a href="javascript: void(0);" class="d-inline-block"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                                    data-bs-original-title="Mary Stoner">
-                                                    <img src="assets/images/users/avatar-2.jpg" alt=""
-                                                        class="rounded-circle avatar-xxs">
-                                                </a>
-                                            </td>
-                                        </tr><!-- end -->
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input fs-15" type="checkbox" value=""
-                                                        id="checkTask2">
-                                                    <label class="form-check-label ms-1" for="checkTask2">
-                                                        Marketing Coordinator
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="text-muted">17 Nov 2021</td>
-                                            <td><span class="badge badge-soft-warning">Progress</span></td>
-                                            <td>
-                                                <a href="javascript: void(0);" class="d-inline-block"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                                    data-bs-original-title="Den Davis">
-                                                    <img src="assets/images/users/avatar-7.jpg" alt=""
-                                                        class="rounded-circle avatar-xxs">
-                                                </a>
-                                            </td>
-                                        </tr><!-- end -->
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input fs-15" type="checkbox" value=""
-                                                        id="checkTask3">
-                                                    <label class="form-check-label ms-1" for="checkTask3">
-                                                        Administrative Analyst
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="text-muted">26 Nov 2021</td>
-                                            <td><span class="badge badge-soft-success">Completed</span></td>
-                                            <td>
-                                                <a href="javascript: void(0);" class="d-inline-block"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                                    data-bs-original-title="Alex Brown">
-                                                    <img src="assets/images/users/avatar-6.jpg" alt=""
-                                                        class="rounded-circle avatar-xxs">
-                                                </a>
-                                            </td>
-                                        </tr><!-- end -->
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input fs-15" type="checkbox" value=""
-                                                        id="checkTask4">
-                                                    <label class="form-check-label ms-1" for="checkTask4">
-                                                        E-commerce Landing Page
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="text-muted">10 Dec 2021</td>
-                                            <td><span class="badge badge-soft-danger">Pending</span></td>
-                                            <td>
-                                                <a href="javascript: void(0);" class="d-inline-block"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                                    data-bs-original-title="Prezy Morin">
-                                                    <img src="assets/images/users/avatar-5.jpg" alt=""
-                                                        class="rounded-circle avatar-xxs">
-                                                </a>
-                                            </td>
-                                        </tr><!-- end -->
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input fs-15" type="checkbox" value=""
-                                                        id="checkTask5">
-                                                    <label class="form-check-label ms-1" for="checkTask5">
-                                                        UI/UX Design
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="text-muted">22 Dec 2021</td>
-                                            <td><span class="badge badge-soft-warning">Progress</span></td>
-                                            <td>
-                                                <a href="javascript: void(0);" class="d-inline-block"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                                    data-bs-original-title="Stine Nielsen">
-                                                    <img src="assets/images/users/avatar-1.jpg" alt=""
-                                                        class="rounded-circle avatar-xxs">
-                                                </a>
-                                            </td>
-                                        </tr><!-- end -->
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input fs-15" type="checkbox" value=""
-                                                        id="checkTask6">
-                                                    <label class="form-check-label ms-1" for="checkTask6">
-                                                        Projects Design
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="text-muted">31 Dec 2021</td>
-                                            <td><span class="badge badge-soft-danger">Pending</span></td>
-                                            <td>
-                                                <a href="javascript: void(0);" class="d-inline-block"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                                    data-bs-original-title="Jansh William">
-                                                    <img src="assets/images/users/avatar-4.jpg" alt=""
-                                                        class="rounded-circle avatar-xxs">
-                                                </a>
-                                            </td>
-                                        </tr><!-- end -->
-                                    </tbody><!-- end tbody -->
-                                </table><!-- end table -->
-                            </div>
-                            <div class="mt-3 text-center">
-                                <a href="javascript:void(0);" class="text-muted text-decoration-underline">Load More</a>
-                            </div>
+                            <canvas id="topServicesChart" width="400" height="400"></canvas>
                         </div><!-- end cardbody -->
                     </div><!-- end card -->
                 </div><!-- end col -->
@@ -570,25 +390,7 @@
                 <div class="col-xxl-12">
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Team Members</h4>
-                            <div class="flex-shrink-0">
-                                <div class="dropdown card-header-dropdown">
-                                    <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <span class="fw-semibold text-uppercase fs-12">Sort by: </span><span
-                                            class="text-muted">Last 30 Days<i
-                                                class="mdi mdi-chevron-down ms-1"></i></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">Today</a>
-                                        <a class="dropdown-item" href="#">Yesterday</a>
-                                        <a class="dropdown-item" href="#">Last 7 Days</a>
-                                        <a class="dropdown-item" href="#">Last 30 Days</a>
-                                        <a class="dropdown-item" href="#">This Month</a>
-                                        <a class="dropdown-item" href="#">Last Month</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4 class="card-title mb-0 flex-grow-1">Newly Added Vendor</h4>
                         </div><!-- end card header -->
 
                         <div class="card-body">
@@ -757,4 +559,41 @@
         </div>
         <!-- container-fluid -->
     </div>
+    <script>
+        const ctx = document.getElementById('topServicesChart').getContext('2d');
+        const topServicesChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Locksmith', 'Plumber', 'Electrician'],
+                datasets: [{
+                    label: 'Order Numbers',
+                    data: [25, 30, 15],
+                    backgroundColor: [
+                        '#36A2EB', // blue
+                        '#FF6384', // red
+                        '#FFCE56' // yellow
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                let value = context.parsed || 0;
+                                return `${label}: ${value} orders`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 @endsection
