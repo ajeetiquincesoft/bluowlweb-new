@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use App\Models\User;
+use App\Models\UserGallery;
+use App\Models\VendorEmployee;
 use App\Models\VendorService;
 use App\Models\VendorServiceArea;
 use App\Models\VendorServiceOffere;
@@ -158,7 +160,38 @@ class MasterApiController extends Controller
             // Find authenticated user
             $user = User::findOrFail(Auth::id());
             $user->profile_pic = $request->profile_pic;
+            if ($request->profile_pic) {
+                $imageData = $request->profile_pic;
+                $ext       = explode('/', mime_content_type($imageData))[1];
+                if ($ext == 'jpeg') {
+                    $ext = 'jpg';
+                }
+                $filename = 'image_Profile' . time() . '.' . $ext;
+                $image    = str_replace('data:image/' . $ext . ';base64,', '', $imageData);
+                $image    = str_replace(' ', '+', $image);
+                Storage::put('public/uploads/' . $filename, base64_decode($image));
+                $user->profile_pic = $filename;
+            }
             $user->save();
+
+            //save Gallery
+            if ($request->gallery_image) {
+                foreach ($request->gallery_image as $index => $imageData) {
+                    $ext = explode('/', mime_content_type($imageData))[1];
+                    if ($ext == 'jpeg') {
+                        $ext = 'jpg';
+                    }
+                    $filename = 'gallery_image_' . time() . '_' . $index . '.' . $ext;
+                    $image = str_replace('data:image/' . $ext . ';base64,', '', $imageData);
+                    $image = str_replace(' ', '+', $image);
+                    Storage::put('public/uploads/' . $filename, base64_decode($image));
+                    $userGallery=UserGallery::make();
+                    $userGallery->user_id =Auth::user()->id;
+                    $userGallery->image =$filename;
+                    $userGallery->save();
+                }
+            }
+
 
             // Save service
             $vendorService = new VendorService();
@@ -228,6 +261,56 @@ class MasterApiController extends Controller
             $vendorServiceArea->longitude = $request->longitude;
             $vendorServiceArea->address = $request->address;
             $vendorServiceArea->save();
+            DB::commit();
+            return response()->json([
+                'message' => 'User Meta Added successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => 'Something went wrong!',
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
+    public function addVendorEmployee(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'employee_name'  => 'required',
+                'employee_pic'   => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $employeeData=new User();
+            $employeeData->name=$request->employee_name;
+            if ($request->employee_pic) {
+                $imageData = $request->employee_pic;
+                $ext       = explode('/', mime_content_type($imageData))[1];
+                if ($ext == 'jpeg') {
+                    $ext = 'jpg';
+                }
+                $filename = 'image_Profile' . time() . '.' . $ext;
+                $image    = str_replace('data:image/' . $ext . ';base64,', '', $imageData);
+                $image    = str_replace(' ', '+', $image);
+                Storage::put('public/uploads/' . $filename, base64_decode($image));
+                $employeeData->profile_pic = $filename;
+            }
+            $employeeData->save();
+
+            //Create reletion employee and vendor
+            $vendorEmployee=new VendorEmployee();
+            $vendorEmployee->vendor_user_id = Auth::id();
+            $vendorEmployee->employee_user_id  =$employeeData->id;
+            $vendorEmployee->save();
             DB::commit();
             return response()->json([
                 'message' => 'User Meta Added successfully',

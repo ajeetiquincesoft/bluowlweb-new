@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('vendorMetaData', [MasterApiController::class, 'vendorMetaData']);
     Route::POST('ChangePassword', [MasterApiController::class, 'ChangePassword']);
     Route::POST('addVendorServiceArea', [MasterApiController::class, 'addVendorServiceArea']);
+    Route::POST('addVendorEmployee', [MasterApiController::class, 'addVendorEmployee']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);
