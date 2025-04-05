@@ -102,8 +102,6 @@ class MasterApiController extends Controller
             'password' => 'required|string|min:6|max:50',
             'phone'    => 'required|numeric',
             'licence_number'    => 'required',
-            'website_url'    => 'required',
-            'yelp_url'    => 'required',
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors()->all();
