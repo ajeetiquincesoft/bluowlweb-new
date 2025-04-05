@@ -113,8 +113,8 @@ class MasterApiController extends Controller
         $userdata->password = Hash::make($request->password);
         $userdata->role = "vendor";
         $userdata->phone = $request->phone;
-        $userdata->yelp_url = $request->yelp_url ??"";
-        $userdata->website = $request->website ??"";
+        $userdata->yelp_url = $request->yelp ??"";
+        $userdata->website_url = $request->website ??"";
         $userdata->licence_number = $request->licence_number;
         $userdata->save();
 
