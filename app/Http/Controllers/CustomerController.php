@@ -9,7 +9,7 @@ class CustomerController extends Controller
 {
    public function index()
    {
-    $customers=User::where('role',"1")->get();
+    $customers=User::where('role',"customer")->get();
     return view("allCustomerView",compact('customers'));
    }
 }
