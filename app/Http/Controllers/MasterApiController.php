@@ -66,6 +66,7 @@ class MasterApiController extends Controller
 
     public function customerRegister(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'name'     => 'required|string|min:2|max:100',
             'email'    => 'required|email|unique:users',
@@ -77,16 +78,17 @@ class MasterApiController extends Controller
             $errors = $validator->errors()->all();
             return response()->json(['message' => $errors, 'success' => false], 400);
         }
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'role'     => "1",
-            'phone'    => $request->phone,
-            'gender' => $request->gender,
-        ]);
+        $userdata=User::make();
+        $userdata->name=$request->name;
+        $userdata->email=$request->email;
+        $userdata->password=Hash::make($request->password);
+        $userdata->role="customer";
+        $userdata->phone=$request->phone;
+        $userdata->gender= $request->gender;
+        $userdata->save();
+
         return response()->json([
-            'user_id' => $user->id,
+            'user_id' => $userdata->id,
             'message' => 'User Registered successfully',
             'success' => true,
         ]);

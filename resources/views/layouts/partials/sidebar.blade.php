@@ -42,38 +42,38 @@
 
                 <li class="nav-item">
                     <a class="nav-link menu-link  {{ request()->is('home') ? 'active' : '' }}" href="{{route('home')}}">
-                        <i class="ri-dashboard-2-line" style="font-size: 24px;"></i> <span data-key="t-widgets">Dashboard</span>
+                        <i class="ri-dashboard-2-line" style="font-size: 20px;"></i> <span data-key="">Dashboard</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('customers') ? 'active' : '' }}" href="{{route('customers')}}">
-                        <i class="fas fa-users" style="font-size: 20px;"></i> <span data-key="t-widgets">Customer</span>
+                        <i class="fas fa-users" style="font-size: 20px;"></i> <span data-key="">Customer</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('vendors') ? 'active' : '' }}" href="{{route('vendors')}}">
-                        <i class="las la-user-cog" style="font-size: 20px;"></i> <span data-key="t-widgets">Vendors</span>
+                        <i class="fas fa-user-cog" style="font-size: 20px;"></i> <span data-key="">Vendors</span>
                     </a>
                 </li>
 
 
                 <li class="nav-item">
                     <a class="nav-link menu-link  {{ request()->is('our-services') ? 'active' : '' }}" href="{{route('our-services')}}">
-                        <i class=" fas fa-cogs" style="font-size: 20px;"></i> <span data-key="t-widgets">Our Services</span>
+                        <i class="fas fa-cogs" style="font-size: 20px;"></i> <span data-key="">Our Services</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('service-category') ? 'active' : '' }}" href="{{route('service-category')}}">
-                        <i class="ri-apps-2-line" style="font-size: 24px;"></i> <span data-key="t-widgets">Service Categories</span>
+                        <i class="ri-apps-2-line" style="font-size: 20px;"></i> <span data-key="">Service Categories</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('services-pricing') ? 'active' : '' }}" href="{{route('servicesAndPricing')}}">
-                        <i class="ri-money-dollar-circle-line" style="font-size: 24px;"></i> <span data-key="t-widgets">Service & Pricing</span>
+                        <i class="ri-money-dollar-circle-line" style="font-size: 20px;"></i> <span data-key="t-widgets">Service & Pricing</span>
                     </a>
                 </li>
 
@@ -85,7 +85,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('setting') ? 'active' : '' }}" href="{{route('setting')}}">
-                        <i class="ri-settings-2-line" style="font-size: 24px;"></i> <span data-key="t-widgets">Settings</span>
+                        <i class="ri-settings-2-line" style="font-size: 20px;"></i> <span data-key="t-widgets">Settings</span>
                     </a>
                 </li>
 
