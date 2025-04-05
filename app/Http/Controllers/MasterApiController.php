@@ -61,7 +61,7 @@ class MasterApiController extends Controller
             'User_type'  => Auth::user()->role,
             'expires_in' => auth('api')->factory()->getTTL() * 600000,
             'success'    => true,
-            'message'=>"User Login Successfully"
+            'message' => "User Login Successfully"
         ]);
     }
 
@@ -114,8 +114,8 @@ class MasterApiController extends Controller
         $userdata->password = Hash::make($request->password);
         $userdata->role = "vendor";
         $userdata->phone = $request->phone;
-        $userdata->yelp_url = $request->yelp ??"";
-        $userdata->website_url = $request->website ??"";
+        $userdata->yelp_url = $request->yelp ?? "";
+        $userdata->website_url = $request->website ?? "";
         $userdata->licence_number = $request->licence_number;
         $userdata->save();
 
@@ -338,12 +338,11 @@ class MasterApiController extends Controller
     }
     public function getUserData()
     {
-        $user=User::findorFail(Auth::id());
+        $user = User::findOrFail(Auth::id());
         return response()->json([
-            'userData'=> $user,
-            'message' => 'User Data',
+            'userData' => $user,
+            'message' => 'User Data retrieved successfully.',
             'success' => true,
         ]);
-
     }
 }
