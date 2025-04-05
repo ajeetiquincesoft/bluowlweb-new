@@ -37,11 +37,16 @@ class ServicesAndPricingController extends Controller
     {
         $request->validate([
             'service_name' => 'required',
+            'service_image'=>'required',
         ]);
         DB::beginTransaction();
         try {
             $service = new Service();
             $service->name = $request->service_name;
+            if ($request->hasFile('service_image')) {
+                $filename = upload_image($request->file('service_image'));
+                $service->image = $filename;
+            }
             $service->save();
             DB::commit();
             Alert::success('Congratulations!', 'Service Create Succesfully');
@@ -63,6 +68,10 @@ class ServicesAndPricingController extends Controller
             $service_id = Crypt::decrypt($id);
             $service = Service::findOrFail($service_id);
             $service->name = $request->service_name;
+            if ($request->hasFile('service_image')) {
+                $filename = upload_image($request->file('service_image'));
+                $service->image = $filename;
+            }
             $service->status = $request->status;
             $service->save();
             DB::commit();

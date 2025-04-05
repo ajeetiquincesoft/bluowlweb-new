@@ -83,7 +83,7 @@
                                                                                 <div class="row">
                                                                                     <div class="col-md-12">
                                                                                         <form class="tablelist-form"
-                                                                                            id="adduserform"
+                                                                                            id="adduserform"  enctype="multipart/form-data"
                                                                                             action="{{ route('edit-Service', ['id' => Crypt::encrypt($item->id)]) }}"
                                                                                             method="POST"
                                                                                             autocomplete="off">
@@ -102,6 +102,21 @@
                                                                                                             name="service_name"
                                                                                                             value="{{ $item->name }}"
                                                                                                             placeholder="Enter Service Name">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="mb-3">
+                                                                                                    <label
+                                                                                                        for="fixed_charge"
+                                                                                                        class="form-label">
+                                                                                                        Service Logo</label>
+                                                                                                    <div class="form-icon">
+                                                                                                        <input
+                                                                                                            type="file"
+                                                                                                            class="form-control "
+                                                                                                            id="iconInput"
+                                                                                                            name="service_image"
+                                                                                                            required>
                                                                                                     </div>
                                                                                                 </div>
 
@@ -159,7 +174,8 @@
                                                 @endforeach
                                             @else
                                                 <tr>
-                                                    <td colspan="8" class="text-center text-muted">No Service Found.</td>
+                                                    <td colspan="8" class="text-center text-muted">No Service Found.
+                                                    </td>
                                                 </tr>
                                             @endif
                                         </tbody>
@@ -206,7 +222,7 @@
                         @endif
                         <div class="row">
                             <div class="col-md-12">
-                                <form class="tablelist-form" id="adduserform" action="{{ route('add-service') }}"
+                                <form class="tablelist-form" enctype="multipart/form-data" id="adduserform" action="{{ route('add-service') }}"
                                     method="POST" autocomplete="off">
                                     @csrf
                                     <div class="modal-body">
@@ -214,9 +230,17 @@
                                             <label for="fixed_charge" class="form-label"> Service Name</label>
                                             <div class="form-icon">
                                                 <input type="text" class="form-control " id="iconInput"
-                                                    name="service_name" placeholder="Enter  Service Namet">
+                                                    name="service_name" placeholder="Enter  Service Namet" required>
                                             </div>
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="fixed_charge" class="form-label"> Service Logo</label>
+                                            <div class="form-icon">
+                                                <input type="file" class="form-control " id="iconInput"
+                                                    name="service_image" required>
+                                            </div>
+                                        </div>
+
 
                                     </div>
                                     <div class="modal-footer">
