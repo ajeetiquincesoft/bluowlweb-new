@@ -78,13 +78,13 @@ class MasterApiController extends Controller
             $errors = $validator->errors()->all();
             return response()->json(['message' => $errors, 'success' => false], 400);
         }
-        $userdata=User::make();
-        $userdata->name=$request->name;
-        $userdata->email=$request->email;
-        $userdata->password=Hash::make($request->password);
-        $userdata->role="customer";
-        $userdata->phone=$request->phone;
-        $userdata->gender= $request->gender;
+        $userdata = User::make();
+        $userdata->name = $request->name;
+        $userdata->email = $request->email;
+        $userdata->password = Hash::make($request->password);
+        $userdata->role = "customer";
+        $userdata->phone = $request->phone;
+        $userdata->gender = $request->gender;
         $userdata->save();
 
         return response()->json([
@@ -109,18 +109,19 @@ class MasterApiController extends Controller
             $errors = $validator->errors()->all();
             return response()->json(['message' => $errors, 'success' => false], 400);
         }
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'role'     => "2",
-            'phone'    => $request->phone,
-            'website' => $request->website_url,
-            'yelp_url' => $request->yelp_url,
-            'licence_number' => $request->licence_number,
-        ]);
+        $userdata = User::make();
+        $userdata->name = $request->name;
+        $userdata->email = $request->email;
+        $userdata->password = Hash::make($request->password);
+        $userdata->role = "vendor";
+        $userdata->phone = $request->phone;
+        $userdata->yelp_url = $request->yelp_url ??"";
+        $userdata->website = $request->website ??"";
+        $userdata->licence_number = $request->licence_number;
+        $userdata->save();
+
         return response()->json([
-            'user_id' => $user->id,
+            'user_id' => $userdata->id,
             'message' => 'User Registered successfully',
             'success' => true,
         ]);
