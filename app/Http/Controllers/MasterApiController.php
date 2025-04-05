@@ -61,6 +61,7 @@ class MasterApiController extends Controller
             'User_type'  => Auth::user()->role,
             'expires_in' => auth('api')->factory()->getTTL() * 600000,
             'success'    => true,
+            'message'=>"User Login Successfully"
         ]);
     }
 
