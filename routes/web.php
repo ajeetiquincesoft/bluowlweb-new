@@ -9,6 +9,8 @@ use App\Http\Controllers\ServicesAndPricingController;
 use App\Http\Controllers\ServiceCategoriesController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\TermConditionController;
+use App\Http\Controllers\PrivacyPolicyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,8 @@ use App\Http\Controllers\CustomerController;
 Route::get('/', function () {
    return redirect('/login');
 });
+Route::get('Term_Conditions', [TermConditionController::class, 'index'])->name('Term_Conditions');
+Route::get('PrivacyPolicy', [PrivacyPolicyController::class, 'index'])->name('PrivacyPolicy');
 
 Auth::routes();
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -63,6 +67,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
    //CustomerController
    Route::GET('/customers', [CustomerController::class, 'index'])->name('customers');
    Route::POST('/customer-status-update/{id}', [CustomerController::class, 'ChangeCustomerStatus'])->name('customer-status-update');
+
+
+   Route::GET('AddTermAndConditionData', [TermConditionController::class, 'AddTermAndConditionData'])->name('AddTermAndConditionData');
+    Route::POST('UpdateTermAndCondition', [TermConditionController::class, 'UpdateTermAndCondition'])->name('UpdateTermAndCondition');
+    // Privacy Policy Data
+    Route::GET('PrivacyPolicyData', [PrivacyPolicyController::class, 'PrivacyPolicyData'])->name('PrivacyPolicyData');
+    Route::POST('UpdatePrivacyPolicyData', [PrivacyPolicyController::class, 'UpdatePrivacyPolicyData'])->name('UpdatePrivacyPolicyData');
    // Route::view('/vendors-details', 'vendors-details');
    // Route::view('/transactions', 'transactions');
    // Route::view('/settings', 'settings');
