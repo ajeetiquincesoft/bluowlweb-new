@@ -340,11 +340,14 @@ class MasterApiController extends Controller
     {
         $user = User::findOrFail(Auth::id());
         $services=Service::where('status',"1")->get();
+        $services_category=VendorService::where('user_id',Auth::id())->first();
         return response()->json([
             'userData' => $user,
             'services'=>$services,
+            'services_category'=> $services_category,
             'message' => 'User Data retrieved successfully.',
             'success' => true,
         ]);
     }
+
 }
