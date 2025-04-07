@@ -292,7 +292,7 @@ class MasterApiController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'employee_name'  => 'required',
-                'employee_pic'   => 'required',
+                // 'employee_pic'   => 'required',
             ]);
 
             if ($validator->fails()) {
