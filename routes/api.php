@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('addVendorServiceArea', [MasterApiController::class, 'addVendorServiceArea']);
     Route::POST('addVendorEmployee', [MasterApiController::class, 'addVendorEmployee']);
     Route::GET('getUserData', [MasterApiController::class, 'getUserData']);
+    Route::GET('getEmployeeData', [MasterApiController::class, 'getEmployeeData']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);

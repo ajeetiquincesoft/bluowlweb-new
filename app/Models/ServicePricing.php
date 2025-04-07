@@ -11,7 +11,6 @@ class ServicePricing extends Model
     public function servicewithpricing()
     {
         return $this->hasOne(Service::class,'id','service_id');
-
     }
     public function categorywithpricing()
     {
