@@ -307,15 +307,17 @@ class MasterApiController extends Controller
             $vendorEmployee->name  = $request->employee_name;
             if ($request->employee_pic) {
                 $imageData = $request->employee_pic;
-                $ext       = explode('/', mime_content_type($imageData))[1];
-                if ($ext == 'jpeg') {
-                    $ext = 'jpg';
+                if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+                    $ext = strtolower($type[1]);
+                    if ($ext === 'jpeg') {
+                        $ext = 'jpg';
+                    }
+                    $filename = 'image_Profile' . time() . '.' . $ext;
+                    $image = substr($imageData, strpos($imageData, ',') + 1);
+                    $image = str_replace(' ', '+', $image);
+                    Storage::put('public/uploads/' . $filename, base64_decode($image));
+                    $vendorEmployee->profile_pic = $filename;
                 }
-                $filename = 'image_Profile' . time() . '.' . $ext;
-                $image    = str_replace('data:image/' . $ext . ';base64,', '', $imageData);
-                $image    = str_replace(' ', '+', $image);
-                Storage::put('public/uploads/' . $filename, base64_decode($image));
-                $vendorEmployee->profile_pic = $filename;
             }
             $vendorEmployee->save();
             DB::commit();
