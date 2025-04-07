@@ -62,6 +62,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
    //CustomerController
    Route::GET('/customers', [CustomerController::class, 'index'])->name('customers');
+   Route::POST('/customer-status-update/{id}', [CustomerController::class, 'ChangeCustomerStatus'])->name('customer-status-update');
    // Route::view('/vendors-details', 'vendors-details');
    // Route::view('/transactions', 'transactions');
    // Route::view('/settings', 'settings');

@@ -80,26 +80,39 @@
                                                 alt="" class="img-fluid">
                                         </div>
                                         <div class="p-3">
-                                            <div class="team-settings">
-                                                <div class="row">
-
-                                                    <div class="col text-end dropdown">
-                                                        <a href="javascript:void(0);" id="dropdownMenuLink14"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="ri-more-fill fs-17"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end"
-                                                            aria-labelledby="dropdownMenuLink14">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-check-line me-2 align-middle"></i>Active</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"> <i
-                                                                        class="fa-solid fa-exclamation me-2 align-middle"></i>Pending</a>
-                                                            </li>
-                                                        </ul>
+                                            <form id="teamStatusForm"
+                                                action="{{ route('customer-status-update', ['id' => Crypt::encrypt($customerdata->id)]) }}"
+                                                method="POST">
+                                                @csrf
+                                                <input type="hidden" name="status" id="teamStatusInput">
+                                                <div class="team-settings">
+                                                    <div class="row">
+                                                        <div class="col text-end dropdown">
+                                                            <a href="javascript:void(0);" id="dropdownMenuLink14"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="ri-more-fill fs-17"></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu dropdown-menu-end"
+                                                                aria-labelledby="dropdownMenuLink14">
+                                                                <li>
+                                                                    <a class="dropdown-item" href="javascript:void(0);"
+                                                                        onclick="submitStatus('Active')">
+                                                                        <i
+                                                                            class="ri-check-line me-2 align-middle"></i>Active
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="javascript:void(0);"
+                                                                        onclick="submitStatus('Pending')">
+                                                                        <i
+                                                                            class="ri-close-line me-2 align-middle"></i>Pending
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                             <!--end col-->
                                         </div>
                                         <div class="p-3 text-center">
@@ -158,4 +171,10 @@
             <!--end row-->
         </div><!-- container-fluid -->
     </div>
+    <script>
+        function submitStatus(status) {
+            document.getElementById('teamStatusInput').value = status;
+            document.getElementById('teamStatusForm').submit();
+        }
+    </script>
 @endsection
