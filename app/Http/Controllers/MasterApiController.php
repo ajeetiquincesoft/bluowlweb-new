@@ -339,8 +339,10 @@ class MasterApiController extends Controller
     public function getUserData()
     {
         $user = User::findOrFail(Auth::id());
+        $services=Service::where('status',"1")->get();
         return response()->json([
             'userData' => $user,
+            'services'=>$services,
             'message' => 'User Data retrieved successfully.',
             'success' => true,
         ]);

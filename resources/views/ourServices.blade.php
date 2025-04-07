@@ -42,7 +42,9 @@
                                                         <td class="id" style="display:none;"><a
                                                                 href="javascript:void(0);"
                                                                 class="fw-medium link-primary">#VZ2101</a></td>
-                                                        <td class="email">{{ $item->name }}</td>
+                                                        <td class="email">  <img src="{{ $item->image ? asset('storage/uploads/' . $item->image) : asset('storage/uploads/17436829592146840487PI.png') }}"
+                                                            class="rounded-circle img-thumbnail user-profile-image" style="background-color: #0071BD; height:2rem; "
+                                                            alt="user-profile-image">  {{ $item->name }}</td>
 
                                                         <td class="status"><span
                                                                 class="badge {{ $item->status == 0 ? 'badge-soft-danger' : 'badge-soft-success' }} text-uppercase">{{ $item->status == 0 ? 'Inactive' : 'Active' }}</span>
