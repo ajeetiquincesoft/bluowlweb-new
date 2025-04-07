@@ -18,9 +18,11 @@ class CreateVendorEmployeesTable extends Migration
             $table->bigInteger('vendor_user_id')->unsigned();
             $table->foreign('vendor_user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->bigInteger('employee_user_id')->unsigned();
-            $table->foreign('employee_user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->bigInteger('employee_user_id')->unsigned();
+            // $table->foreign('employee_user_id')->references('id')->on('users')->onDelete('cascade');
 
+            $table->string('name');
+            $table->text('profile_pic')->nullable();
             $table->integer('status')->comment('0 for Inactive  and 1 for Active')->default(1);
             $table->timestamps();
         });
