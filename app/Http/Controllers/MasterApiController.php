@@ -127,7 +127,7 @@ class MasterApiController extends Controller
     }
     public function getservices()
     {
-        dd("jfkfnj");
+        $user_id=Auth::user();
         $services = Service::where('status', 1)->get();
 
         return response()->json([
