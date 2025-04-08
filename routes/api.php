@@ -33,7 +33,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::POST('signout', [MasterApiController::class, 'logout']);
 });
 Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router) {
-    Route::GET('getservices', [MasterApiController::class, 'getservices']);
+
     Route::POST('gerServiceOffered', [MasterApiController::class, 'gerServiceOffered']);
     Route::POST('vendorMetaData', [MasterApiController::class, 'vendorMetaData']);
     Route::POST('ChangePassword', [MasterApiController::class, 'ChangePassword']);
@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::GET('getUserData', [MasterApiController::class, 'getUserData']);
     Route::GET('getEmployeeData', [MasterApiController::class, 'getEmployeeData']);
     Route::POST('deleteVendorEmployee', [MasterApiController::class, 'deleteVendorEmployee']);
+    Route::GET('getservices', [MasterApiController::class, 'getservices']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);
