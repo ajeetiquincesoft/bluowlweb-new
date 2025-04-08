@@ -127,8 +127,9 @@ class MasterApiController extends Controller
     }
     public function getservices()
     {
+        dd("jfkfnj");
         $services = Service::where('status', 1)->get();
-        dd($services);
+
         return response()->json([
             'data' => $services,
             'message' => 'service data',
