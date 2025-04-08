@@ -357,4 +357,14 @@ class MasterApiController extends Controller
             'success' => true,
         ]);
     }
+    public function deleteVendorEmployee(Request $request)
+    {
+        $employee_id = $request->employee_id;
+        $vendorEmployee = VendorEmployee::findOrFail($employee_id);
+        $vendorEmployee->delete();
+        return response()->json([
+            'message' => 'Employee data deleted successfully.',
+            'success' => true,
+        ]);
+    }
 }
