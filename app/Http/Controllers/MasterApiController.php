@@ -172,7 +172,6 @@ class MasterApiController extends Controller
 
             // Find authenticated user
             $user = User::findOrFail(Auth::id());
-            $user->profile_pic = $request->profile_pic;
             $user->about_service = $request->service_note;
             if ($request->profile_pic) {
                 $imageData = $request->profile_pic;
@@ -190,21 +189,21 @@ class MasterApiController extends Controller
             }
 
             $user->save();
-            if ($request->gallery_image) {
-                foreach ($request->gallery_image as $index => $imageData) {
-                    if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
-                        $ext = strtolower($type[1]);
-                        if ($ext === 'jpeg') {
-                            $ext = 'jpg';
-                        }
-                        $filename = 'gallery_image_' . time() . rand(10,100) . '.' . $ext;
-                        $image = substr($imageData, strpos($imageData, ',') + 1);
-                        $image = str_replace(' ', '+', $image);
-                        Storage::put('public/uploads/' . $filename, base64_decode($image));
-                        $user->profile_pic = $filename;
-                    }
-                }
-            }
+            // if ($request->gallery_image) {
+            //     foreach ($request->gallery_image as $index => $imageData) {
+            //         if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+            //             $ext = strtolower($type[1]);
+            //             if ($ext === 'jpeg') {
+            //                 $ext = 'jpg';
+            //             }
+            //             $filename1 = 'gallery_image_' . time() . rand(10,100) . '.' . $ext;
+            //             $image = substr($imageData, strpos($imageData, ',') + 1);
+            //             $image = str_replace(' ', '+', $image);
+            //             Storage::put('public/uploads/' . $filename, base64_decode($image));
+            //             $user->profile_pic = $filename1;
+            //         }
+            //     }
+            // }
 
             // Save service
             $vendorService = new VendorService();
