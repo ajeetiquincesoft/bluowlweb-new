@@ -10,6 +10,6 @@ class VendorService extends Model
     use HasFactory;
     public function vendorserviveUserwithvendor()
     {
-        return $this->hasOne(service::class,'id','service_id');
+        return $this->hasOne(Service::class,'id','service_id');
     }
 }
