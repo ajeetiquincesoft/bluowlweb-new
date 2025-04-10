@@ -52,4 +52,18 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function vendorservicedata()
+    {
+        return $this->hasOne(VendorService::class,'user_id','id');
+    }
+    public function vendorwithgallery()
+    {
+        return $this->hasOne(UserGallery::class,'user_id','id');
+    }
+    public function vendorwithserviceoffer()
+    {
+        return $this->hasOne(VendorServiceOffere::class,'user_id','id');
+    }
+
 }
