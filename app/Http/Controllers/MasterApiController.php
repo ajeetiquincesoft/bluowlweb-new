@@ -64,7 +64,6 @@ class MasterApiController extends Controller
             'message' => "User Login Successfully"
         ]);
     }
-
     public function customerRegister(Request $request)
     {
 
@@ -94,7 +93,6 @@ class MasterApiController extends Controller
             'success' => true,
         ]);
     }
-
     public function vendorRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -371,6 +369,16 @@ class MasterApiController extends Controller
         $vendorEmployee->delete();
         return response()->json([
             'message' => 'Employee data deleted successfully.',
+            'success' => true,
+        ]);
+    }
+    public function getVendorMetaData()
+    {
+        $user_id=Auth::id();
+        $userMeta=User::with('vendorserviveUserwithvendor','vendorwithserviceoffer','vendorwithgallery')->where('id',$user_id)->first();
+        return response()->json([
+            'data' => $userMeta,
+            'message' => 'Vendor Data retrieved successfully.',
             'success' => true,
         ]);
     }

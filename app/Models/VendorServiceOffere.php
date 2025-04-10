@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class VendorServiceOffere extends Model
 {
     use HasFactory;
+    public function vendorwithserviceoffer()
+    {
+        return $this->hasOne(ServiceCategory::class,'id','service_category_id');
+    }
 }
