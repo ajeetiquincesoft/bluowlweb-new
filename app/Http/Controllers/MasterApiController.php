@@ -355,9 +355,11 @@ class MasterApiController extends Controller
     public function getEmployeeData()
     {
         $auth_id = Auth::id();
+        $Vendor_service=VendorService:: with('vendorserviveUserwithvendor')->where('user_id',Auth::id())->first();
         $employeeData = VendorEmployee::with('employeeUserwithvendor')->where('vendor_user_id', $auth_id)->get();
         return response()->json([
             'employeeData' => $employeeData,
+            'vendor_service'=>$Vendor_service,
             'message' => 'Employee Data retrieved successfully.',
             'success' => true,
         ]);
