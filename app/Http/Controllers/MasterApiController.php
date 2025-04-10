@@ -162,74 +162,69 @@ class MasterApiController extends Controller
                 'service_id'   => 'required',
                 'cetegory_id'  => 'required|array',
             ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+
+            // Find authenticated user
+            $user = User::findOrFail(Auth::id());
+            $user->profile_pic = $request->profile_pic;
+            $user->about_service = $request->service_note;
+            if ($request->profile_pic) {
+                $imageData = $request->profile_pic;
+                if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+                    $ext = strtolower($type[1]);
+                    if ($ext === 'jpeg') {
+                        $ext = 'jpg';
+                    }
+                    $filename = 'image_Profile' . time() . '.' . $ext;
+                    $image = substr($imageData, strpos($imageData, ',') + 1);
+                    $image = str_replace(' ', '+', $image);
+                    Storage::put('public/uploads/' . $filename, base64_decode($image));
+                    $user->profile_pic = $filename;
+                }
+            }
+
+            $user->save();
+            if ($request->gallery_image) {
+                foreach ($request->gallery_image as $index => $imageData) {
+                    if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+                        $ext = strtolower($type[1]);
+                        if ($ext === 'jpeg') {
+                            $ext = 'jpg';
+                        }
+                        $filename = 'gallery_image_' . time() . rand(10,100) . '.' . $ext;
+                        $image = substr($imageData, strpos($imageData, ',') + 1);
+                        $image = str_replace(' ', '+', $image);
+                        Storage::put('public/uploads/' . $filename, base64_decode($image));
+                        $user->profile_pic = $filename;
+                    }
+                }
+            }
+
+            // Save service
+            $vendorService = new VendorService();
+            $vendorService->user_id = Auth::id();
+            $vendorService->service_id = $request->service_id;
+            $vendorService->save();
+
+            // Save service offered
+            foreach ($request->cetegory_id as $c_id) {
+                $vendorServiceOffered = new VendorServiceOffere();
+                $vendorServiceOffered->user_id = Auth::id();
+                $vendorServiceOffered->service_id = $request->service_id; // Fixed incorrect assignment
+                $vendorServiceOffered->service_category_id = $c_id;
+                $vendorServiceOffered->save();
+            }
+            DB::commit();
             return response()->json([
-                'data'=>$request->all(),
                 'message' => 'User Meta Added successfully',
                 'success' => true,
             ]);
-
-            // if ($validator->fails()) {
-            //     return response()->json([
-            //         'message' => $validator->errors()->all(),
-            //         'success' => false
-            //     ], 400);
-            // }
-
-            // // Find authenticated user
-            // $user = User::findOrFail(Auth::id());
-            // $user->profile_pic = $request->profile_pic;
-            // $user->about_service = $request->service_note;
-            // if ($request->profile_pic) {
-            //     $imageData = $request->profile_pic;
-            //     if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
-            //         $ext = strtolower($type[1]);
-            //         if ($ext === 'jpeg') {
-            //             $ext = 'jpg';
-            //         }
-            //         $filename = 'image_Profile' . time() . '.' . $ext;
-            //         $image = substr($imageData, strpos($imageData, ',') + 1);
-            //         $image = str_replace(' ', '+', $image);
-            //         Storage::put('public/uploads/' . $filename, base64_decode($image));
-            //         $user->profile_pic = $filename;
-            //     }
-            // }
-
-            // $user->save();
-            // if ($request->gallery_image) {
-            //     foreach ($request->gallery_image as $index => $imageData) {
-            //         if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
-            //             $ext = strtolower($type[1]);
-            //             if ($ext === 'jpeg') {
-            //                 $ext = 'jpg';
-            //             }
-            //             $filename = 'gallery_image_' . time() . rand(10,100) . '.' . $ext;
-            //             $image = substr($imageData, strpos($imageData, ',') + 1);
-            //             $image = str_replace(' ', '+', $image);
-            //             Storage::put('public/uploads/' . $filename, base64_decode($image));
-            //             $user->profile_pic = $filename;
-            //         }
-            //     }
-            // }
-
-            // // Save service
-            // $vendorService = new VendorService();
-            // $vendorService->user_id = Auth::id();
-            // $vendorService->service_id = $request->service_id;
-            // $vendorService->save();
-
-            // // Save service offered
-            // foreach ($request->cetegory_id as $c_id) {
-            //     $vendorServiceOffered = new VendorServiceOffere();
-            //     $vendorServiceOffered->user_id = Auth::id();
-            //     $vendorServiceOffered->service_id = $request->service_id; // Fixed incorrect assignment
-            //     $vendorServiceOffered->service_category_id = $c_id;
-            //     $vendorServiceOffered->save();
-            // }
-            // DB::commit();
-            // return response()->json([
-            //     'message' => 'User Meta Added successfully',
-            //     'success' => true,
-            // ]);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
