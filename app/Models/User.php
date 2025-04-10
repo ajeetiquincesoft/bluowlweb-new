@@ -59,11 +59,11 @@ class User extends Authenticatable implements JWTSubject
     }
     public function vendorwithgallery()
     {
-        return $this->hasOne(UserGallery::class,'user_id','id');
+        return $this->hasMany(UserGallery::class,'user_id','id');
     }
     public function vendorwithserviceoffer()
     {
-        return $this->hasOne(VendorServiceOffere::class,'user_id','id');
+        return $this->hasMany(VendorServiceOffere::class,'user_id','id');
     }
 
 }
