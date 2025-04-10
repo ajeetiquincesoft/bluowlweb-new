@@ -127,7 +127,7 @@ class MasterApiController extends Controller
     }
     public function getservices()
     {
-        $user_id=Auth::user();
+        $user_id = Auth::user();
         $services = Service::where('status', 1)->get();
 
         return response()->json([
@@ -187,23 +187,25 @@ class MasterApiController extends Controller
                     $user->profile_pic = $filename;
                 }
             }
-
             $user->save();
-            // if ($request->gallery_image) {
-            //     foreach ($request->gallery_image as $index => $imageData) {
-            //         if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
-            //             $ext = strtolower($type[1]);
-            //             if ($ext === 'jpeg') {
-            //                 $ext = 'jpg';
-            //             }
-            //             $filename1 = 'gallery_image_' . time() . rand(10,100) . '.' . $ext;
-            //             $image = substr($imageData, strpos($imageData, ',') + 1);
-            //             $image = str_replace(' ', '+', $image);
-            //             Storage::put('public/uploads/' . $filename, base64_decode($image));
-            //             $user->profile_pic = $filename1;
-            //         }
-            //     }
-            // }
+
+            if ($request->gallery_image) {
+                foreach ($request->gallery_image as $index => $imageData1) {
+                    if (preg_match('/^data:image\/(\w+);base64,/', $imageData1, $type)) {
+                        $ext1 = strtolower($type[1]);
+                        if ($ext1 === 'jpeg') {
+                            $ext1 = 'jpg';
+                        }
+                        $filename1 = 'gallery_image_' . time() . rand(10, 100) . '.' . $ext1;
+                        $image1 = substr($imageData1, strpos($imageData1, ',') + 1);
+                        $image1 = str_replace(' ', '+', $image1);
+                        Storage::put('public/uploads/' . $filename1, base64_decode($image1));
+                        $userGallery = new UserGallery();
+                        $userGallery->user_id = Auth::id();
+                        $user->image = $filename1;
+                    }
+                }
+            }
 
             // Save service
             $vendorService = new VendorService();
