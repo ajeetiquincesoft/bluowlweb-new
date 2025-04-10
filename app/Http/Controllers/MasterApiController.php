@@ -190,7 +190,7 @@ class MasterApiController extends Controller
             $user->save();
 
             if ($request->gallery_image) {
-                foreach ($request->gallery_image as $index => $imageData1) {
+                foreach ($request->gallery_image as $imageData1) {
                     if (preg_match('/^data:image\/(\w+);base64,/', $imageData1, $type)) {
                         $ext1 = strtolower($type[1]);
                         if ($ext1 === 'jpeg') {
@@ -204,6 +204,7 @@ class MasterApiController extends Controller
                         $userGallery = new UserGallery();
                         $userGallery->user_id = Auth::id();
                         $userGallery->image = $filename1;
+                        $userGallery->save();
                     }
                 }
             }
