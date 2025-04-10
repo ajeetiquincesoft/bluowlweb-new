@@ -12,4 +12,8 @@ class VendorService extends Model
     {
         return $this->hasOne(Service::class,'id','service_id');
     }
+    public function vendorservicedata()
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
 }
