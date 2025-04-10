@@ -173,6 +173,7 @@ class MasterApiController extends Controller
             // Find authenticated user
             $user = User::findOrFail(Auth::id());
             $user->profile_pic = $request->profile_pic;
+            $user->about_service = $request->service_note;
             if ($request->profile_pic) {
                 $imageData = $request->profile_pic;
                 $ext       = explode('/', mime_content_type($imageData))[1];
