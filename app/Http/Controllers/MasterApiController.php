@@ -250,7 +250,7 @@ class MasterApiController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
-                'message' => 'Something went wrong!',
+                'message' => $e->getMessage(),
                 'error'   => $e->getMessage(),
                 'success' => false
             ], 500);
