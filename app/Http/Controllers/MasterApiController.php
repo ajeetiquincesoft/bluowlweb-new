@@ -200,9 +200,10 @@ class MasterApiController extends Controller
                         $image1 = substr($imageData1, strpos($imageData1, ',') + 1);
                         $image1 = str_replace(' ', '+', $image1);
                         Storage::put('public/uploads/' . $filename1, base64_decode($image1));
+
                         $userGallery = new UserGallery();
                         $userGallery->user_id = Auth::id();
-                        $user->image = $filename1;
+                        $userGallery->image = $filename1;
                     }
                 }
             }
