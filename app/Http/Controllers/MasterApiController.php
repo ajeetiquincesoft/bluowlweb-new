@@ -176,35 +176,56 @@ class MasterApiController extends Controller
             $user->about_service = $request->service_note;
             if ($request->profile_pic) {
                 $imageData = $request->profile_pic;
-                $ext       = explode('/', mime_content_type($imageData))[1];
-                if ($ext == 'jpeg') {
-                    $ext = 'jpg';
+                if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+                    $ext = strtolower($type[1]);
+                    if ($ext === 'jpeg') {
+                        $ext = 'jpg';
+                    }
+                    $filename = 'image_Profile' . time() . '.' . $ext;
+                    $image = substr($imageData, strpos($imageData, ',') + 1);
+                    $image = str_replace(' ', '+', $image);
+                    Storage::put('public/uploads/' . $filename, base64_decode($image));
+                    $user->profile_pic = $filename;
                 }
-                $filename = 'image_Profile' . time() . '.' . $ext;
-                $image    = str_replace('data:image/' . $ext . ';base64,', '', $imageData);
-                $image    = str_replace(' ', '+', $image);
-                Storage::put('public/uploads/' . $filename, base64_decode($image));
-                $user->profile_pic = $filename;
             }
+
             $user->save();
 
             //save Gallery
+            // if ($request->gallery_image) {
+
+            //         $ext = explode('/', mime_content_type($imageData))[1];
+            //         if ($ext == 'jpeg') {
+            //             $ext = 'jpg';
+            //         }
+            //         $filename = 'gallery_image_' . time() . '_' . $index . '.' . $ext;
+            //         $image = str_replace('data:image/' . $ext . ';base64,', '', $imageData);
+            //         $image = str_replace(' ', '+', $image);
+            //         Storage::put('public/uploads/' . $filename, base64_decode($image));
+            //         $userGallery = UserGallery::make();
+            //         $userGallery->user_id = Auth::user()->id;
+            //         $userGallery->image = $filename;
+            //         $userGallery->save();
+            //     }
+            // }
+
+
             if ($request->gallery_image) {
                 foreach ($request->gallery_image as $index => $imageData) {
-                    $ext = explode('/', mime_content_type($imageData))[1];
-                    if ($ext == 'jpeg') {
-                        $ext = 'jpg';
+                    if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+                        $ext = strtolower($type[1]);
+                        if ($ext === 'jpeg') {
+                            $ext = 'jpg';
+                        }
+                        $filename = 'gallery_image_' . time() . rand(10,100) . '.' . $ext;
+                        $image = substr($imageData, strpos($imageData, ',') + 1);
+                        $image = str_replace(' ', '+', $image);
+                        Storage::put('public/uploads/' . $filename, base64_decode($image));
+                        $user->profile_pic = $filename;
                     }
-                    $filename = 'gallery_image_' . time() . '_' . $index . '.' . $ext;
-                    $image = str_replace('data:image/' . $ext . ';base64,', '', $imageData);
-                    $image = str_replace(' ', '+', $image);
-                    Storage::put('public/uploads/' . $filename, base64_decode($image));
-                    $userGallery = UserGallery::make();
-                    $userGallery->user_id = Auth::user()->id;
-                    $userGallery->image = $filename;
-                    $userGallery->save();
                 }
             }
+
 
 
             // Save service
