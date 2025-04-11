@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::GET('getEmployeeData', [MasterApiController::class, 'getEmployeeData']);
     Route::GET('getVendorMetaData', [MasterApiController::class, 'getVendorMetaData']);
     Route::POST('deleteVendorEmployee', [MasterApiController::class, 'deleteVendorEmployee']);
+    Route::POST('deleteGalleryImage', [MasterApiController::class, 'deleteGalleryImage']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);

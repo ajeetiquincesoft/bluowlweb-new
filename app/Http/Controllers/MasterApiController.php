@@ -389,7 +389,6 @@ class MasterApiController extends Controller
             $validator = Validator::make($request->all(), [
                 'service_id'      => 'required',
                 'cetegory_id'     => 'required|array',
-                'delete_gallery_ids' => 'nullable|array',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -415,36 +414,6 @@ class MasterApiController extends Controller
             }
             $user->save();
 
-            if ($request->has('delete_gallery_ids')) {
-                UserGallery::whereIn('id', $request->delete_gallery_ids)
-                    ->where('user_id', Auth::id())
-                    ->each(function ($gallery) {
-                        // Delete the file from storage
-                        Storage::delete('public/uploads/' . $gallery->image);
-                        $gallery->delete();
-                    });
-            }
-
-            if ($request->gallery_image) {
-                foreach ($request->gallery_image as $imageData1) {
-                    if (preg_match('/^data:image\/(\w+);base64,/', $imageData1, $type)) {
-                        $ext1 = strtolower($type[1]);
-                        if ($ext1 === 'jpeg') {
-                            $ext1 = 'jpg';
-                        }
-                        $filename1 = 'gallery_image_' . time() . rand(10, 100) . '.' . $ext1;
-                        $image1 = substr($imageData1, strpos($imageData1, ',') + 1);
-                        $image1 = str_replace(' ', '+', $image1);
-                        Storage::put('public/uploads/' . $filename1, base64_decode($image1));
-
-                        $userGallery = new UserGallery();
-                        $userGallery->user_id = Auth::id();
-                        $userGallery->image = $filename1;
-                        $userGallery->save();
-                    }
-                }
-            }
-
             VendorService::where('user_id', Auth::id())->delete();
             $vendorService = new VendorService();
             $vendorService->user_id = Auth::id();
@@ -459,6 +428,80 @@ class MasterApiController extends Controller
                 $vendorServiceOffered->service_id = $request->service_id;
                 $vendorServiceOffered->service_category_id = $c_id;
                 $vendorServiceOffered->save();
+            }
+
+            DB::commit();
+            return response()->json([
+                'message' => 'User Meta Updated successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
+    public function deleteGalleryImage(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'image_id'      => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $gallery = UserGallery::findOrFail($request->image_id);
+            $gallery->delete();
+            DB::commit();
+            return response()->json([
+                'message' => 'User Meta Updated successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
+    public function addGalleryImage(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'gallery_image' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+
+            if ($request->gallery_image) {
+                $imageData = $request->gallery_image;
+                if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+                    $ext = strtolower($type[1]);
+                    if ($ext === 'jpeg') {
+                        $ext = 'jpg';
+                    }
+                    $filename = 'gallery_image' . time() . '.' . $ext;
+                    $image = substr($imageData, strpos($imageData, ',') + 1);
+                    $image = str_replace(' ', '+', $image);
+                    Storage::put('public/uploads/' . $filename, base64_decode($image));
+                    $Gallery = UserGallery::make();
+                    $Gallery->image = $filename;
+                    $Gallery->save();
+                }
             }
 
             DB::commit();
