@@ -499,6 +499,7 @@ class MasterApiController extends Controller
                     $image = str_replace(' ', '+', $image);
                     Storage::put('public/uploads/' . $filename, base64_decode($image));
                     $Gallery = UserGallery::make();
+                    $Gallery->user_id = Auth::id();
                     $Gallery->image = $filename;
                     $Gallery->save();
                 }
