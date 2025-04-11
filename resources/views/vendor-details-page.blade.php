@@ -6,7 +6,8 @@
                 <div class="col-xxl-3 col-lg-4 col-sm-12">
                     <div class="card pricing-box ribbon-box right">
                         <div class="card-body bg-light m-2 p-4">
-                            <div class="ribbon-two ribbon-two-{{$userMeta->status==1 ? "success": "danger"}}"><span>{{$userMeta->status==1 ? "Active": "Pending"}} </span></div>
+                            <div class="ribbon-two ribbon-two-{{ $userMeta->status == 1 ? 'success' : 'danger' }}">
+                                <span>{{ $userMeta->status == 1 ? 'Active' : 'Pending' }} </span></div>
                             <div class="d-flex justify-content-center align-items-center mb-3">
                                 <img src="{{ asset('storage/uploads/' . ($userMeta->profile_pic ?? 'default.png')) }}"
                                     class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="">
@@ -75,13 +76,26 @@
                                     </div>
                                     <h4 class=" px-2 py-4">Gallery</h4>
                                     <div class="gallery">
-                                        <div>
-                                            @foreach ($userMeta->vendorwithgallery as $imageData)
-                                                <img class="gallery-img img-fluid mx-1 my-1"
-                                                    src="{{ asset('storage/uploads/' . ($imageData->image ?? 'default.png')) }}"
-                                                    alt="" width="17%">
-                                            @endforeach
 
+                                        <!-- With Controls -->
+                                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-inner" role="listbox">
+                                                @foreach ($userMeta->vendorwithgallery as $imageData)
+                                                <div class="carousel-item active">
+                                                    <img class="d-block img-fluid mx-auto" style="width: 100%; height:100%"  src="{{ asset('storage/uploads/' . ($imageData->image ?? 'default.png')) }}" alt="First slide">
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                                                data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                                                data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
                                         </div>
 
 
@@ -108,19 +122,19 @@
                                 </div>
                                 <div class="tab-pane" id="messages1" role="tabpanel">
                                     <div class="row">
-                                        @foreach($userMeta->vendorwithemployee as $emp)
-                                        <div class="col-sm-6">
-                                            <div class="d-flex mt-3">
-                                                <div class="flex-shrink-0">
-                                                    <img src="{{ asset('storage/uploads/' . ($emp->profile_pic ?? 'default.png')) }}" alt=""
-                                                        class="avatar-sm rounded">
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-1 fs-14">{{$emp->name}}</h6>
-                                                    <p class="mb-0">Locksmith</p>
+                                        @foreach ($userMeta->vendorwithemployee as $emp)
+                                            <div class="col-sm-6">
+                                                <div class="d-flex mt-3">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="{{ asset('storage/uploads/' . ($emp->profile_pic ?? 'default.png')) }}"
+                                                            alt="" class="avatar-sm rounded">
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1 fs-14">{{ $emp->name }}</h6>
+                                                        <p class="mb-0">Locksmith</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endforeach
                                         <!--end col-->
 
