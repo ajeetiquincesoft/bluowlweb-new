@@ -39,7 +39,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
    //VendorController
    Route::get('/vendors', [VendorController::class, 'index'])->name('vendors');
-   Route::get('/vendor-details', [VendorController::class, 'vendordetail'])->name('vendor-details');
+   Route::get('/vendor-details/{id?}', [VendorController::class, 'vendordetail'])->name('vendor-details');
 
    //TransactionController
    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');

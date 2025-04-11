@@ -1,5 +1,4 @@
 @extends('layouts.Myapp')
-
 @section('content')
     <div class="page-content">
         <div class="container-fluid">
@@ -7,15 +6,16 @@
                 <div class="col-xxl-3 col-lg-4 col-sm-12">
                     <div class="card pricing-box ribbon-box right">
                         <div class="card-body bg-light m-2 p-4">
-                            <div class="ribbon-two ribbon-two-danger"><span>Pending </span></div>
+                            <div class="ribbon-two ribbon-two-{{$userMeta->status==1 ? "success": "danger"}}"><span>{{$userMeta->status==1 ? "Active": "Pending"}} </span></div>
                             <div class="d-flex justify-content-center align-items-center mb-3">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnSA1zygA3rubv-VK0DrVcQ02Po79kJhXo_A&s"
+                                <img src="{{ asset('storage/uploads/' . ($userMeta->profile_pic ?? 'default.png')) }}"
                                     class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="">
                             </div>
-                            <h5 class=" text-center">Fast Service Nevada</h5>
+                            <h5 class=" text-center">{{ $userMeta->name }}</h5>
 
-                            <p class="text-center">Licence No :<span class="text-muted ">335515667</span></p>
-                            <p class="text-muted text-center m-0">Plumbing</p>
+                            <p class="text-center">Licence No :<span class="text-muted ">
+                                    {{ $userMeta->licence_number }}</span></p>
+                            <p class="text-muted text-center m-0"></p>
                             <div>
                                 <div class="mt-3 pt-2">
                                     <a href="javascript:void(0);" class="btn  btn-primary w-100">Contact Vendor</a>
@@ -66,39 +66,22 @@
                                 <div class="tab-pane active show" id="home1" role="tabpanel">
                                     <div class="d-flex">
                                         <div class="flex-grow-1 ms-2">
-                                            Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before
-                                            they sold out master cleanse gluten-free squid scenester freegan cosby sweater.
-                                            Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo
-                                            park Austin. Cred vinyl keffiyeh DIY salvia PBR.
+                                            {{ $userMeta->about_service }}
 
                                         </div>
                                         <div class="flex-shrink-0">
                                             <i class="ri-checkbox-multiple-blank-fill text-success"></i>
                                         </div>
                                     </div>
-                                    {{-- <div>
-                                        <div class=" card border-primary mt-2 col-md-4">
-                                            <div class="py-3 px-2">
-                                                <h5 class="text-muted  fs-13">Licence No
-                                                </h5>
-                                                <div class="align-items-center">
-                                                    <h3 class="mb-0"><span>335515667</span></h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     <h4 class=" px-2 py-4">Gallery</h4>
                                     <div class="gallery">
                                         <div>
-                                            <img class="gallery-img img-fluid mx-1 my-1"
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnSA1zygA3rubv-VK0DrVcQ02Po79kJhXo_A&s"
-                                                alt="" width="17%">
-                                            <img class="gallery-img img-fluid mx-1 my-1"
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnSA1zygA3rubv-VK0DrVcQ02Po79kJhXo_A&s"
-                                                alt="" width="17%">
-                                            <img class="gallery-img img-fluid mx-1 my-1"
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnSA1zygA3rubv-VK0DrVcQ02Po79kJhXo_A&s"
-                                                alt="" width="17%">
+                                            @foreach ($userMeta->vendorwithgallery as $imageData)
+                                                <img class="gallery-img img-fluid mx-1 my-1"
+                                                    src="{{ asset('storage/uploads/' . ($imageData->image ?? 'default.png')) }}"
+                                                    alt="" width="17%">
+                                            @endforeach
+
                                         </div>
 
 
@@ -106,99 +89,41 @@
                                 </div>
                                 <div class="tab-pane" id="profile1" role="tabpanel">
                                     <div class="row">
-                                        <div class="col-md-4 col-sm-6  col-xxl-4">
-                                            <div class="card bg-info">
-                                                <p class=" fw-semibold text-center p-2 m-0 text-white">Water
-                                                    Leak Detection</p>
+                                        @if (!empty($userMeta->vendorwithserviceoffer))
+                                            @foreach ($userMeta->vendorwithserviceoffer as $offer)
+                                                <div class="col-md-4 col-sm-6 col-xxl-4">
+                                                    <div class="card card-animate bg-info">
+                                                        <p class="fw-semibold text-center p-2 m-0 text-white">
+                                                            {{ optional($offer->vendorserviceofferdata)->category_name ?? 'N/A' }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="col-12">
+                                                <p class="text-muted text-center">No offers available</p>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-6 col-xxl-4">
-                                            <div class="card  bg-info">
-                                                <p class=" fw-semibold text-center p-2 m-0 text-white">
-                                                    Water Heater Installation </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4  col-sm-6 col-xxl-4">
-                                            <div class="card  bg-info">
-                                                <p class=" fw-semibold text-center p-2 m-0 text-white">
-                                                    Kitchens and Bathrooms</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-6 col-xxl-4">
-                                            <div class="card  bg-info">
-                                                <p class=" fw-semibold text-center p-2 m-0 text-white">
-                                                    Kitchens and Bathrooms</p>
-                                            </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="messages1" role="tabpanel">
                                     <div class="row">
+                                        @foreach($userMeta->vendorwithemployee as $emp)
                                         <div class="col-sm-6">
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/users/avatar-7.jpg" alt=""
-                                                        class="avatar-sm rounded">
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-1 fs-14">Dominic Charlton</h6>
-                                                    <p class="mb-0">Locksmith</p>
-                                                </div>
-                                            </div>
                                             <div class="d-flex mt-3">
                                                 <div class="flex-shrink-0">
-                                                    <img src="assets/images/users/avatar-8.jpg" alt=""
+                                                    <img src="{{ asset('storage/uploads/' . ($emp->profile_pic ?? 'default.png')) }}" alt=""
                                                         class="avatar-sm rounded">
                                                 </div>
                                                 <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-1 fs-14">Matilda Walker</h6>
-                                                    <p class="mb-0">Locksmith</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/users/avatar-4.jpg" alt=""
-                                                        class="avatar-sm rounded">
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-1 fs-14">Jennifer Barker</h6>
+                                                    <h6 class="mb-1 fs-14">{{$emp->name}}</h6>
                                                     <p class="mb-0">Locksmith</p>
                                                 </div>
                                             </div>
                                         </div>
+                                        @endforeach
                                         <!--end col-->
-                                        <div class="col-sm-6">
-                                            <div class="d-flex mt-3 mt-sm-0">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/users/avatar-5.jpg" alt=""
-                                                        class="avatar-sm rounded">
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-1 fs-14">Amelie Townsend</h6>
-                                                    <p class="mb-0">Locksmith</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/users/avatar-1.jpg" alt=""
-                                                        class="avatar-sm rounded">
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-1 fs-14">Emily Slater</h6>
-                                                    <p class="mb-0">Locksmith</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/users/avatar-2.jpg" alt=""
-                                                        class="avatar-sm rounded">
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-1 fs-14">Declan Long</h6>
-                                                    <p class="mb-0">Locksmith</p>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
                                     </div>
                                 </div>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
 
 class VendorController extends Controller
 {
@@ -17,19 +19,15 @@ class VendorController extends Controller
     }
     public function index()
     {
-        return view('vendorsdata');
+        $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithgallery')->where('role', "vendor")->get();
+        return view('vendorsdata', compact('userMeta'));
     }
 
 
-    public function vendordetail(Request $request)
+    public function vendordetail(Request $request, $id)
     {
-//         $service = User::with(['services.offers','images','employees'])->findOrFail(Request()->id);
-// //        return $service;
-// //        exit();
-//         return view('vendors-details', [
-//             'service' => $service
-//         ]);
-        return view('vendor-details-page');
-
+        $vendor_id = Crypt::decrypt($id);
+        $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata','vendorwithemployee','vendorwithgallery')->where('id',$vendor_id)->first();
+        return view('vendor-details-page',compact('userMeta'));
     }
 }
