@@ -353,11 +353,11 @@ class MasterApiController extends Controller
     public function getEmployeeData()
     {
         $auth_id = Auth::id();
-        $Vendor_service=VendorService:: with('vendorserviveUserwithvendor')->where('user_id',Auth::id())->first();
+        $Vendor_service = VendorService::with('vendorserviveUserwithvendor')->where('user_id', Auth::id())->first();
         $employeeData = VendorEmployee::with('employeeUserwithvendor')->where('vendor_user_id', $auth_id)->get();
         return response()->json([
             'employeeData' => $employeeData,
-            'vendor_service'=>$Vendor_service,
+            'vendor_service' => $Vendor_service,
             'message' => 'Employee Data retrieved successfully.',
             'success' => true,
         ]);
@@ -374,12 +374,105 @@ class MasterApiController extends Controller
     }
     public function getVendorMetaData()
     {
-        $user_id=Auth::id();
-        $userMeta=User::with('vendorservicedata.vendorserviveUserwithvendor','vendorwithserviceoffer.vendorserviceofferdata','vendorwithgallery')->where('id',$user_id)->first();
+        $user_id = Auth::id();
+        $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithgallery')->where('id', $user_id)->first();
         return response()->json([
             'data' => $userMeta,
             'message' => 'Vendor Data retrieved successfully.',
             'success' => true,
         ]);
+    }
+    public function updateVendorMetaData(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'service_id'      => 'required',
+                'cetegory_id'     => 'required|array',
+                'delete_gallery_ids' => 'nullable|array',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $user = User::findOrFail(Auth::id());
+            $user->about_service = $request->service_note ?? $user->about_service;
+            if ($request->profile_pic) {
+                $imageData = $request->profile_pic;
+                if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+                    $ext = strtolower($type[1]);
+                    if ($ext === 'jpeg') {
+                        $ext = 'jpg';
+                    }
+                    $filename = 'image_Profile' . time() . '.' . $ext;
+                    $image = substr($imageData, strpos($imageData, ',') + 1);
+                    $image = str_replace(' ', '+', $image);
+                    Storage::put('public/uploads/' . $filename, base64_decode($image));
+                    $user->profile_pic = $filename;
+                }
+            }
+            $user->save();
+
+            if ($request->has('delete_gallery_ids')) {
+                UserGallery::whereIn('id', $request->delete_gallery_ids)
+                    ->where('user_id', Auth::id())
+                    ->each(function ($gallery) {
+                        // Delete the file from storage
+                        Storage::delete('public/uploads/' . $gallery->image);
+                        $gallery->delete();
+                    });
+            }
+
+            if ($request->gallery_image) {
+                foreach ($request->gallery_image as $imageData1) {
+                    if (preg_match('/^data:image\/(\w+);base64,/', $imageData1, $type)) {
+                        $ext1 = strtolower($type[1]);
+                        if ($ext1 === 'jpeg') {
+                            $ext1 = 'jpg';
+                        }
+                        $filename1 = 'gallery_image_' . time() . rand(10, 100) . '.' . $ext1;
+                        $image1 = substr($imageData1, strpos($imageData1, ',') + 1);
+                        $image1 = str_replace(' ', '+', $image1);
+                        Storage::put('public/uploads/' . $filename1, base64_decode($image1));
+
+                        $userGallery = new UserGallery();
+                        $userGallery->user_id = Auth::id();
+                        $userGallery->image = $filename1;
+                        $userGallery->save();
+                    }
+                }
+            }
+
+            VendorService::where('user_id', Auth::id())->delete();
+            $vendorService = new VendorService();
+            $vendorService->user_id = Auth::id();
+            $vendorService->service_id = $request->service_id;
+            $vendorService->save();
+
+            // Update services offered
+            VendorServiceOffere::where('user_id', Auth::id())->delete();
+            foreach ($request->cetegory_id as $c_id) {
+                $vendorServiceOffered = new VendorServiceOffere();
+                $vendorServiceOffered->user_id = Auth::id();
+                $vendorServiceOffered->service_id = $request->service_id;
+                $vendorServiceOffered->service_category_id = $c_id;
+                $vendorServiceOffered->save();
+            }
+
+            DB::commit();
+            return response()->json([
+                'message' => 'User Meta Updated successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
     }
 }
