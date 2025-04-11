@@ -375,7 +375,7 @@ class MasterApiController extends Controller
     public function getVendorMetaData()
     {
         $user_id=Auth::id();
-        $userMeta=User::with('vendorservicedata.vendorserviveUserwithvendor','vendorwithserviceoffer','vendorwithgallery')->where('id',$user_id)->first();
+        $userMeta=User::with('vendorservicedata.vendorserviveUserwithvendor','vendorwithserviceoffer.vendorserviceofferdata','vendorwithgallery')->where('id',$user_id)->first();
         return response()->json([
             'data' => $userMeta,
             'message' => 'Vendor Data retrieved successfully.',
