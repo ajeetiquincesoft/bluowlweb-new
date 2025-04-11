@@ -1,12 +1,39 @@
 @extends('layouts.Myapp')
 @section('content')
 <style>
-    .gallery-img {
-    width: 150px;     /* fixed width */
-    height: 150px;    /* fixed height */
-    object-fit: cover; /* maintain aspect ratio and fill */
-    border-radius: 8px; /* optional: for rounded corners */
+    .gallery-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        margin: 5px;
+    }
+
+    .gallery-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .view-icon {
+    position: absolute;
+    top: 91%;
+    left: 91%;
+    transform: translate(-50%, -50%);
+    font-size: 17px;
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: 0.3s ease;
+    pointer-events: none;
 }
+
+    .gallery-wrapper:hover .view-icon {
+        opacity: 1;
+        pointer-events: auto;
+    }
 </style>
     <div class="page-content">
         <div class="container-fluid">
@@ -15,7 +42,8 @@
                     <div class="card pricing-box ribbon-box right">
                         <div class="card-body bg-light m-2 p-4">
                             <div class="ribbon-two ribbon-two-{{ $userMeta->status == 1 ? 'success' : 'danger' }}">
-                                <span>{{ $userMeta->status == 1 ? 'Active' : 'Pending' }} </span></div>
+                                <span>{{ $userMeta->status == 1 ? 'Active' : 'Pending' }} </span>
+                            </div>
                             <div class="d-flex justify-content-center align-items-center mb-3">
                                 <img src="{{ asset('storage/uploads/' . ($userMeta->profile_pic ?? 'default.png')) }}"
                                     class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="">
@@ -84,12 +112,19 @@
                                     </div>
                                     <h4 class=" px-2 py-4">Gallery</h4>
                                     <div class="gallery">
-
                                         <div>
                                             @foreach ($userMeta->vendorwithgallery as $imageData)
-                                                <img class="gallery-img img-fluid mx-1 my-1"
-                                                    src="{{ asset('storage/uploads/' . ($imageData->image ?? 'default.png')) }}"
-                                                    alt="">
+                                                <div class="gallery-wrapper">
+                                                    <img class="gallery-img"
+                                                        src="{{ asset('storage/uploads/' . ($imageData->image ?? 'default.png')) }}"
+                                                        alt="">
+                                                    <span class="view-icon">
+                                                        <a  href="{{ asset('storage/uploads/' . ($imageData->image))  }}" download  title="Download">
+                                                            <i class="fas fa-download"></i>
+                                                        </a>
+                                                    </span>
+
+                                                </div>
                                             @endforeach
                                         </div>
                                     </div>
