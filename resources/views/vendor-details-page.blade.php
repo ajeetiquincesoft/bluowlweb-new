@@ -1,5 +1,13 @@
 @extends('layouts.Myapp')
 @section('content')
+<style>
+    .gallery-img {
+    width: 150px;     /* fixed width */
+    height: 150px;    /* fixed height */
+    object-fit: cover; /* maintain aspect ratio and fill */
+    border-radius: 8px; /* optional: for rounded corners */
+}
+</style>
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -76,6 +84,7 @@
                                     </div>
                                     <h4 class=" px-2 py-4">Gallery</h4>
                                     <div class="gallery">
+
                                         <div>
                                             @foreach ($userMeta->vendorwithgallery as $imageData)
                                                 <img class="gallery-img img-fluid mx-1 my-1"
