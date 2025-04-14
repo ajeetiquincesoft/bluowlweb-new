@@ -154,7 +154,7 @@
                                             </div>
                                             <div>
                                                 <p class="text-muted text-uppercase fw-semibold fs-12 mb-2">Location</p>
-                                                <h6 class="mb-0">Carson City - USA</h6>
+                                                <h6 class="mb-0"></h6>
                                             </div>
                                         </div>
 

@@ -10,7 +10,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images//Got-Gas_logo.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images//blue-owl-white.png') }}">
 
     <!-- Layout config Js -->
     <!-- Bootstrap Css -->

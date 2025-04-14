@@ -1,40 +1,40 @@
 @extends('layouts.Myapp')
 @section('content')
-<style>
-    .gallery-wrapper {
-        position: relative;
-        display: inline-block;
-        width: 150px;
-        height: 150px;
-        margin: 5px;
-    }
+    <style>
+        .gallery-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            margin: 5px;
+        }
 
-    .gallery-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 6px;
-    }
+        .gallery-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
 
-    .view-icon {
-    position: absolute;
-    top: 91%;
-    left: 91%;
-    transform: translate(-50%, -50%);
-    font-size: 17px;
-    color: white;
-    padding: 8px;
-    border-radius: 50%;
-    opacity: 0;
-    transition: 0.3s ease;
-    pointer-events: none;
-}
+        .view-icon {
+            position: absolute;
+            top: 91%;
+            left: 91%;
+            transform: translate(-50%, -50%);
+            font-size: 17px;
+            color: white;
+            padding: 8px;
+            border-radius: 50%;
+            opacity: 0;
+            transition: 0.3s ease;
+            pointer-events: none;
+        }
 
-    .gallery-wrapper:hover .view-icon {
-        opacity: 1;
-        pointer-events: auto;
-    }
-</style>
+        .gallery-wrapper:hover .view-icon {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -55,14 +55,24 @@
                             <p class="text-muted text-center m-0"></p>
                             <div>
                                 <div class="mt-3 pt-2">
-                                    <a href="javascript:void(0);" class="btn  btn-primary w-100">Contact Vendor</a>
+                                    <a href="mailto:{{ $userMeta->email }}" class="btn  btn-primary w-100">Contact
+                                        Vendor</a>
 
                                 </div>
-                                <div class="mt-3 pt-2">
-                                    <a href="javascript:void(0);" class="btn  btn-soft-success w-100">Suspend account</a>
-                                </div>
+                                <form method="POST" action="{{ route('vendor-status-update', ['id' => Crypt::encrypt($userMeta->id)]) }}" id="statusForm">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="status" id="statusInput" value="">
+
+                                    <div class="mt-3 pt-2">
+                                        <a href="javascript:void(0);"
+                                           class="btn w-100 {{ $userMeta->status == 1 ? 'btn-soft-danger' : 'btn-soft-success' }}"
+                                           onclick="submitStatusForm({{ $userMeta->status == 1 ? 0 : 1 }})">
+                                            {{ $userMeta->status == 1 ? 'Suspend Account' : 'Activate Account' }}
+                                        </a>
+                                    </div>
+                                </form>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -88,6 +98,12 @@
                                     <a class="nav-link" data-bs-toggle="tab" href="#messages1" role="tab"
                                         aria-selected="false" tabindex="-1">
                                         Employees
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#messages1" role="tab"
+                                        aria-selected="false" tabindex="-1">
+                                        Areas
                                     </a>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -119,7 +135,8 @@
                                                         src="{{ asset('storage/uploads/' . ($imageData->image ?? 'default.png')) }}"
                                                         alt="">
                                                     <span class="view-icon">
-                                                        <a  href="{{ asset('storage/uploads/' . ($imageData->image))  }}" download  title="Download">
+                                                        <a href="{{ asset('storage/uploads/' . $imageData->image) }}"
+                                                            download title="Download">
                                                             <i class="fas fa-download"></i>
                                                         </a>
                                                     </span>
@@ -348,4 +365,10 @@
         </div>
         <!-- container-fluid -->
     </div>
+    <script>
+        function submitStatusForm(status) {
+            document.getElementById('statusInput').value = status;
+            document.getElementById('statusForm').submit();
+        }
+    </script>
 @endsection

@@ -10,10 +10,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <META NAME="robots" CONTENT="noindex,nofollow">
-    <title>{{ config('app.name', 'Blue Owl') }}</title>
+    <title>Blue Owl</title>
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/header_got_gas_logo.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/blue-owl-white.png') }}">
 
 
     <!-- jsvectormap css -->

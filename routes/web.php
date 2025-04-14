@@ -41,7 +41,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
    //VendorController
    Route::get('/vendors', [VendorController::class, 'index'])->name('vendors');
    Route::get('/vendor-details/{id?}', [VendorController::class, 'vendordetail'])->name('vendor-details');
-
+   Route::POST('/vendor-status-update/{id}', [VendorController::class, 'ChangeVendorStatus'])->name('vendor-status-update');
    //TransactionController
    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');
 
@@ -68,6 +68,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
    //CustomerController
    Route::GET('/customers', [CustomerController::class, 'index'])->name('customers');
    Route::POST('/customer-status-update/{id}', [CustomerController::class, 'ChangeCustomerStatus'])->name('customer-status-update');
+
 
 
    Route::GET('AddTermAndConditionData', [TermConditionController::class, 'AddTermAndConditionData'])->name('AddTermAndConditionData');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class VendorController extends Controller
 {
@@ -30,4 +31,15 @@ class VendorController extends Controller
         $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata','vendorwithemployee','vendorwithgallery')->where('id',$vendor_id)->first();
         return view('vendor-details-page',compact('userMeta'));
     }
+    public function ChangeVendorStatus(Request $request,$id)
+    {
+
+        $customer_id = Crypt::decrypt($id);
+        $userData = User::findOrFail($customer_id);
+        $userData->status = $request->status;
+        $userData->save();
+        Alert::success('Congratulations!', 'User Status Updated Succesfully');
+        return redirect()->back();
+    }
+
 }
