@@ -519,4 +519,38 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
+    public function addVendorArea(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'latitude' => 'required',
+                'longitude' => 'required',
+                'address' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $area=new VendorServiceArea();
+            $area->latitude=$request->latitude;
+            $area->longitude=$request->longitude;
+            $area->address=$request->address;
+            $area->save();
+            DB::commit();
+            return response()->json([
+                'message' => 'User Meta Updated successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
 }
