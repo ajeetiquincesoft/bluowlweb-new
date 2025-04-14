@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TermConditionController;
 use App\Http\Controllers\PrivacyPolicyController;
+use App\Http\Controllers\HelpController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Privacy Policy Data
     Route::GET('PrivacyPolicyData', [PrivacyPolicyController::class, 'PrivacyPolicyData'])->name('PrivacyPolicyData');
     Route::POST('UpdatePrivacyPolicyData', [PrivacyPolicyController::class, 'UpdatePrivacyPolicyData'])->name('UpdatePrivacyPolicyData');
+
+    Route::GET('help', [HelpController::class, 'index'])->name('help');
+    Route::POST('Add_FAQ', [HelpController::class, 'AddFAQData'])->name('Add_FAQ');
+    Route::GET('delete_FAQ{id?}', [HelpController::class, 'DeleteFAQ'])->name('delete_FAQ');
    // Route::view('/vendors-details', 'vendors-details');
    // Route::view('/transactions', 'transactions');
    // Route::view('/settings', 'settings');

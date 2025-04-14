@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HelpCenter;
 use App\Models\Service;
 use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
@@ -534,10 +535,10 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
-            $area=new VendorServiceArea();
-            $area->latitude=$request->latitude;
-            $area->longitude=$request->longitude;
-            $area->address=$request->address;
+            $area = new VendorServiceArea();
+            $area->latitude = $request->latitude;
+            $area->longitude = $request->longitude;
+            $area->address = $request->address;
             $area->save();
             DB::commit();
             return response()->json([
@@ -569,10 +570,10 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
-            $area=VendorServiceArea::findoFail($request->area_id);
-            $area->latitude=$request->latitude;
-            $area->longitude=$request->longitude;
-            $area->address=$request->address;
+            $area = VendorServiceArea::findoFail($request->area_id);
+            $area->latitude = $request->latitude;
+            $area->longitude = $request->longitude;
+            $area->address = $request->address;
             $area->save();
             DB::commit();
             return response()->json([
@@ -586,6 +587,31 @@ class MasterApiController extends Controller
                 'error'   => $e->getMessage(),
                 'success' => false
             ], 500);
+        }
+    }
+    public function getHelpData( Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'category' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['message' => $validator->errors()->all(), 'success' => false], 400);
+            }
+            $query = HelpCenter::whereStatus(1);
+            if ($request->category !== "All") {
+                $query->where('category', $request->category);
+            }
+            $FAQData = $query->get();
+            if ($FAQData->isEmpty()) {
+                return response()->json(['message' => 'Category not found', 'success' => false], 404);
+            }
+            return response()->json(['data' => $FAQData, 'message' => 'FAQ Data', 'success' => true]);
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error occurred', 'success' => false], 500);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An unexpected error occurred', 'success' => false], 500);
         }
     }
 }

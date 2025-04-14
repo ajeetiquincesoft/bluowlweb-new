@@ -95,11 +95,16 @@
                     <div class="collapse menu-dropdown  {{ request()->is('admin/App_support') ? 'show' : '' }} {{ request()->is('Setting') ? 'show' : '' }}  {{ request()->is('admin/News') ? 'show' : '' }}  {{ request()->is('admin/contact_us') ? 'show' : '' }}{{ request()->is('admin/FAQ') ? 'show' : '' }}{{ request()->is('admin/AddTermAndConditionData') ? 'show' : '' }}{{ request()->is('admin/PrivacyPolicyData') ? 'show' : '' }}" id="sidebarLayouts">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item ">
+                                <a href="{{route('help')}}"  class="nav-link {{ request()->is('admin/FAQ') ? 'active' : '' }}" data-key="t-detached" title="FAQ">Help</a>
+                            </li>
+
+                            <li class="nav-item ">
                                 <a href="{{route('AddTermAndConditionData')}}"  class="nav-link {{ request()->is('admin/AddTermAndConditionData') ? 'active' : '' }}" data-key="t-detached" title="Term & Conditions">Term & Conditions</a>
                             </li>
                             <li class="nav-item ">
                                 <a href="{{route('PrivacyPolicyData')}}"  class="nav-link {{ request()->is('admin/PrivacyPolicyData') ? 'active' : '' }}" data-key="t-detached" title="Privacy Policy">Privacy Policy</a>
                             </li>
+
                         </ul>
                     </div>
                 </li> <!-- end Dashboard Menu -->
