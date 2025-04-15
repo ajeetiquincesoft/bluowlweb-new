@@ -59,15 +59,17 @@
                                         Vendor</a>
 
                                 </div>
-                                <form method="POST" action="{{ route('vendor-status-update', ['id' => Crypt::encrypt($userMeta->id)]) }}" id="statusForm">
+                                <form method="POST"
+                                    action="{{ route('vendor-status-update', ['id' => Crypt::encrypt($userMeta->id)]) }}"
+                                    id="statusForm">
                                     @csrf
                                     @method('POST')
                                     <input type="hidden" name="status" id="statusInput" value="">
 
                                     <div class="mt-3 pt-2">
                                         <a href="javascript:void(0);"
-                                           class="btn w-100 {{ $userMeta->status == 1 ? 'btn-soft-danger' : 'btn-soft-success' }}"
-                                           onclick="submitStatusForm({{ $userMeta->status == 1 ? 0 : 1 }})">
+                                            class="btn w-100 {{ $userMeta->status == 1 ? 'btn-soft-danger' : 'btn-soft-success' }}"
+                                            onclick="submitStatusForm({{ $userMeta->status == 1 ? 0 : 1 }})">
                                             {{ $userMeta->status == 1 ? 'Suspend Account' : 'Activate Account' }}
                                         </a>
                                     </div>
@@ -101,7 +103,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#messages1" role="tab"
+                                    <a class="nav-link" data-bs-toggle="tab" href="#area" role="tab"
                                         aria-selected="false" tabindex="-1">
                                         Areas
                                     </a>
@@ -129,20 +131,23 @@
                                     <h4 class=" px-2 py-4">Gallery</h4>
                                     <div class="gallery">
                                         <div>
-                                            @foreach ($userMeta->vendorwithgallery as $imageData)
-                                                <div class="gallery-wrapper">
-                                                    <img class="gallery-img"
-                                                        src="{{ asset('storage/uploads/' . ($imageData->image ?? 'default.png')) }}"
-                                                        alt="">
-                                                    <span class="view-icon">
-                                                        <a href="{{ asset('storage/uploads/' . $imageData->image) }}"
-                                                            download title="Download">
-                                                            <i class="fas fa-download"></i>
-                                                        </a>
-                                                    </span>
+                                            <div class="scroll-wrapper d-flex flex-nowrap overflow-auto py-3" style="gap: 1rem;">
+                                                @foreach ($userMeta->vendorwithgallery as $imageData)
+                                                    <div class="gallery-wrapper" style="min-width: 200px; position: relative;">
+                                                        <img class="gallery-img"
+                                                            src="{{ asset('storage/uploads/' . ($imageData->image ?? 'default.png')) }}"
+                                                            alt=""
+                                                            style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover;">
 
-                                                </div>
-                                            @endforeach
+                                                        <span class="view-icon" style="position: absolute; bottom: 10px; right: 10px;">
+                                                            <a href="{{ asset('storage/uploads/' . $imageData->image) }}"
+                                                                download title="Download" style="color: white;">
+                                                                <i class="fas fa-download"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -357,13 +362,46 @@
                                         </div><!-- end col -->
                                     </div>
                                 </div>
+                                <div class="tab-pane" id="area" role="tabpanel">
+                                    <div class="scroll-wrapper d-flex flex-nowrap overflow-auto py-3" style="gap: 1rem;">
+
+                                        <!-- Location 1 -->
+                                        <div style="min-width: 300px;">
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2797.272592467303!2d77.65388447424512!3d27.49359363488905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397371610b6bbc8b%3A0x97268e8ea51f8590!2siQuinceSoft!5e1!3m2!1sen!2sin!4v1744711459113!5m2!1sen!2sin"
+                                                width="100%" height="300" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+
+                                        <!-- Location 2 -->
+                                        <div style="min-width: 300px;">
+                                            <iframe src="https://www.google.com/maps/embed?pb=YOUR_SECOND_LOCATION_URL"
+                                                width="100%" height="300" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+
+                                        <!-- Location 3 -->
+                                        <div style="min-width: 300px;">
+                                            <iframe src="https://www.google.com/maps/embed?pb=YOUR_SECOND_LOCATION_URL"
+                                                width="100%" height="300" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+
+                                        <!-- Add more locations the same way -->
+
+                                    </div>
+                                </div>
+                                <!-- Add more as needed -->
+
                             </div>
-                        </div><!-- end card-body -->
+                        </div>
                     </div>
-                </div>
+                </div><!-- end card-body -->
             </div>
         </div>
-        <!-- container-fluid -->
+    </div>
+    </div>
+    <!-- container-fluid -->
     </div>
     <script>
         function submitStatusForm(status) {
