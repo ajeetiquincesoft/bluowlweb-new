@@ -23,7 +23,7 @@
                                             </p>
                                             <div class="d-flex align-items-center mb-3">
                                                 <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
-                                                        data-target="825">0</span></h4>
+                                                        data-target="{{$customer_count}}">0</span></h4>
 
                                             </div>
                                         </div>
@@ -45,7 +45,7 @@
                                             <p class="text-uppercase fw-medium text-muted mb-3">Totel Vendors</p>
                                             <div class="d-flex align-items-center mb-3">
                                                 <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
-                                                        data-target="7522">0</span></h4>
+                                                        data-target="{{$vendor_count}}">0</span></h4>
 
                                             </div>
                                         </div>

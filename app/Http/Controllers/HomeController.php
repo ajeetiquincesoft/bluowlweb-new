@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $customer_count=User::where('role',"customer")->count();
+        $vendor_count=User::where('role',"vendor")->count();
+        return view('home',compact('customer_count','vendor_count'));
     }
     public function setting()
     {
