@@ -89,20 +89,20 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('Setting') ? 'active' : '' }} {{ request()->is('admin/App_support') ? 'active' : '' }} {{ request()->is('admin/News') ? 'active' : '' }} {{ request()->is('admin/News') ? 'active' : '' }} {{ request()->is('admin/contact_us') ? 'active' : '' }}{{ request()->is('admin/FAQ') ? 'active' : '' }}{{ request()->is('admin/AddTermAndConditionData') ? 'active' : '' }}{{ request()->is('admin/PrivacyPolicyData') ? 'active' : '' }}" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                    <a class="nav-link menu-link {{ request()->is('help') ? 'active' : '' }} {{ request()->is('AddTermAndConditionData') ? 'active' : '' }} {{ request()->is('PrivacyPolicyData') ? 'active' : '' }} {{ request()->is('admin/News') ? 'active' : '' }} {{ request()->is('admin/contact_us') ? 'active' : '' }}{{ request()->is('admin/FAQ') ? 'active' : '' }}{{ request()->is('admin/AddTermAndConditionData') ? 'active' : '' }}{{ request()->is('admin/PrivacyPolicyData') ? 'active' : '' }}" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
                         <i class="ri-apps-2-line"></i> <span data-key="t-layouts" title="Admin Tools">Admin Tools</span>
                     </a>
-                    <div class="collapse menu-dropdown  {{ request()->is('admin/App_support') ? 'show' : '' }} {{ request()->is('Setting') ? 'show' : '' }}  {{ request()->is('admin/News') ? 'show' : '' }}  {{ request()->is('admin/contact_us') ? 'show' : '' }}{{ request()->is('admin/FAQ') ? 'show' : '' }}{{ request()->is('admin/AddTermAndConditionData') ? 'show' : '' }}{{ request()->is('admin/PrivacyPolicyData') ? 'show' : '' }}" id="sidebarLayouts">
+                    <div class="collapse menu-dropdown  {{ request()->is('help') ? 'show' : '' }} {{ request()->is('AddTermAndConditionData') ? 'show' : '' }}  {{ request()->is('PrivacyPolicyData') ? 'show' : '' }}  {{ request()->is('admin/contact_us') ? 'show' : '' }}{{ request()->is('admin/FAQ') ? 'show' : '' }}{{ request()->is('admin/AddTermAndConditionData') ? 'show' : '' }}{{ request()->is('admin/PrivacyPolicyData') ? 'show' : '' }}" id="sidebarLayouts">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item ">
-                                <a href="{{route('help')}}"  class="nav-link {{ request()->is('admin/FAQ') ? 'active' : '' }}" data-key="t-detached" title="FAQ">Help</a>
+                                <a href="{{route('help')}}"  class="nav-link {{ request()->is('help') ? 'active' : '' }}" data-key="t-detached" title="FAQ">Help</a>
                             </li>
 
                             <li class="nav-item ">
-                                <a href="{{route('AddTermAndConditionData')}}"  class="nav-link {{ request()->is('admin/AddTermAndConditionData') ? 'active' : '' }}" data-key="t-detached" title="Term & Conditions">Term & Conditions</a>
+                                <a href="{{route('AddTermAndConditionData')}}"  class="nav-link {{ request()->is('AddTermAndConditionData') ? 'active' : '' }}" data-key="t-detached" title="Term & Conditions">Term & Conditions</a>
                             </li>
                             <li class="nav-item ">
-                                <a href="{{route('PrivacyPolicyData')}}"  class="nav-link {{ request()->is('admin/PrivacyPolicyData') ? 'active' : '' }}" data-key="t-detached" title="Privacy Policy">Privacy Policy</a>
+                                <a href="{{route('PrivacyPolicyData')}}"  class="nav-link {{ request()->is('PrivacyPolicyData') ? 'active' : '' }}" data-key="t-detached" title="Privacy Policy">Privacy Policy</a>
                             </li>
 
                         </ul>
