@@ -2,8 +2,20 @@
 
 @section('content')
 <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center mt-sm-5 mb-4 text-white-50">
+                <div>
+                    <a class="d-inline-block auth-logo" style="margin-top: -90px">
+                        <img src="{{asset('assets/images/blue-owl.png')}}" alt="" height="200">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8" style="z-index: 99">
             <div class="card">
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
