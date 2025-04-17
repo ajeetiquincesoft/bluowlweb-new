@@ -43,6 +43,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/vendors', [VendorController::class, 'index'])->name('vendors');
     Route::get('/vendor-details/{id?}', [VendorController::class, 'vendordetail'])->name('vendor-details');
     Route::POST('/vendor-status-update/{id}', [VendorController::class, 'ChangeVendorStatus'])->name('vendor-status-update');
+    Route::post('/addVendor', [VendorController::class, 'addvendor'])->name('addVendor');
     //TransactionController
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');
 

@@ -131,15 +131,18 @@
                                     <h4 class=" px-2 py-4">Gallery</h4>
                                     <div class="gallery">
                                         <div>
-                                            <div class="scroll-wrapper d-flex flex-nowrap overflow-auto py-3" style="gap: 1rem;">
+                                            <div class="scroll-wrapper d-flex flex-nowrap overflow-auto py-3"
+                                                style="gap: 1rem;">
                                                 @foreach ($userMeta->vendorwithgallery as $imageData)
-                                                    <div class="gallery-wrapper" style="min-width: 200px; position: relative;">
+                                                    <div class="gallery-wrapper"
+                                                        style="min-width: 200px; position: relative;">
                                                         <img class="gallery-img"
                                                             src="{{ asset('storage/uploads/' . ($imageData->image ?? 'default.png')) }}"
                                                             alt=""
                                                             style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover;">
 
-                                                        <span class="view-icon" style="position: absolute; bottom: 10px; right: 10px;">
+                                                        <span class="view-icon"
+                                                            style="position: absolute; bottom: 10px; right: 10px;">
                                                             <a href="{{ asset('storage/uploads/' . $imageData->image) }}"
                                                                 download title="Download" style="color: white;">
                                                                 <i class="fas fa-download"></i>
@@ -367,14 +370,11 @@
 
                                         <!-- Location 1 -->
                                         <div style="min-width: 300px;">
-                                            <iframe
-                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2797.272592467303!2d77.65388447424512!3d27.49359363488905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397371610b6bbc8b%3A0x97268e8ea51f8590!2siQuinceSoft!5e1!3m2!1sen!2sin!4v1744711459113!5m2!1sen!2sin"
-                                                width="100%" height="200" style="border:0;" allowfullscreen=""
-                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            <div style="width:200px; height:150px" id="map"></div>
                                         </div>
 
                                         <!-- Location 2 -->
-                                        <div style="min-width: 300px;">
+                                        {{-- <div style="min-width: 300px;">
                                             <iframe src="https://www.google.com/maps/embed?pb=YOUR_SECOND_LOCATION_URL"
                                                 width="100%" height="200" style="border:0;" allowfullscreen=""
                                                 loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -385,7 +385,7 @@
                                             <iframe src="https://www.google.com/maps/embed?pb=YOUR_SECOND_LOCATION_URL"
                                                 width="100%" height="200" style="border:0;" allowfullscreen=""
                                                 loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                        </div>
+                                        </div> --}}
 
                                         <!-- Add more locations the same way -->
 
@@ -403,10 +403,43 @@
     </div>
     <!-- container-fluid -->
     </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOQvjHOXgCiNYrOHZawZbr0Z31Tu-yaIU&callback=initMap" async
+        defer></script>
     <script>
         function submitStatusForm(status) {
             document.getElementById('statusInput').value = status;
             document.getElementById('statusForm').submit();
         }
     </script>
+  <script>
+    function initMap() {
+        const dummyLocation = {
+            lat: 37.7749,
+            lng: -122.4194
+        }; // San Francisco
+
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 10,
+            center: dummyLocation,
+        });
+
+        const marker = new google.maps.Marker({
+            position: dummyLocation,
+            map: map,
+        });
+
+        // Add 10 km radius circle
+        const circle = new google.maps.Circle({
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#FF0000",
+            fillOpacity: 0.2,
+            map: map,
+            center: dummyLocation,
+            radius: 10000, // in meters
+        });
+    }
+</script>
+
 @endsection
