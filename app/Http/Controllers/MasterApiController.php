@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HelpCenter;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Mail;
@@ -589,7 +590,7 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
-    public function getHelpData( Request $request)
+    public function getHelpData(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -612,6 +613,40 @@ class MasterApiController extends Controller
             return response()->json(['message' => 'Database error occurred', 'success' => false], 500);
         } catch (\Exception $e) {
             return response()->json(['message' => 'An unexpected error occurred', 'success' => false], 500);
+        }
+    }
+    public function getNotificationData()
+    {
+        $settingData = Setting::where("user_id", Auth::id())->first();
+        return response()->json(['data' => $settingData, 'message' => 'Notification Data', 'success' => true]);
+    }
+    public function updateNotification(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'notification_status' => 'required|in:0,1',
+            ]);
+            $userId = auth()->id(); // or use your own logic for the user
+
+            $notificationStatus = $request->notification_status;
+
+            DB::table('settings')->updateOrInsert(
+                ['user_id' => $userId], // unique key
+                ['notification' => $notificationStatus]
+            );
+            DB::commit();
+            return response()->json([
+                'message' => 'Notification Data Submit',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
         }
     }
 }

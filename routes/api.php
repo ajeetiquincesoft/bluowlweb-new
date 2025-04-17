@@ -47,6 +47,8 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('addGalleryImage', [MasterApiController::class, 'addGalleryImage']);
     Route::POST('updateVendorMetaData', [MasterApiController::class, 'updateVendorMetaData']);
     Route::POST('getHelpData', [MasterApiController::class, 'getHelpData']);
+    Route::GET('getNotificationData', [MasterApiController::class, 'getNotificationData']);
+    Route::POST('updateNotification', [MasterApiController::class, 'updateNotification']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);

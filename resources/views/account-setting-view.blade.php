@@ -206,8 +206,29 @@
 
                                 <!--end tab-pane-->
                                 <div class="tab-pane" id="privacy" role="tabpanel">
+                                    <form id="notificationForm" action="{{ route('update-notification-setting') }}" method="POST">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <h5 class="card-title text-decoration-underline mb-3">Application Notifications:</h5>
+                                            <ul class="list-unstyled mb-0">
+                                                <li class="d-flex">
+                                                    <div class="flex-grow-1">
+                                                        <label for="directMessage" class="form-check-label fs-14">Notifications</label>
+                                                        <p class="text-muted">Allow to notify vendor payments, etc</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="directMessage"
+                                                                name="notification_status" value="1"
+                                                                {{ isset($setting) && $setting->notification ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </form>
 
-                                    <div class="mb-3">
+                                    {{-- <div class="mb-3">
                                         <h5 class="card-title text-decoration-underline mb-3">Application Notifications:
                                         </h5>
                                         <ul class="list-unstyled mb-0">
@@ -226,7 +247,7 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <!--end tab-pane-->
                             </div>
@@ -262,5 +283,10 @@
                 processData: false
             });
         }
+    </script>
+    <script>
+        document.getElementById('directMessage').addEventListener('change', function() {
+            document.getElementById('notificationForm').submit();
+        });
     </script>
 @endsection
