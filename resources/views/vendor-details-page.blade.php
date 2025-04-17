@@ -403,8 +403,8 @@
     </div>
     <!-- container-fluid -->
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOQvjHOXgCiNYrOHZawZbr0Z31Tu-yaIU&callback=initMap" async
-        defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=initMap" async defer></script>
+
     <script>
         function submitStatusForm(status) {
             document.getElementById('statusInput').value = status;
