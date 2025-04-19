@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\ChangeForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\HomeController;
@@ -30,6 +32,9 @@ use App\Http\Controllers\SettingController;
 Route::get('/', function () {
     return redirect('/login');
 });
+Route::get('forgotPassword', [ChangeForgotPasswordController::class, 'forgotPasswordChange'])->name('forgotPassword');
+Route::post('set_password/{id}', [ChangeForgotPasswordController::class, 'set_password'])->name('set_password');
+
 Route::get('Term_Conditions', [TermConditionController::class, 'index'])->name('Term_Conditions');
 Route::get('PrivacyPolicy', [PrivacyPolicyController::class, 'index'])->name('PrivacyPolicy');
 

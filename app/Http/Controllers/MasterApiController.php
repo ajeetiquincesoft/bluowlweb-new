@@ -255,6 +255,43 @@ class MasterApiController extends Controller
         $user->save();
         return response()->json(['message' => 'Password Update successfully', 'success' => true]);
     }
+
+    public function forgotPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['message' => $errors, 'success' => false], 400);
+        }
+        $Userdata = User::where('email', $request->email)->first();
+
+        if (!$Userdata) {
+            return response()->json([
+                'message' => 'User Not Found',
+                'success' => false,
+            ]);
+        }
+        $link = URL::to('/');
+        $encryptedId = encrypt($Userdata->id); // Laravel's encrypt() function
+        $url = $link . '/forgotPassword?key='.$encryptedId;
+        $data = [
+            'url' => $url,
+            'email' => $request->email,
+            'username' => $Userdata->name,
+            'title' => "Welcome to your new Aerie account with Blue Owl",
+            'body' => "Please check the link below to generate your password"
+        ];
+        $mail =  Mail::send('Mail.forgotPassword', ['data' => $data], function ($message) use ($data) {
+            $message->to($data['email'])
+                ->subject($data['title']);
+        });
+        return response()->json([
+            'message' => "Mail Send",
+            'success' => true,
+        ]);
+    }
     public function addVendorServiceArea(Request $request)
     {
         DB::beginTransaction();
@@ -656,7 +693,6 @@ class MasterApiController extends Controller
             $validator = Validator::make($request->all(), [
                 'service_id' => 'required',
             ]);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([

@@ -31,12 +31,13 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::POST('vendorRegister', [MasterApiController::class, 'vendorRegister']);
     Route::POST('login', [MasterApiController::class, 'Login']);
     Route::POST('signout', [MasterApiController::class, 'logout']);
+    Route::POST('forgotPassword', [MasterApiController::class, 'forgotPassword']);
 });
 Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router) {
     Route::GET('getservices', [MasterApiController::class, 'getservices']);
     Route::POST('gerServiceOffered', [MasterApiController::class, 'gerServiceOffered']);
     Route::POST('vendorMetaData', [MasterApiController::class, 'vendorMetaData']);
-    Route::POST('ChangePassword', [MasterApiController::class, 'ChangePassword']);
+    Route::POST('changePassword', [MasterApiController::class, 'ChangePassword']);
     Route::POST('addVendorServiceArea', [MasterApiController::class, 'addVendorServiceArea']);
     Route::POST('addVendorEmployee', [MasterApiController::class, 'addVendorEmployee']);
     Route::GET('getUserData', [MasterApiController::class, 'getUserData']);
