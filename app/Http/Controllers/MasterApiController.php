@@ -274,14 +274,18 @@ class MasterApiController extends Controller
             ]);
         }
         $link = URL::to('/');
-        $encryptedId = encrypt($Userdata->id); // Laravel's encrypt() function
-        $url = $link . '/forgotPassword?key='.$encryptedId;
+
+        $url = URL::temporarySignedRoute(
+            'forgotPassword',  // Route name
+            now()->addHour(),  // Expiration time (1 hour)
+            ['key' => encrypt($Userdata->id)] // Parameters passed to route
+        );
         $data = [
             'url' => $url,
             'email' => $request->email,
             'username' => $Userdata->name,
             'title' => "Welcome to your new Aerie account with Blue Owl",
-            'body' => "Please check the link below to generate your password"
+           'body' => "Click the link below to reset your password. This link will expire in 1 hour."
         ];
         $mail =  Mail::send('Mail.forgotPassword', ['data' => $data], function ($message) use ($data) {
             $message->to($data['email'])

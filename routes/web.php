@@ -32,7 +32,13 @@ use App\Http\Controllers\SettingController;
 Route::get('/', function () {
     return redirect('/login');
 });
-Route::get('forgotPassword', [ChangeForgotPasswordController::class, 'forgotPasswordChange'])->name('forgotPassword');
+
+Route::get('/forgotPassword', [ChangeForgotPasswordController::class, 'forgotPasswordChange'])
+    ->name('forgotPassword')
+    ->middleware('signed');
+
+
+//Route::get('forgotPassword', [ChangeForgotPasswordController::class, 'forgotPasswordChange'])->name('forgotPassword');
 Route::post('set_password/{id}', [ChangeForgotPasswordController::class, 'set_password'])->name('set_password');
 
 Route::get('Term_Conditions', [TermConditionController::class, 'index'])->name('Term_Conditions');
