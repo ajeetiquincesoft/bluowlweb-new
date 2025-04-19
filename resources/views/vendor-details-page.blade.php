@@ -370,7 +370,7 @@
 
                                         <!-- Location 1 -->
                                         <div style="min-width: 300px;">
-                                            <div style="width:200px; height:150px" id="map"></div>
+                                            <div style="width:250px; height:250px" id="map"></div>
                                         </div>
 
                                         <!-- Location 2 -->
