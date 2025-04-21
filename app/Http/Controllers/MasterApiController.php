@@ -710,15 +710,14 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
-            $serviceVendor = VendorService::where('service_id', $request->service_id)->pluck('id');
-
+            $serviceVendor = VendorService::where('service_id', $request->service_id)->pluck('user_id');
             $vendorArea = VendorServiceArea::whereIn('user_id', $serviceVendor)
                 ->where('status', '1')
                 ->get();
 
             return response()->json([
                 "data"=>  $vendorArea,
-                'message' => 'Area  Updated successfully',
+                'message' => 'Areas  data',
                 'success' => true,
             ]);
         } catch (\Exception $e) {
