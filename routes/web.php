@@ -15,6 +15,7 @@ use App\Http\Controllers\TermConditionController;
 use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +27,7 @@ use App\Http\Controllers\SettingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// ~
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -93,10 +92,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::GET('help', [HelpController::class, 'index'])->name('help');
     Route::POST('Add_FAQ', [HelpController::class, 'AddFAQData'])->name('Add_FAQ');
     Route::GET('delete_FAQ{id?}', [HelpController::class, 'DeleteFAQ'])->name('delete_FAQ');
+
     //SettingController
-    // web.php
     Route::post('/update-notification-setting', [SettingController::class, 'updateNotification'])->name('update-notification-setting');
 
+    //SubscriptionController
+    Route::GET('subscription', [SubscriptionController::class, 'index'])->name('subscription');
     // Route::view('/vendors-details', 'vendors-details');
     // Route::view('/transactions', 'transactions');
     // Route::view('/settings', 'settings');

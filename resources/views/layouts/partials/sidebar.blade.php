@@ -58,28 +58,44 @@
                     </a>
                 </li>
 
-
                 <li class="nav-item">
-                    <a class="nav-link menu-link  {{ request()->is('our-services') ? 'active' : '' }}" href="{{route('our-services')}}">
-                        <i class="fas fa-cogs" style="font-size: 20px;"></i> <span data-key="">Our Services</span>
+                    <a class="nav-link menu-link   {{ request()->is('our-services') ? 'active' : '' }} {{ request()->is('service-category') ? 'active' : '' }}  {{ request()->is('services-pricing') ? 'active' : '' }}" href="#serviceLayout" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                        <i class="fas fa-cogs" style="font-size: 20px;"></i> <span data-key="">Services</span>
                     </a>
-                </li>
+                    <div class="collapse menu-dropdown  {{ request()->is('our-services') ? 'show' : '' }} {{ request()->is('service-category') ? 'show' : '' }}  {{ request()->is('services-pricing') ? 'show' : '' }}" id="serviceLayout">
+                        <ul class="nav nav-sm flex-column">
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('service-category') ? 'active' : '' }}" href="{{route('service-category')}}">
-                        <i class="ri-apps-2-line" style="font-size: 20px;"></i> <span data-key="">Service Categories</span>
-                    </a>
-                </li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-link  {{ request()->is('our-services') ? 'active' : '' }}" href="{{route('our-services')}}">
+                                     Services Categories
+                                </a>
+                            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('services-pricing') ? 'active' : '' }}" href="{{route('servicesAndPricing')}}">
-                        <i class="ri-money-dollar-circle-line" style="font-size: 20px;"></i> <span data-key="t-widgets">Service & Pricing</span>
-                    </a>
-                </li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{ request()->is('service-category') ? 'active' : '' }}" href="{{route('service-category')}}">
+                                   Service Offered
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{ request()->is('services-pricing') ? 'active' : '' }}" href="{{route('servicesAndPricing')}}">
+                                    Service & Pricing
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li> <!-- end Dashboard Menu -->
 
                 <li class="nav-item">
                     <a class="nav-link menu-link  {{ request()->is('transactions') ? 'active' : '' }}" href="{{route('transactions')}}">
                         <i class="fas fa-file-invoice-dollar" style="font-size: 20px;"></i> <span data-key="t-widgets">Transactions</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link  {{ request()->is('subscription') ? 'active' : '' }}" href="{{route('subscription')}}">
+                        <i class=" ri-file-list-line" style="font-size: 20px;"></i> <span data-key="t-widgets">Subscription</span>
                     </a>
                 </li>
 

@@ -578,6 +578,7 @@ class MasterApiController extends Controller
                 ], 400);
             }
             $area = new VendorServiceArea();
+            $area->user_id=Auth::id();
             $area->latitude = $request->latitude;
             $area->longitude = $request->longitude;
             $area->address = $request->address;
