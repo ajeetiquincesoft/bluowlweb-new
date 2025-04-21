@@ -716,9 +716,33 @@ class MasterApiController extends Controller
     }
     public function deleteVendorArea(Request $request)
     {
-        $user_id=Auth::id();
-        $vendorArea=VendorServiceArea::where('user_id', $user_id)->get();
-        return response()->json(['data' => $vendorArea, 'message' => 'Area Data', 'success' => true]);
+
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'area_id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $area = VendorServiceArea::findoFail($request->area_id);
+            $area->delete();
+            DB::commit();
+            return response()->json([
+                'message' => 'Area  Delete successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
 
     }
 }
