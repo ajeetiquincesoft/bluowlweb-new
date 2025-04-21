@@ -707,4 +707,11 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
+    public function getVendorArea()
+    {
+        $user_id=Auth::id();
+        $vendorArea=VendorServiceArea::where('user_id', $user_id)->get();
+        return response()->json(['data' => $vendorArea, 'message' => 'Area Data', 'success' => true]);
+
+    }
 }

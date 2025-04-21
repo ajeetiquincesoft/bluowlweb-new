@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::GET('getNotificationData', [MasterApiController::class, 'getNotificationData']);
     Route::POST('updateNotification', [MasterApiController::class, 'updateNotification']);
     Route::POST('addVendorArea', [MasterApiController::class, 'addVendorArea']);
+    Route::POST('editVendorArea', [MasterApiController::class, 'editVendorArea']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);
