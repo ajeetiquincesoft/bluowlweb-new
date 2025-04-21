@@ -285,7 +285,7 @@ class MasterApiController extends Controller
             'email' => $request->email,
             'username' => $Userdata->name,
             'title' => "Welcome to your new Aerie account with Blue Owl",
-           'body' => "Click the link below to reset your password. This link will expire in 1 hour."
+            'body' => "Click the link below to reset your password. This link will expire in 1 hour."
         ];
         $mail =  Mail::send('Mail.forgotPassword', ['data' => $data], function ($message) use ($data) {
             $message->to($data['email'])
@@ -584,7 +584,7 @@ class MasterApiController extends Controller
                 ], 400);
             }
             $area = new VendorServiceArea();
-            $area->user_id=Auth::id();
+            $area->user_id = Auth::id();
             $area->latitude = $request->latitude;
             $area->longitude = $request->longitude;
             $area->address = $request->address;
@@ -704,6 +704,23 @@ class MasterApiController extends Controller
             $validator = Validator::make($request->all(), [
                 'service_id' => 'required',
             ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $serviceVendor = VendorService::where('service_id', $request->service_id)->pluck('id');
+
+            $vendorArea = VendorServiceArea::whereIn('user_id', $serviceVendor)
+                ->where('status', '1')
+                ->get();
+
+            return response()->json([
+                "data"=>  $vendorArea,
+                'message' => 'Area  Updated successfully',
+                'success' => true,
+            ]);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -715,10 +732,9 @@ class MasterApiController extends Controller
     }
     public function getVendorArea()
     {
-        $user_id=Auth::id();
-        $vendorArea=VendorServiceArea::where('user_id', $user_id)->get();
+        $user_id = Auth::id();
+        $vendorArea = VendorServiceArea::where('user_id', $user_id)->get();
         return response()->json(['data' => $vendorArea, 'message' => 'Area Data', 'success' => true]);
-
     }
     public function deleteVendorArea(Request $request)
     {
@@ -749,6 +765,5 @@ class MasterApiController extends Controller
                 'success' => false
             ], 500);
         }
-
     }
 }
