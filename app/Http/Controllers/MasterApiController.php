@@ -714,4 +714,11 @@ class MasterApiController extends Controller
         return response()->json(['data' => $vendorArea, 'message' => 'Area Data', 'success' => true]);
 
     }
+    public function deleteVendorArea(Request $request)
+    {
+        $user_id=Auth::id();
+        $vendorArea=VendorServiceArea::where('user_id', $user_id)->get();
+        return response()->json(['data' => $vendorArea, 'message' => 'Area Data', 'success' => true]);
+
+    }
 }
