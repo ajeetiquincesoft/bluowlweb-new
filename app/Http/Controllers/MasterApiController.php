@@ -431,7 +431,9 @@ class MasterApiController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'service_id'      => 'required',
+                'licence_number'      => 'required',
                 'cetegory_id'     => 'required|array',
+
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -440,6 +442,10 @@ class MasterApiController extends Controller
                 ], 400);
             }
             $user = User::findOrFail(Auth::id());
+            $user->yelp_url = $request->yelp ?? $user->yelp_url;
+            $user->website_url = $request->website ?? $user->website_url;
+            $user->licence_number = $request->licence_number ?? $user->licence_number;
+
             $user->about_service = $request->service_note ?? $user->about_service;
             if ($request->profile_pic) {
                 $imageData = $request->profile_pic;
