@@ -98,6 +98,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     //SubscriptionController
     Route::GET('subscription', [SubscriptionController::class, 'index'])->name('subscription');
+    Route::POST('addSubscription', [SubscriptionController::class, 'addSubscription'])->name('addSubscription');
+    Route::POST('editSubscription/{id}', [SubscriptionController::class, 'editSubscription'])->name('editSubscription');
     // Route::view('/vendors-details', 'vendors-details');
     // Route::view('/transactions', 'transactions');
     // Route::view('/settings', 'settings');
