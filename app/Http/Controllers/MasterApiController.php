@@ -765,4 +765,32 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
+    public function getUnicVendorData(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'user_id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $vendorData = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithgallery')->where('id', $request->user_id)->first();
+            return response()->json([
+                'data' => $vendorData,
+                'message' => 'Vendor Data retrieved successfully.',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
 }
