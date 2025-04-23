@@ -61,7 +61,7 @@ class MasterApiController extends Controller
             'token'      => $token,
             'token_type' => 'bearer',
             'User_type'  => Auth::user()->role,
-            'expires_in' => auth('api')->factory()->getTTL() * 600000,
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
             'success'    => true,
             'message' => "User Login Successfully"
         ]);
