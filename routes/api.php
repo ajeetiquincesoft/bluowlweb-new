@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     // Route::POST('deleteVendorArea', [MasterApiController::class, 'deleteVendorArea']);
     Route::GET('getVendorArea', [MasterApiController::class, 'getVendorArea']);
     Route::POST('fetchServiceVendors', [MasterApiController::class, 'fetchServiceVendors']);
+    Route::POST('getUnicVendorData', [MasterApiController::class, 'getUnicVendorData']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);
