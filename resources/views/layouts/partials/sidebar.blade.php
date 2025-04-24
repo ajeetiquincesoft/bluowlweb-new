@@ -77,11 +77,11 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link {{ request()->is('services-pricing') ? 'active' : '' }}" href="{{route('servicesAndPricing')}}">
                                     Service & Pricing
                                 </a>
-                            </li>
+                            </li> --}}
 
                         </ul>
                     </div>

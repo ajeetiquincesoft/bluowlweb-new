@@ -20,8 +20,11 @@ class CreateServicePricingsTable extends Migration
 
             $table->bigInteger('service_category_id')->unsigned();
             $table->foreign('service_category_id')->references('id')->on('service_categories')->onDelete('cascade');
-            
-            $table->string('Title')->nullable();
+
+            $table->bigInteger('vendor_user_id')->unsigned();
+            $table->foreign('vendor_user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->string('title')->nullable();
             $table->integer('value')->nullable();
             $table->integer('status')->comment('0 for Inactive  and 1 for Active')->default(1);
             $table->timestamps();
