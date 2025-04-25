@@ -847,7 +847,7 @@ class MasterApiController extends Controller
             $price->save();
             DB::commit();
             return response()->json([
-                'message' => 'Area Added successfully',
+                'message' => 'Service Price Added successfully',
                 'success' => true,
             ]);
         } catch (\Exception $e) {
