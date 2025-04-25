@@ -823,4 +823,42 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
+    public function addServicePricing(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'service_id' => 'required',
+                'service_category_id ' => 'required',
+                'vendor_user_id ' => 'required',
+                'title ' => 'required',
+                'value ' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $price = new ServicePricing();
+            $price->service_id = $request->service_id;
+            $price->service_category_id = $request->service_category_id;
+            $price->vendor_user_id = Auth::id();
+            $price->title =$request->title;
+            $price->value =$request->value;
+            $price->save();
+            DB::commit();
+            return response()->json([
+                'message' => 'Area Added successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
 }

@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::GET('getVendorArea', [MasterApiController::class, 'getVendorArea']);
     Route::POST('fetchServiceVendors', [MasterApiController::class, 'fetchServiceVendors']);
     Route::POST('getUnicVendorData', [MasterApiController::class, 'getUnicVendorData']);
+    Route::POST('addServicePricing', [MasterApiController::class, 'addServicePricing']);
     Route::POST('getServicePricing', [MasterApiController::class, 'getServicePricing']);
 });
 // Route::post('login', [UserController::class, 'login']);
