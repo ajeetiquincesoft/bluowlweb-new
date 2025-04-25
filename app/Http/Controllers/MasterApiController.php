@@ -717,7 +717,7 @@ class MasterApiController extends Controller
                 ->get();
 
             return response()->json([
-                "data"=>  $vendorArea,
+                "data" =>  $vendorArea,
                 'message' => 'Areas  data',
                 'success' => true,
             ]);
@@ -808,7 +808,7 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
-           $servicePricing=ServicePricing::where('service_id',$request->service_id)->where('service_category_id ',$request->service_category_id )->get();
+            $servicePricing = ServicePricing::where('service_id', $request->service_id)->where('service_category_id ', $request->service_category_id)->get();
             return response()->json([
                 'data' => $servicePricing,
                 'message' => 'Pricing  Data retrieved successfully.',
@@ -844,8 +844,8 @@ class MasterApiController extends Controller
             $price->service_id = $request->service_id;
             $price->service_category_id = $request->service_category_id;
             $price->vendor_user_id = Auth::id();
-            $price->title =$request->title;
-            $price->value =$request->value;
+            $price->title = $request->title;
+            $price->value = $request->value;
             $price->save();
             DB::commit();
             return response()->json([
@@ -860,5 +860,14 @@ class MasterApiController extends Controller
                 'success' => false
             ], 500);
         }
+    }
+    public function getVendorServiceOffer()
+    {
+        $vendorService = VendorServiceOffere::with('vendorserviceofferdata')->where('user_id',Auth::id())->get();
+        return response()->json([
+            'data' => $vendorService,
+            'message' => 'vendor Offer Data',
+            'success' => true,
+        ]);
     }
 }
