@@ -847,9 +847,9 @@ class MasterApiController extends Controller
 
             if ($exists) {
                 return response()->json([
-                    'message' => "Data already exists, please update instead.",
+                    'message' => "Data already exists, please update instead",
                     'success' => false
-                ], 409); // Conflict
+                ]); // Conflict
             }
 
             // Save new service pricing
@@ -864,9 +864,10 @@ class MasterApiController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => 'Service Price added successfully.',
+                'message' => 'Service Price added successfully',
                 'success' => true,
             ]);
+
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
