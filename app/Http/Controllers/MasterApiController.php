@@ -818,8 +818,7 @@ class MasterApiController extends Controller
         DB::beginTransaction();
         try {
             $validator = Validator::make($request->all(), [
-                'service_id' => 'required',
-                'service_category_id' => 'required',
+                'id' => 'required',
                 'value' => 'required',
             ]);
             if ($validator->fails()) {
@@ -828,6 +827,7 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
+
             $exists = ServicePricing::where('vendor_user_id', Auth::id())
                 ->where('service_id', $request->service_id)
                 ->where('service_category_id', $request->service_category_id)
@@ -838,10 +838,11 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 409); // 409 Conflict
             }
+            $vendorServiceOffered=VendorServiceOffere::find($request->id);
             $price = new ServicePricing();
-            $price->service_id = $request->service_id;
-            $price->service_category_id = $request->service_category_id;
-            $price->vendor_user_id = Auth::id();
+            $price->service_id = $vendorServiceOffered->service_id;
+            $price->service_category_id = $vendorServiceOffered->service_category_id;
+            $price->vendor_user_id = $vendorServiceOffered->user_id;
             $price->title = $request->title ?? "";
             $price->value = $request->value;
             $price->save();
