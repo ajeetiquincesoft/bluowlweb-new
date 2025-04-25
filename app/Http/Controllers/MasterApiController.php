@@ -798,7 +798,7 @@ class MasterApiController extends Controller
     {
         DB::beginTransaction();
         try {
-            $servicePricing = ServicePricing::with('servicewithpricing','categorywithpricing')->where('vendor_user_id',Auth::id())->get();
+            $servicePricing = ServicePricing::with('servicewithpricing', 'categorywithpricing')->where('vendor_user_id', Auth::id())->get();
             return response()->json([
                 'data' => $servicePricing,
                 'message' => 'Pricing  Data retrieved successfully.',
@@ -828,11 +828,21 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
+            $exists = ServicePricing::where('vendor_user_id', Auth::id())
+                ->where('service_id', $request->service_id)
+                ->where('service_category_id', $request->service_category_id)
+                ->exists();
+            if ($exists) {
+                return response()->json([
+                    'message' => ['Data already exists, please update instead.'],
+                    'success' => false
+                ], 409); // 409 Conflict
+            }
             $price = new ServicePricing();
             $price->service_id = $request->service_id;
             $price->service_category_id = $request->service_category_id;
             $price->vendor_user_id = Auth::id();
-            $price->title = $request->title??"";
+            $price->title = $request->title ?? "";
             $price->value = $request->value;
             $price->save();
             DB::commit();
@@ -851,7 +861,7 @@ class MasterApiController extends Controller
     }
     public function getVendorServiceOffer()
     {
-        $vendorService = VendorServiceOffere::with('vendorserviceofferdata')->where('user_id',Auth::id())->get();
+        $vendorService = VendorServiceOffere::with('vendorserviceofferdata')->where('user_id', Auth::id())->get();
         return response()->json([
             'data' => $vendorService,
             'message' => 'vendor Offer Data',
