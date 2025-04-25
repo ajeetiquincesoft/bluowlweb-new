@@ -874,7 +874,7 @@ class MasterApiController extends Controller
                 'message' => 'Something went wrong.',
                 'error'   => $e->getMessage(),
                 'success' => false
-            ], 500);
+            ]);
         }
     }
     public function getVendorServiceOffer()
