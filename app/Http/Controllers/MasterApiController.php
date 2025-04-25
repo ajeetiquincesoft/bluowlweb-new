@@ -829,8 +829,8 @@ class MasterApiController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'service_id' => 'required',
-                'service_category_id ' => 'required',
-                'value ' => 'required',
+                'service_category_id' => 'required',
+                'value' => 'required',
             ]);
             if ($validator->fails()) {
                 return response()->json([
