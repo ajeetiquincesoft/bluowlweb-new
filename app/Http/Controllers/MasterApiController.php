@@ -828,10 +828,16 @@ class MasterApiController extends Controller
                 ], 400);
             }
             $vendorServiceOffered=VendorServiceOffere::find($request->id);
+            if(!$vendorServiceOffered){
+                return response()->json([
+                    'message' => "Service Not Found.",
+                    'success' => false
+                ], 409); // 409 Conflict
+            }
             $exists = ServicePricing::where('vendor_user_id', Auth::id())
                 ->where('service_id', $vendorServiceOffered->service_id)
                 ->where('service_category_id', $vendorServiceOffered->service_category_id)
-                ->exists();
+                ->first();
             if ($exists) {
                 return response()->json([
                     'message' => "Data already exists, please update instead.",
