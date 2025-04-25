@@ -827,10 +827,10 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
-
+            $vendorServiceOffered=VendorServiceOffere::find($request->id);
             $exists = ServicePricing::where('vendor_user_id', Auth::id())
-                ->where('service_id', $request->service_id)
-                ->where('service_category_id', $request->service_category_id)
+                ->where('service_id', $vendorServiceOffered->service_id)
+                ->where('service_category_id', $vendorServiceOffered->service_category_id)
                 ->exists();
             if ($exists) {
                 return response()->json([
