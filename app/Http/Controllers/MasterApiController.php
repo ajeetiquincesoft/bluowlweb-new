@@ -830,8 +830,6 @@ class MasterApiController extends Controller
             $validator = Validator::make($request->all(), [
                 'service_id' => 'required',
                 'service_category_id ' => 'required',
-                'vendor_user_id ' => 'required',
-                'title ' => 'required',
                 'value ' => 'required',
             ]);
             if ($validator->fails()) {
@@ -844,7 +842,7 @@ class MasterApiController extends Controller
             $price->service_id = $request->service_id;
             $price->service_category_id = $request->service_category_id;
             $price->vendor_user_id = Auth::id();
-            $price->title = $request->title;
+            $price->title = $request->title??"";
             $price->value = $request->value;
             $price->save();
             DB::commit();
