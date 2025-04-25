@@ -834,7 +834,7 @@ class MasterApiController extends Controller
                 ->exists();
             if ($exists) {
                 return response()->json([
-                    'message' => ['Data already exists, please update instead.'],
+                    'message' => "Data already exists, please update instead.",
                     'success' => false
                 ], 409); // 409 Conflict
             }
