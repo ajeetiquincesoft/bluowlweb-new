@@ -838,6 +838,7 @@ class MasterApiController extends Controller
                 ->where('service_id', $vendorServiceOffered->service_id)
                 ->where('service_category_id', $vendorServiceOffered->service_category_id)
                 ->first();
+                dd( $exists);
             if ($exists) {
                 return response()->json([
                     'message' => "Data already exists, please update instead.",
