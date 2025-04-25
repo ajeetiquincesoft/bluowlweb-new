@@ -17,8 +17,8 @@ class CreateVendorServiceAreasTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('latitude')->nullable();;
-            $table->string('longitude')->nullable();;
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->string('address')->nullable();
             $table->integer('status')->comment('0 for Inactive  and 1 for Active')->default(1);
             $table->timestamps();
