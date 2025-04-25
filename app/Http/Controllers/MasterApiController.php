@@ -794,21 +794,11 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
-    public function getServicePricing(Request $request)
+    public function getServicePricing()
     {
         DB::beginTransaction();
         try {
-            $validator = Validator::make($request->all(), [
-                'service_id' => 'required',
-                'service_category_id ' => 'required',
-            ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    'message' => $validator->errors()->all(),
-                    'success' => false
-                ], 400);
-            }
-            $servicePricing = ServicePricing::where('service_id', $request->service_id)->where('service_category_id ', $request->service_category_id)->get();
+            $servicePricing = ServicePricing::with('servicewithpricing','categorywithpricing')->where('vendor_user_id',Auth::id())->get();
             return response()->json([
                 'data' => $servicePricing,
                 'message' => 'Pricing  Data retrieved successfully.',
