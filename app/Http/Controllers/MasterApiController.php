@@ -815,37 +815,44 @@ class MasterApiController extends Controller
     }
     public function addServicePricing(Request $request)
     {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
+
             $validator = Validator::make($request->all(), [
                 'id' => 'required',
                 'value' => 'required',
             ]);
+
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors()->all(),
                     'success' => false
                 ], 400);
             }
-            $vendorServiceOffered=VendorServiceOffere::find($request->id);
-            if(!$vendorServiceOffered){
+
+            $vendorServiceOffered = VendorServiceOffere::find($request->id);
+
+            if (!$vendorServiceOffered) {
                 return response()->json([
-                    'message' => "Service Not Found.",
+                    'message' => "Invalid Service ID.",
                     'success' => false
-                ], 409); // 409 Conflict
+                ], 409); // Conflict
             }
-            $exists = ServicePricing::where('vendor_user_id', Auth::id())
+
+            // Check for existing pricing data
+            $exists = ServicePricing::where('vendor_user_id', $vendorServiceOffered->user_id)
                 ->where('service_id', $vendorServiceOffered->service_id)
                 ->where('service_category_id', $vendorServiceOffered->service_category_id)
-                ->first();
-                dd( $exists);
+                ->exists();
+
             if ($exists) {
                 return response()->json([
                     'message' => "Data already exists, please update instead.",
                     'success' => false
-                ], 409); // 409 Conflict
+                ], 409); // Conflict
             }
-            $vendorServiceOffered=VendorServiceOffere::find($request->id);
+
+            // Save new service pricing
             $price = new ServicePricing();
             $price->service_id = $vendorServiceOffered->service_id;
             $price->service_category_id = $vendorServiceOffered->service_category_id;
@@ -853,15 +860,17 @@ class MasterApiController extends Controller
             $price->title = $request->title ?? "";
             $price->value = $request->value;
             $price->save();
+
             DB::commit();
+
             return response()->json([
-                'message' => 'Service Price Added successfully',
+                'message' => 'Service Price added successfully.',
                 'success' => true,
             ]);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
-                'message' => $e->getMessage(),
+                'message' => 'Something went wrong.',
                 'error'   => $e->getMessage(),
                 'success' => false
             ], 500);
