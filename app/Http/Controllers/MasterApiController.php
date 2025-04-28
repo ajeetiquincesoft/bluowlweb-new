@@ -886,4 +886,40 @@ class MasterApiController extends Controller
             'success' => true,
         ]);
     }
+    public function editServicePricing(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $validator = Validator::make($request->all(), [
+                'id' => 'required',
+                'value' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+
+            $price = ServicePricing::findOrFail($request->id);
+            $price->title = $request->title ?? "";
+            $price->value = $request->value;
+            $price->save();
+            DB::commit();
+            return response()->json([
+                'message' => 'Service price has been updated successfully',
+                'success' => true,
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => 'Something went wrong.',
+                'error'   => $e->getMessage(),
+                'success' => false
+            ]);
+        }
+    }
 }
