@@ -890,7 +890,6 @@ class MasterApiController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $validator = Validator::make($request->all(), [
                 'id' => 'required',
                 'value' => 'required',
@@ -900,7 +899,7 @@ class MasterApiController extends Controller
                 return response()->json([
                     'message' => $validator->errors()->all(),
                     'success' => false
-                ], 400);
+                ]);
             }
 
             $price = ServicePricing::findOrFail($request->id);
