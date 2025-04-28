@@ -779,7 +779,7 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
-            $vendorData = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithgallery')->where('id', $request->user_id)->first();
+            $vendorData = User::with('vendorservicedata.vendorserviveUserwithvendor', 'UserServicepricingdata.categorywithpricing', 'vendorwithgallery')->where('id', $request->user_id)->first();
             return response()->json([
                 'data' => $vendorData,
                 'message' => 'Vendor Data retrieved successfully.',
@@ -867,6 +867,7 @@ class MasterApiController extends Controller
                 'message' => 'Service Price added successfully',
                 'success' => true,
             ]);
+
 
         } catch (\Exception $e) {
             DB::rollback();
