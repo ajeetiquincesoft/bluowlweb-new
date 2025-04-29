@@ -955,9 +955,9 @@ class MasterApiController extends Controller
             $validator = Validator::make($request->all(), [
                 'vendor_id' => 'required|',
                 'total_amount' => 'required|numeric',
-                'latitude' => 'nullable|string',
-                'longitude' => 'nullable|string',
-                'user_address' => 'required|string',
+                'latitude' => 'nullable',
+                'longitude' => 'nullable',
+                'user_address' => 'required',
                 'items' => 'required|array',
 
             ]);
