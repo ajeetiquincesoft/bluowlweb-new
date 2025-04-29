@@ -17,4 +17,5 @@ class ServicePricing extends Model
         return $this->hasOne(ServiceCategory::class,'id','service_category_id');
 
     }
+
 }

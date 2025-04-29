@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\HelpCenter;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Service;
 use App\Models\ServiceCategory;
 use App\Models\ServicePricing;
@@ -256,7 +258,6 @@ class MasterApiController extends Controller
         $user->save();
         return response()->json(['message' => 'Password Update successfully', 'success' => true]);
     }
-
     public function forgotPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -867,8 +868,6 @@ class MasterApiController extends Controller
                 'message' => 'Service Price added successfully',
                 'success' => true,
             ]);
-
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -912,7 +911,6 @@ class MasterApiController extends Controller
                 'message' => 'Service price has been updated successfully',
                 'success' => true,
             ]);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -938,6 +936,64 @@ class MasterApiController extends Controller
             $vendorData = User::with('vendorservicedata.vendorserviveUserwithvendor', 'UserServicepricingdata.categorywithpricing')->where('id', $request->user_id)->first();
             return response()->json([
                 'data' => $vendorData,
+                'message' => 'Vendor Data retrieved successfully.',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
+    public function orderStore(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'vendor_id' => 'required|',
+                'total_amount' => 'required|numeric',
+                'latitude' => 'nullable|string',
+                'longitude' => 'nullable|string',
+                'user_address' => 'required|string',
+                'items' => 'required|array',
+
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $order = Order::create([
+                'customer_id' => Auth::id(),
+                'vendor_id' => $request->vendor_id,
+                'total_amount' =>$request->total_amount,
+                'latitude' =>$request->latitude,
+                'longitude' => $request->longitude,
+                'user_address' => $request->user_address,
+                'status' => '2',
+            ]);
+            foreach ($request->items as $item) {
+                $serviceCatData = ServicePricing::with('categorywithpricing', 'servicewithpricing')
+                ->where('vendor_user_id', $request->vendor_id)
+                ->where('service_category_id', $item['service_categories_id'])
+                ->get();
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'service_categories_id' => $item['service_categories_id'],
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price'],
+                    'status' => '1',
+                    'data'=>$serviceCatData->toJson()
+
+                ]);
+            }
+            DB::commit();
+            return response()->json([
+                'OrderId' => $order->id,
                 'message' => 'Vendor Data retrieved successfully.',
                 'success' => true,
             ]);
