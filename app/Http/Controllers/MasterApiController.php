@@ -994,7 +994,7 @@ class MasterApiController extends Controller
             DB::commit();
             return response()->json([
                 'OrderId' => $order->id,
-                'message' => 'Vendor Data retrieved successfully.',
+                'message' => 'Order Added Successfully.',
                 'success' => true,
             ]);
         } catch (\Exception $e) {
