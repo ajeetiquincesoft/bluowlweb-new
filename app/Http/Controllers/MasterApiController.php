@@ -1019,10 +1019,10 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
-            $vendorOrder=Order::with('OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem','CustomerDartaWithOrder',)->where('vendor_id',Auth::id())->get();
+            $vendorOrder=Order::with('OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem','CustomerDartaWithOrder')->where('vendor_id',Auth::id())->get();
             return response()->json([
                 'OrderId' => $vendorOrder,
-                'message' => 'Order Added Successfully.',
+                'message' => 'Order data.',
                 'success' => true,
             ]);
         } catch (\Exception $e) {

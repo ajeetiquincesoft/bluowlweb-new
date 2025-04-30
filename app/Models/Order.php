@@ -15,7 +15,7 @@ class Order extends Model
     }
     public function CustomerDartaWithOrder()
     {
-        return $this->hasone(User::class,'customer_id','id');
+        return $this->hasone(User::class,'id','customer_id');
     }
 
 }
