@@ -970,24 +970,24 @@ class MasterApiController extends Controller
             $order = Order::create([
                 'customer_id' => Auth::id(),
                 'vendor_id' => $request->vendor_id,
-                'total_amount' =>$request->total_amount,
-                'latitude' =>$request->latitude,
+                'total_amount' => $request->total_amount,
+                'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
                 'user_address' => $request->user_address,
                 'status' => '2',
             ]);
             foreach ($request->items as $item) {
                 $serviceCatData = ServicePricing::with('categorywithpricing', 'servicewithpricing')
-                ->where('vendor_user_id', $request->vendor_id)
-                ->where('service_category_id', $item['service_categories_id'])
-                ->get();
+                    ->where('vendor_user_id', $request->vendor_id)
+                    ->where('service_category_id', $item['service_categories_id'])
+                    ->get();
                 OrderItem::create([
                     'order_id' => $order->id,
                     'service_categories_id' => $item['service_categories_id'],
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                     'status' => '1',
-                    'data'=>$serviceCatData->toJson()
+                    'data' => $serviceCatData->toJson()
 
                 ]);
             }
@@ -1041,6 +1041,41 @@ class MasterApiController extends Controller
                 'error'   => $e->getMessage(),
                 'success' => false
             ], 500);
+        }
+    }
+    public function orderComplete(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'order_id' => 'required|exists:orders,id',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ]);
+            }
+
+            $orderData = Order::findOrFail($request->order_id);
+            $orderData->status = "1";
+            $orderData->save();
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Order completed.',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => 'An error occurred.',
+                'error'   => $e->getMessage(),
+                'success' => false
+            ]);
         }
     }
 }
