@@ -1025,7 +1025,7 @@ class MasterApiController extends Controller
             ])->where('vendor_id', Auth::id());
             if ($request->status === 'new') {
                 $query->where('status', 0);
-            } elseif ($request->status === 'complete') {
+            } elseif ($request->status === 'completed') {
                 $query->where('status', 1);
             }
             $vendorOrder = $query->get();
