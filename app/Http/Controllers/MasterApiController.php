@@ -1019,7 +1019,16 @@ class MasterApiController extends Controller
                     'success' => false
                 ], 400);
             }
-            $vendorOrder=Order::with('OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem','CustomerDartaWithOrder')->where('vendor_id',Auth::id())->get();
+            $query = Order::with([
+                'OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem',
+                'CustomerDartaWithOrder'
+            ])->where('vendor_id', Auth::id());
+            if ($request->status === 'new') {
+                $query->where('status', 0);
+            } elseif ($request->status === 'complete') {
+                $query->where('status', 1);
+            }
+            $vendorOrder = $query->get();
             return response()->json([
                 'VendorOrderData' => $vendorOrder,
                 'message' => 'Order data.',
