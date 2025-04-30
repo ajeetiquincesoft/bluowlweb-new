@@ -749,9 +749,9 @@ class MasterApiController extends Controller
                 return response()->json([
                     'message' => $validator->errors()->all(),
                     'success' => false
-                ], 400);
+                ]);
             }
-            $area = VendorServiceArea::findoFail($request->area_id);
+            $area = VendorServiceArea::findorFail($request->area_id);
             $area->delete();
             DB::commit();
             return response()->json([
@@ -764,7 +764,7 @@ class MasterApiController extends Controller
                 'message' => $e->getMessage(),
                 'error'   => $e->getMessage(),
                 'success' => false
-            ], 500);
+            ]);
         }
     }
     public function getUnicVendorData(Request $request)
