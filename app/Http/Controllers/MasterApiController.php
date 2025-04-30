@@ -1078,4 +1078,52 @@ class MasterApiController extends Controller
             ]);
         }
     }
+    public function customerProfileUpdate(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'phone' => 'required',
+                'gender' => 'required',
+                'name' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $user = User::findOrFail(Auth::id());
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->gender = $request->gender;
+            if ($request->profile_pic) {
+                $imageData = $request->profile_pic;
+                if (preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)) {
+                    $ext = strtolower($type[1]);
+                    if ($ext === 'jpeg') {
+                        $ext = 'jpg';
+                    }
+                    $filename = 'image_Profile' . time() . '.' . $ext;
+                    $image = substr($imageData, strpos($imageData, ',') + 1);
+                    $image = str_replace(' ', '+', $image);
+                    Storage::put('public/uploads/' . $filename, base64_decode($image));
+                    $user->profile_pic = $filename;
+                }
+            }
+            $user->save();
+            DB::commit();
+            return response()->json([
+                'message' => 'User Meta Updated successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
 }
