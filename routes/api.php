@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('updateNotification', [MasterApiController::class, 'updateNotification']);
     Route::POST('addVendorArea', [MasterApiController::class, 'addVendorArea']);
     Route::POST('editVendorArea', [MasterApiController::class, 'editVendorArea']);
-    // Route::POST('deleteVendorArea', [MasterApiController::class, 'deleteVendorArea']);
+    Route::POST('deleteVendorArea', [MasterApiController::class, 'deleteVendorArea']);
     Route::GET('getVendorArea', [MasterApiController::class, 'getVendorArea']);
     Route::POST('fetchServiceVendors', [MasterApiController::class, 'fetchServiceVendors']);
     Route::POST('getUnicVendorData', [MasterApiController::class, 'getUnicVendorData']);
