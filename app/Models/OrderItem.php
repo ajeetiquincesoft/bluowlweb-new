@@ -9,4 +9,8 @@ class OrderItem extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function ServiceCalegoryDataWithOrderitem()
+    {
+        return $this->hasone(ServiceCategory::class,'service_categories_id','id');
+    }
 }

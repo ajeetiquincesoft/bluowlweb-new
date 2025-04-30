@@ -1006,4 +1006,34 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
+    public function getVendorOrders(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'status' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $vendorOrder=Order::with('OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem','CustomerDartaWithOrder',)->where('vendor_id',Auth::id())->get();
+
+            DB::commit();
+            return response()->json([
+                'OrderId' => $vendorOrder,
+                'message' => 'Order Added Successfully.',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
 }

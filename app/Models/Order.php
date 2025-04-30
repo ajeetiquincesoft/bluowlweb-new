@@ -9,4 +9,13 @@ class Order extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function OrderitemDartaWithOrder()
+    {
+        return $this->hasMany(OrderItem::class,'order_id','id');
+    }
+    public function CustomerDartaWithOrder()
+    {
+        return $this->hasone(User::class,'customer_id','id');
+    }
+
 }
