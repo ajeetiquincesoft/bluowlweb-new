@@ -21,6 +21,8 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('vendor_id')->unsigned();
             $table->foreign('vendor_id')->references('id')->on('users')->onDelete('cascade');
 
+            $table->bigInteger('area_id')->unsigned();
+            $table->foreign('area_id')->references('id')->on('vendor_service_areas')->onDelete('cascade');
 
             $table->decimal('total_amount', 10, 2)->default(0);
             $table->string('latitude')->nullable();
