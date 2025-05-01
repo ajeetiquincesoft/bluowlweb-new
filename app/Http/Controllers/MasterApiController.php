@@ -954,6 +954,7 @@ class MasterApiController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'vendor_id' => 'required|',
+                'area_id' => 'required|',
                 'total_amount' => 'required|numeric',
                 'latitude' => 'nullable',
                 'longitude' => 'nullable',
@@ -969,6 +970,7 @@ class MasterApiController extends Controller
             }
             $order = Order::create([
                 'customer_id' => Auth::id(),
+                'area_id ' => $request->area_id,
                 'vendor_id' => $request->vendor_id,
                 'total_amount' => $request->total_amount,
                 'latitude' => $request->latitude,
