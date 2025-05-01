@@ -1131,7 +1131,7 @@ class MasterApiController extends Controller
         $customerOrder = Order::with([
             'OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem',
             'CustomerDartaWithOrder',
-            'VendorDartaWithOrder.vendorservicedata'
+            'VendorDartaWithOrder.vendorservicedata.vendorserviveUserwithvendor'
         ])->where('customer_id', Auth::id())->latest()
             ->take(20)
             ->get();
