@@ -1126,4 +1126,19 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
+    public function getCustomerOrderHistory()
+    {
+        $customerOrder = Order::with([
+            'OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem',
+            'CustomerDartaWithOrder',
+            'VendorDartaWithOrder.vendorservicedata'
+        ])->where('customer_id', Auth::id())->latest()
+            ->take(20)
+            ->get();
+        return response()->json([
+            'OrderHistory' => $customerOrder,
+            'message' => 'User Meta Updated successfully',
+            'success' => true,
+        ]);
+    }
 }

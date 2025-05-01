@@ -30,5 +30,9 @@ class Order extends Model
     {
         return $this->hasone(User::class,'id','customer_id');
     }
+    public function VendorDartaWithOrder()
+    {
+        return $this->hasone(User::class,'id','vendor_id');
+    }
 
 }

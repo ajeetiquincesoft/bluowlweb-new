@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('getVendorOrders', [MasterApiController::class, 'getVendorOrders']);
     Route::POST('orderComplete', [MasterApiController::class, 'orderComplete']);
     Route::POST('customerProfileUpdate', [MasterApiController::class, 'customerProfileUpdate']);
+    Route::GET('getCustomerOrderHistory', [MasterApiController::class, 'getCustomerOrderHistory']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);
