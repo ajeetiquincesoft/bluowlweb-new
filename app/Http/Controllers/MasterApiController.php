@@ -1151,6 +1151,7 @@ class MasterApiController extends Controller
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
+
         try {
             $validator = Validator::make($request->all(), [
                 'token_id' => 'required',
@@ -1166,7 +1167,7 @@ class MasterApiController extends Controller
             $charge = Charge::create([
                 'amount' => $orderData->total_amount * 100, // cents
                 'currency' => 'usd',
-                'description' => 'Web Payment',
+                'description' => 'order Payment',
                 'source' => $request->token_id,
             ]);
 
