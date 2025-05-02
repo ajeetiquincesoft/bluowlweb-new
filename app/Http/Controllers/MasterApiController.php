@@ -1182,7 +1182,8 @@ class MasterApiController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Payment successful!',
-                    'charge_id' => $charge->id
+                    'charge_id' => $charge->id,
+                    'success' => true
                 ]);
             } else {
                 $Payment = Payment::make();
@@ -1193,7 +1194,8 @@ class MasterApiController extends Controller
                 $Payment->save();
                 return response()->json([
                     'status' => 'failed',
-                    'message' => 'Payment failed!'
+                    'message' => 'Payment failed!',
+                    'success' => false
                 ]);
             }
         } catch (\Exception $e) {
