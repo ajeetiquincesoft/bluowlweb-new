@@ -1149,7 +1149,7 @@ class MasterApiController extends Controller
     }
     public function payWithCard(Request $request)
     {
-        Stripe::setApiKey(config('STRIPE_SECRET'));
+        Stripe::setApiKey(getenv('STRIPE_SECRET'));
 
 
         try {
