@@ -1167,7 +1167,7 @@ class MasterApiController extends Controller
             $charge = Charge::create([
                 'amount' => $orderData->total_amount * 100, // cents
                 'currency' => 'usd',
-                'description' => 'order Payment',
+                'description' => 'Order payment for order ' . $request->order_id . '.',
                 'source' => $request->token_id,
             ]);
 
