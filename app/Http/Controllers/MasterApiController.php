@@ -1210,7 +1210,6 @@ class MasterApiController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'order_id' => 'required',
-
             ]);
             if ($validator->fails()) {
                 return response()->json([
