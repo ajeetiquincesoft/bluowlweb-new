@@ -1150,8 +1150,6 @@ class MasterApiController extends Controller
     public function payWithCard(Request $request)
     {
         Stripe::setApiKey(getenv('STRIPE_SECRET'));
-
-
         try {
             $validator = Validator::make($request->all(), [
                 'token_id' => 'required',
@@ -1204,6 +1202,38 @@ class MasterApiController extends Controller
                 'status' => 'error',
                 'message' => $e->getMessage()
             ]);
+        }
+    }
+    public function getOrderdetails(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'order_id' => 'required',
+
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $OrderData = Order::with([
+                'OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem',
+                'CustomerDartaWithOrder',
+                'VendorDartaWithOrder.vendorservicedata.vendorserviveUserwithvendor'
+            ])->where('id',$request->order_id)->first();
+            return response()->json([
+                'OrderData'=>$OrderData,
+                'message' => 'Order Data Retrive successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
         }
     }
 }
