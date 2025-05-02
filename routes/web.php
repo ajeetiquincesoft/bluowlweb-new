@@ -14,8 +14,10 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TermConditionController;
 use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\MasterApiController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +102,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::GET('subscription', [SubscriptionController::class, 'index'])->name('subscription');
     Route::POST('addSubscription', [SubscriptionController::class, 'addSubscription'])->name('addSubscription');
     Route::POST('editSubscription/{id}', [SubscriptionController::class, 'editSubscription'])->name('editSubscription');
+    // Route::post('/pay', [MasterApiController::class, 'pay'])->name('pay-with-card');
+    // Route::GET('/Payment', [PaymentController::class, 'index'])->name('Payment');
     // Route::view('/vendors-details', 'vendors-details');
     // Route::view('/transactions', 'transactions');
     // Route::view('/settings', 'settings');

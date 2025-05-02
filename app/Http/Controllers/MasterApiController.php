@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HelpCenter;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Payment;
 use App\Models\Service;
 use App\Models\ServiceCategory;
 use App\Models\ServicePricing;
@@ -27,6 +28,9 @@ use App\Models\VendorService;
 use App\Models\VendorServiceArea;
 use App\Models\VendorServiceOffere;
 use Illuminate\Support\Facades\DB;
+use Stripe\Stripe;
+use Stripe\Token;
+use Stripe\Charge;
 
 class MasterApiController extends Controller
 {
@@ -1142,5 +1146,61 @@ class MasterApiController extends Controller
             'message' => 'User Meta Updated successfully',
             'success' => true,
         ]);
+    }
+    public function payWithCard(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        try {
+            $validator = Validator::make($request->all(), [
+                'token_id' => 'required',
+                'order_id' => 'required|exists:orders,id',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $orderData = Order::withoutGlobalScope('excludeStatus4')->find($request->order_id);
+            $charge = Charge::create([
+                'amount' => $orderData->total_amount * 100, // cents
+                'currency' => 'usd',
+                'description' => 'Web Payment',
+                'source' => $request->token_id,
+            ]);
+
+            if ($charge->status === 'succeeded') {
+                $orderData->status = "0";
+                $orderData->save();
+                $Payment = Payment::make();
+                $Payment->order_id = $request->order_id;
+                $Payment->token_id = $request->token_id;
+                $Payment->data =  json_encode($charge);
+                $Payment->status = "1";
+                $Payment->save();
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Payment successful!',
+                    'charge_id' => $charge->id
+                ]);
+            } else {
+                $Payment = Payment::make();
+                $Payment->order_id = $request->order_id;
+                $Payment->token_id = $request->token_id;
+                $Payment->data = json_decode($charge);
+                $Payment->status = "0";
+                $Payment->save();
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Payment failed!'
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 }

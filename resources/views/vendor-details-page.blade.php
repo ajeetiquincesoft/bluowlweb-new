@@ -1,5 +1,7 @@
 @extends('layouts.Myapp')
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://js.stripe.com/v3/"></script>
     <style>
         .gallery-wrapper {
             position: relative;
@@ -396,6 +398,53 @@
                             </div>
                         </div>
                     </div>
+                    <h2>Stripe Card Payment</h2>
+                    <form id="payment-form">
+                        <div id="card-element"><!-- Stripe Card input will be inserted here --></div>
+                        <button type="submit" id="submit">Pay</button>
+                    </form>
+
+                    <div id="payment-message"></div>
+
+                    <script>
+                        const stripe = Stripe('{{ env("STRIPE_KEY") }}');
+                        const elements = stripe.elements();
+                        const card = elements.create('card');
+                        card.mount('#card-element');
+
+                        const form = document.getElementById('payment-form');
+                        const message = document.getElementById('payment-message');
+
+                        form.addEventListener('submit', async (event) => {
+                            event.preventDefault();
+
+                            const { token, error } = await stripe.createToken(card);
+
+                            if (error) {
+                                message.textContent = error.message;
+                            } else {
+                                // Send token to backend
+                                fetch("{{ route('pay-with-card') }}", {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                    },
+                                    body: JSON.stringify({
+                                        token_id: token.id,
+                                        amount: 50 // $0.50 as example
+                                    })
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    message.textContent = data.message;
+                                })
+                                .catch(err => {
+                                    message.textContent = 'Error: ' + err.message;
+                                });
+                            }
+                        });
+                    </script>
                 </div><!-- end card-body -->
             </div>
         </div>
