@@ -33,7 +33,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::POST('login', [MasterApiController::class, 'Login']);
     Route::POST('signout', [MasterApiController::class, 'logout']);
     Route::POST('forgotPassword', [MasterApiController::class, 'forgotPassword']);
-    Route::post('webhook', [StripeWebhookController::class, 'handle']);
+    Route::post('stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 });
 Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router) {
     Route::GET('getservices', [MasterApiController::class, 'getservices']);
