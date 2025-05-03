@@ -1242,7 +1242,32 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
+    public function checkSubscriptionStatus(Request $request)
+    {
+        // Fetch the subscription record for the vendor
+        $subscription = Subscription::where('vendor_id', $request->vendor_id)
+            ->latest() // Get the latest subscription
+            ->first();
 
+        // Check if a subscription exists
+        if (!$subscription) {
+            return response()->json(['message' => 'Subscription not found'], 404);
+        }
+
+        // Check if the subscription is expired
+        $currentDate = Carbon::now();
+        $isExpired = $currentDate->greaterThan($subscription->ends_at);
+
+        // Determine the status based on whether it's expired
+        $status = $isExpired ? 'expired' : 'active';
+
+        return response()->json([
+            'vendor_id' => $vendor_id,
+            'subscription_status' => $status,
+            'starts_at' => $subscription->starts_at,
+            'ends_at' => $subscription->ends_at,
+        ]);
+    }
     public function createVendorSubscription(Request $request)
     {
         // Step 1: Validate the request data

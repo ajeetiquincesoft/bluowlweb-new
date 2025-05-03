@@ -155,7 +155,7 @@
 
                                         <div class="mb-3">
                                             <label for="description" class="form-label">Description</label>
-                                            <textarea class="form-control summernote" name="description" rows="3"
+                                            <textarea class="form-control " name="description" rows="3"
                                                 placeholder="Write a short plan description...">{{ $subscription->description }}</textarea>
                                         </div>
                                     </div>
@@ -220,7 +220,7 @@
 
                                         <div class="mb-3">
                                             <label for="description" class="form-label">Description</label>
-                                            <textarea class="form-control summernote" name="description" id="description" rows="3"
+                                            <textarea class="form-control " name="description" id="description" rows="3"
                                                 placeholder="Write a short plan description..."></textarea>
                                         </div>
                                     </div>
