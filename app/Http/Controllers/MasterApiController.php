@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\ServiceCategory;
 use App\Models\ServicePricing;
 use App\Models\Setting;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Mail;
@@ -27,10 +28,14 @@ use App\Models\VendorEmployee;
 use App\Models\VendorService;
 use App\Models\VendorServiceArea;
 use App\Models\VendorServiceOffere;
+use App\Models\VendorSubscription;
 use Illuminate\Support\Facades\DB;
 use Stripe\Stripe;
 use Stripe\Token;
 use Stripe\Charge;
+use Stripe\Checkout\Session;
+use Stripe\PaymentIntent;
+use Stripe\Customer;
 
 class MasterApiController extends Controller
 {
@@ -391,10 +396,12 @@ class MasterApiController extends Controller
         $user = User::findOrFail(Auth::id());
         $services = Service::where('status', "1")->get();
         $services_category = VendorService::where('user_id', Auth::id())->first();
+        $sub_data = Subscription::where('status', "1")->get();
         return response()->json([
             'userData' => $user,
             'services' => $services,
             'services_category' => $services_category,
+            'OrderHistory' => $sub_data,
             'message' => 'User Data retrieved successfully.',
             'success' => true,
         ]);
@@ -1221,9 +1228,9 @@ class MasterApiController extends Controller
                 'OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem',
                 'CustomerDartaWithOrder',
                 'VendorDartaWithOrder.vendorservicedata.vendorserviveUserwithvendor'
-            ])->where('id',$request->order_id)->first();
+            ])->where('id', $request->order_id)->first();
             return response()->json([
-                'OrderData'=>$OrderData,
+                'OrderData' => $OrderData,
                 'message' => 'Order Data Retrive successfully',
                 'success' => true,
             ]);
@@ -1234,5 +1241,85 @@ class MasterApiController extends Controller
                 'success' => false
             ], 500);
         }
+    }
+
+    public function createVendorSubscription(Request $request)
+    {
+        // Step 1: Validate the request data
+        $validator = Validator::make($request->all(), [
+            'stripeToken' => 'required', // Token must be a non-empty string
+            'subscription_id' => 'required|exists:subscriptions,id', // Subscription ID must exist in subscriptions table
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation Error',
+                'errors' => $validator->errors()
+            ], 422); // 422 Unprocessable Entity
+        }
+
+        // Get the subscription details
+        $subscription = Subscription::findOrFail($request->subscription_id);
+        $vendor = Auth::user();
+
+        // Set up Stripe API key
+        Stripe::setApiKey(getenv('STRIPE_SECRET'));
+
+        // Step 2: Create customer
+        try {
+            $customer = \Stripe\Customer::create([
+                'email' => $vendor->email,
+                'source' => $request->stripeToken,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error creating Stripe customer: ' . $e->getMessage()
+            ], 500);
+        }
+
+        // Step 3: Create subscription
+        try {
+            $subscriptionStripe = \Stripe\Subscription::create([
+                'customer' => $customer->id,
+                'items' => [
+                    ['price' => $subscription->stripe_price_id], // Subscription price ID
+                ],
+                'metadata' => [
+                    'subscription_id' => $subscription->id,
+                    'duration' => $subscription->duration,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error creating Stripe subscription: ' . $e->getMessage()
+            ], 500);
+        }
+
+        // Step 4: Save subscription details
+        try {
+            VendorSubscription::create([
+                'vendor_id' => $vendor->id,
+                'subscriptions_id' => $subscription->id,
+                'stripe_subscription_id' => $subscriptionStripe->id,
+                'starts_at' => now(),
+                'ends_at' => now()->addDays($subscription->duration), // Example
+                'status' => 1, // Active subscription
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error saving subscription details: ' . $e->getMessage()
+            ], 500);
+        }
+
+        // Step 5: Return success response
+        return response()->json([
+            'success' => true,
+            'message' => 'Subscription created successfully!'
+        ]);
     }
 }

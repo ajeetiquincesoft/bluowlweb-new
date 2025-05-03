@@ -69,6 +69,8 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('payWithCard', [MasterApiController::class, 'payWithCard']);
     Route::POST('getOrderdetails', [MasterApiController::class, 'getOrderdetails']);
 
+    Route::get('/vendor/subscription/success', [SubscriptionController::class, 'success']);
+    Route::get('/vendor/subscription/cancel', [SubscriptionController::class, 'cancel']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);

@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'price', 'duration', 'description', 'features', 'status'];
+    protected $fillable = ['name', 'stripe_price_id','price', 'duration', 'description', 'features', 'status'];
+    public function subscriptions()
+    {
+        return $this->hasMany(VendorSubscription::class);
+    }
 }

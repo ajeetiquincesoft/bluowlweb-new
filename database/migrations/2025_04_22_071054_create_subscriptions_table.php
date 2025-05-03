@@ -17,6 +17,7 @@ class CreateSubscriptionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('price', 8, 2);
+            $table->string('stripe_price_id'); // Stripe price ID
             $table->integer('duration'); // in days
             $table->text('description')->nullable();
             $table->json('features')->nullable(); // store features as array
