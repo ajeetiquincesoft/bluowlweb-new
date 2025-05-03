@@ -398,7 +398,7 @@
                             </div>
                         </div>
                     </div>
-                    <h2>Stripe Card Payment</h2>
+                    {{-- <h2>Stripe Card Payment</h2>
                     <form id="payment-form">
                         <div id="card-element"><!-- Stripe Card input will be inserted here --></div>
                         <button type="submit" id="submit">Pay</button>
@@ -444,7 +444,7 @@
                                 });
                             }
                         });
-                    </script>
+                    </script> --}}
                 </div><!-- end card-body -->
             </div>
         </div>

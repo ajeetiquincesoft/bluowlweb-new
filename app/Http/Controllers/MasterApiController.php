@@ -1262,7 +1262,7 @@ class MasterApiController extends Controller
         $status = $isExpired ? 'expired' : 'active';
 
         return response()->json([
-            'vendor_id' => $vendor_id,
+            'vendor_id' => $request->vendor_id,
             'subscription_status' => $status,
             'starts_at' => $subscription->starts_at,
             'ends_at' => $subscription->ends_at,
@@ -1328,7 +1328,7 @@ class MasterApiController extends Controller
         try {
             VendorSubscription::create([
                 'vendor_id' => $vendor->id,
-                'subscriptions_id' => $subscription->id,
+                'subscriptions_id' => $request->subscription_id,
                 'stripe_subscription_id' => $subscriptionStripe->id,
                 'starts_at' => now(),
                 'ends_at' => now()->addDays($subscription->duration), // Example
