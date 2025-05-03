@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\MasterApiController;
+use App\Http\Controllers\StripeWebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::POST('login', [MasterApiController::class, 'Login']);
     Route::POST('signout', [MasterApiController::class, 'logout']);
     Route::POST('forgotPassword', [MasterApiController::class, 'forgotPassword']);
+    Route::post('webhook', [StripeWebhookController::class, 'handle']);
 });
 Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router) {
     Route::GET('getservices', [MasterApiController::class, 'getservices']);
@@ -69,8 +71,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('payWithCard', [MasterApiController::class, 'payWithCard']);
     Route::POST('getOrderdetails', [MasterApiController::class, 'getOrderdetails']);
 
-    Route::get('/vendor/subscription/success', [SubscriptionController::class, 'success']);
-    Route::get('/vendor/subscription/cancel', [SubscriptionController::class, 'cancel']);
+
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);
