@@ -1273,7 +1273,7 @@ class MasterApiController extends Controller
         // Step 1: Validate the request data
         $validator = Validator::make($request->all(), [
             'stripeToken' => 'required', // Token must be a non-empty string
-            'subscription_id' => 'required|exists:subscriptions,id', // Subscription ID must exist in subscriptions table
+            'subscription_id' => 'required', // Subscription ID must exist in subscriptions table
         ]);
 
         // Check if validation fails
@@ -1323,17 +1323,16 @@ class MasterApiController extends Controller
                 'message' => 'Error creating Stripe subscription: ' . $e->getMessage()
             ], 500);
         }
-
         // Step 4: Save subscription details
         try {
-            VendorSubscription::create([
-                'vendor_id' => $vendor->id,
-                'subscriptions_id' => $request->subscription_id,
-                'stripe_subscription_id' => $subscriptionStripe->id,
-                'starts_at' => now(),
-                'ends_at' => now()->addDays($subscription->duration), // Example
-                'status' => 1, // Active subscription
-            ]);
+            $VendorSubscription=VendorSubscription::make();
+            $VendorSubscription->vendor_id =Auth::id();
+            $VendorSubscription->subscriptions_id = $request->subscription_id;
+            $VendorSubscription->stripe_subscription_id = $subscriptionStripe->id;
+            $VendorSubscription->starts_at =  now();
+            $VendorSubscription->ends_at = now()->addDays($subscription->duration);
+            $VendorSubscription->status = "1";
+            $VendorSubscription->save();
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
