@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class StripeWebhookController extends Controller
 {
-    public function handle(Request $request)
+    public function handleWebhook(Request $request)
     {
         $payload = $request->all();
         $eventType = $payload['type'] ?? '';
