@@ -406,7 +406,7 @@ class MasterApiController extends Controller
                 'services_category' => $services_category,
                 'sub_data' => $sub_data,
                 'isSubscribe' => false,
-                'isPaymentShow'=>0,
+                'isPaymentShow'=>1,
                 'message' => 'User Data retrieved successfully.',
                 'success' => true,
             ]);
@@ -422,7 +422,7 @@ class MasterApiController extends Controller
             'services_category' => $services_category,
             'sub_data' => $sub_data,
             'isSubscribe' => $status,
-            'isPaymentShow'=>0,
+            'isPaymentShow'=>1,
             'message' => 'User Data retrieved successfully.',
             'success' => true,
         ]);
