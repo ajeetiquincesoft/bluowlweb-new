@@ -397,13 +397,58 @@ class MasterApiController extends Controller
         $services = Service::where('status', "1")->get();
         $services_category = VendorService::where('user_id', Auth::id())->first();
         $sub_data = Subscription::where('status', "1")->get();
+
+        $VendorSubscription = VendorSubscription::where('vendor_id', Auth::id())->first();
+        if (!$VendorSubscription) {
+            return response()->json([
+                'userData' => $user,
+                'services' => $services,
+                'services_category' => $services_category,
+                'sub_data' => $sub_data,
+                'isSubscribe' => false,
+                'message' => 'User Data retrieved successfully.',
+                'success' => true,
+            ]);
+        }
+        $currentDate = Carbon::now();
+        $isExpired = $currentDate->greaterThan($VendorSubscription->ends_at);
+        $status = $isExpired ? false : true;
+
+
         return response()->json([
             'userData' => $user,
             'services' => $services,
             'services_category' => $services_category,
             'sub_data' => $sub_data,
+            'isSubscribe' => $status,
             'message' => 'User Data retrieved successfully.',
             'success' => true,
+        ]);
+    }
+    public function checkSubscriptionStatus(Request $request)
+    {
+        // Fetch the subscription record for the vendor
+        $subscription = Subscription::where('vendor_id', Auth::id())
+            ->latest() // Get the latest subscription
+            ->first();
+
+        // Check if a subscription exists
+        if (!$subscription) {
+            return response()->json(['message' => 'Subscription not found'], 404);
+        }
+
+        // Check if the subscription is expired
+        $currentDate = Carbon::now();
+        $isExpired = $currentDate->greaterThan($subscription->ends_at);
+
+        // Determine the status based on whether it's expired
+        $status = $isExpired ? 'expired' : 'active';
+
+        return response()->json([
+            'vendor_id' => $request->vendor_id,
+            'subscription_status' => $status,
+            'starts_at' => $subscription->starts_at,
+            'ends_at' => $subscription->ends_at,
         ]);
     }
     public function getEmployeeData()
@@ -1242,32 +1287,6 @@ class MasterApiController extends Controller
             ], 500);
         }
     }
-    public function checkSubscriptionStatus(Request $request)
-    {
-        // Fetch the subscription record for the vendor
-        $subscription = Subscription::where('vendor_id', $request->vendor_id)
-            ->latest() // Get the latest subscription
-            ->first();
-
-        // Check if a subscription exists
-        if (!$subscription) {
-            return response()->json(['message' => 'Subscription not found'], 404);
-        }
-
-        // Check if the subscription is expired
-        $currentDate = Carbon::now();
-        $isExpired = $currentDate->greaterThan($subscription->ends_at);
-
-        // Determine the status based on whether it's expired
-        $status = $isExpired ? 'expired' : 'active';
-
-        return response()->json([
-            'vendor_id' => $request->vendor_id,
-            'subscription_status' => $status,
-            'starts_at' => $subscription->starts_at,
-            'ends_at' => $subscription->ends_at,
-        ]);
-    }
     public function createVendorSubscription(Request $request)
     {
         // Step 1: Validate the request data
@@ -1325,8 +1344,8 @@ class MasterApiController extends Controller
         }
         // Step 4: Save subscription details
         try {
-            $VendorSubscription=VendorSubscription::make();
-            $VendorSubscription->vendor_id =Auth::id();
+            $VendorSubscription = VendorSubscription::make();
+            $VendorSubscription->vendor_id = Auth::id();
             $VendorSubscription->subscriptions_id = $request->subscription_id;
             $VendorSubscription->stripe_subscription_id = $subscriptionStripe->id;
             $VendorSubscription->starts_at =  now();
