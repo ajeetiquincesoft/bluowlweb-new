@@ -401,7 +401,7 @@ class MasterApiController extends Controller
             'userData' => $user,
             'services' => $services,
             'services_category' => $services_category,
-            'OrderHistory' => $sub_data,
+            'sub_data' => $sub_data,
             'message' => 'User Data retrieved successfully.',
             'success' => true,
         ]);
