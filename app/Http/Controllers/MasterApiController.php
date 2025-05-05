@@ -1399,7 +1399,7 @@ class MasterApiController extends Controller
             ]);
 
             // Optional: mark as cancelled in your DB
-            $VendorSub=VendorSubscription::where('id',$request->id)->get();
+            $VendorSub=VendorSubscription::findorFail($request->id);
             $VendorSub->status="0";
             $VendorSub->save();
             return response()->json(['message' => 'Subscription cancelled successfully.','success' => true]);
