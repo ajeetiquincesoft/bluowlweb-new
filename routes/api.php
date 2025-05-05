@@ -72,7 +72,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('getOrderdetails', [MasterApiController::class, 'getOrderdetails']);
     Route::POST('createVendorSubscription', [MasterApiController::class, 'createVendorSubscription']);
     Route::GET('getVendorSubscriptionData', [MasterApiController::class, 'getVendorSubscriptionData']);
-    Route::post('unsubscribe', [SubscriptionController::class, 'unsubscribe']);
+    Route::post('unsubscribe', [MasterApiController::class, 'unsubscribe']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);
