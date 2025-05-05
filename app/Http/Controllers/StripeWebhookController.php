@@ -17,7 +17,7 @@ class StripeWebhookController extends Controller
         if ($eventType === 'invoice.payment_succeeded') {
             $subscriptionId = $payload['data']['object']['subscription'];
 
-            $vendorSubscription = VendorSubscription::where('stripe_subscription_id', $subscriptionId)->first();
+            $vendorSubscription = VendorSubscription::where('stripe_subscription_id', $subscriptionId)->latest()->first();
 
             if ($vendorSubscription) {
                 // Get duration again if needed from subscriptions table
