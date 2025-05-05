@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -32,8 +33,9 @@ class VendorController extends Controller
     public function vendordetail(Request $request, $id)
     {
         $vendor_id = Crypt::decrypt($id);
+        $orderData=Order::with('OrderitemDartaWithOrder')->where('vendor_id',$vendor_id)->get();
         $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithemployee', 'vendorwithgallery')->where('id', $vendor_id)->first();
-        return view('vendor-details-page', compact('userMeta'));
+        return view('vendor-details-page', compact('userMeta','orderData'));
     }
     public function ChangeVendorStatus(Request $request, $id)
     {

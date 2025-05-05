@@ -1,7 +1,7 @@
 @extends('layouts.Myapp')
 @section('content')
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="https://js.stripe.com/v3/"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
         .gallery-wrapper {
             position: relative;
@@ -110,14 +110,13 @@
                                         Areas
                                     </a>
                                 </li>
-                                <li class="nav-item" role="presentation">
+                                {{-- <li class="nav-item" role="presentation">
                                     <a class="nav-link " data-bs-toggle="tab" href="#settings1" role="tab"
                                         aria-selected="true">
                                         Transactions
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
-
                             <!-- Tab panes -->
                             <div class="tab-content text-muted">
                                 <div class="tab-pane active show" id="home1" role="tabpanel">
@@ -398,6 +397,88 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Vendor Orders</h5>
+                            <div class="listjs-table" id="customerList">
+                                <div class="table-responsive table-card mt-3 mb-1">
+                                    <table class="table align-middle table-nowrap" id="customerTable">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th scope="col" style="width: 50px;">
+
+                                                </th>
+                                                <th  data-sort="order_id">Order Id </th>
+                                                <th  data-sort="customer_name">Company Name</th>
+                                                <th  data-sort="email"> Date</th>
+                                                <th  data-sort="phone">Customer Name </th>
+                                                <th  data-sort="date">Amount ($)</th>
+                                                <th  data-sort="status">Status</th>
+                                                <th >Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list form-check-all">
+                                            @foreach($orderData as $data)
+                                            <tr>
+                                                <th scope="row">
+
+                                                </th>
+                                                <th class="order_id">#{{$data->id}}</th>
+                                                <td class="id" style="display:none;"><a href="javascript:void(0);"
+                                                        class="fw-medium link-primary">#VZ10</a></td>
+                                                <td class="customer_name">Timothy Smith</td>
+                                                <td class="email">timothysmith@velzon.com</td>
+                                                <td class="phone">973-277-6950</td>
+                                                <td class="date">$10</td>
+                                                <td class="status"><span
+                                                        class="badge badge-soft-success text-uppercase">Active</span>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <div class="edit">
+                                                            <button class="btn btn-sm btn-success edit-item-btn"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#showModal">View</button>
+                                                        </div>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div class="noresult" style="display: none">
+                                        <div class="text-center">
+                                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                                colors="primary:#121331,secondary:#08a88a"
+                                                style="width:75px;height:75px"></lord-icon>
+                                            <h5 class="mt-2">Sorry! No Result Found</h5>
+                                            <p class="text-muted mb-0">We've searched more than 150+ Orders We did
+                                                not find any orders for you search.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-end">
+                                    <div class="pagination-wrap hstack gap-2" style="display: flex;">
+                                        <a class="page-item pagination-prev disabled" href="javascrpit:void(0)">
+                                            Previous
+                                        </a>
+                                        <ul class="pagination listjs-pagination mb-0">
+                                            <li class="active"><a class="page" href="#" data-i="1"
+                                                    data-page="8">1</a></li>
+                                            <li><a class="page" href="#" data-i="2" data-page="8">2</a>
+                                            </li>
+                                        </ul>
+                                        <a class="page-item pagination-next" href="javascrpit:void(0)">
+                                            Next
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end card -->
+                    </div>
+
                     {{-- <h2>Stripe Card Payment</h2>
                     <form id="payment-form">
                         <div id="card-element"><!-- Stripe Card input will be inserted here --></div>
@@ -452,7 +533,8 @@
     </div>
     <!-- container-fluid -->
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap" async defer>
+    </script>
 
     <script>
         function submitStatusForm(status) {
@@ -460,35 +542,35 @@
             document.getElementById('statusForm').submit();
         }
     </script>
-  <script>
-    function initMap() {
-        const dummyLocation = {
-            lat: 37.7749,
-            lng: -122.4194
-        }; // San Francisco
+    <script>
+        function initMap() {
+            const dummyLocation = {
+                lat: 37.7749,
+                lng: -122.4194
+            }; // San Francisco
 
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 10,
-            center: dummyLocation,
-        });
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 10,
+                center: dummyLocation,
+            });
 
-        const marker = new google.maps.Marker({
-            position: dummyLocation,
-            map: map,
-        });
+            const marker = new google.maps.Marker({
+                position: dummyLocation,
+                map: map,
+            });
 
-        // Add 10 km radius circle
-        const circle = new google.maps.Circle({
-            strokeColor: "#FF0000",
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: "#FF0000",
-            fillOpacity: 0.2,
-            map: map,
-            center: dummyLocation,
-            radius: 10000, // in meters
-        });
-    }
-</script>
+            // Add 10 km radius circle
+            const circle = new google.maps.Circle({
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FF0000",
+                fillOpacity: 0.2,
+                map: map,
+                center: dummyLocation,
+                radius: 10000, // in meters
+            });
+        }
+    </script>
 
 @endsection
