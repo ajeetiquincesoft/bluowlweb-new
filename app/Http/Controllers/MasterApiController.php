@@ -397,8 +397,9 @@ class MasterApiController extends Controller
         $services = Service::where('status', "1")->get();
         $services_category = VendorService::where('user_id', Auth::id())->first();
         $sub_data = Subscription::where('status', "1")->get();
-
-        $VendorSubscription = VendorSubscription::where('vendor_id', Auth::id())->first();
+        $VendorSubscription = VendorSubscription::where('vendor_id', Auth::id())
+            ->latest() // by default, uses 'created_at' column
+            ->first();
         if (!$VendorSubscription) {
             return response()->json([
                 'userData' => $user,
@@ -1397,10 +1398,10 @@ class MasterApiController extends Controller
             $subscription->cancel();
 
             // Optional: mark as cancelled in your DB
-            $VendorSub=VendorSubscription::findorFail($request->id);
-            $VendorSub->status="0";
+            $VendorSub = VendorSubscription::findorFail($request->id);
+            $VendorSub->status = "0";
             $VendorSub->save();
-            return response()->json(['message' => 'Subscription cancelled successfully.','success' => true]);
+            return response()->json(['message' => 'Subscription cancelled successfully.', 'success' => true]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
