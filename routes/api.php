@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('payWithCard', [MasterApiController::class, 'payWithCard']);
     Route::POST('getOrderdetails', [MasterApiController::class, 'getOrderdetails']);
     Route::POST('createVendorSubscription', [MasterApiController::class, 'createVendorSubscription']);
-    Route::POST('getVendorSubscriptionData', [MasterApiController::class, 'getVendorSubscriptionData']);
+    Route::GET('getVendorSubscriptionData', [MasterApiController::class, 'getVendorSubscriptionData']);
 
 
 });
