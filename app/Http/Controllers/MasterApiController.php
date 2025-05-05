@@ -406,7 +406,7 @@ class MasterApiController extends Controller
                 'services_category' => $services_category,
                 'sub_data' => $sub_data,
                 'isSubscribe' => false,
-                'isPaymentShow'=>0,
+                'isPaymentShow' => 0,
                 'message' => 'User Data retrieved successfully.',
                 'success' => true,
             ]);
@@ -422,7 +422,7 @@ class MasterApiController extends Controller
             'services_category' => $services_category,
             'sub_data' => $sub_data,
             'isSubscribe' => $status,
-            'isPaymentShow'=>0,
+            'isPaymentShow' => 0,
             'message' => 'User Data retrieved successfully.',
             'success' => true,
         ]);
@@ -1369,12 +1369,40 @@ class MasterApiController extends Controller
     }
     public function getVendorSubscriptionData()
     {
-        $sub=VendorSubscription::with('plan')->where('vendor_id',Auth::id())->get();
+        $sub = VendorSubscription::with('plan')->where('vendor_id', Auth::id())->get();
         return response()->json([
-            'VendorSubscription'=>$sub,
+            'VendorSubscription' => $sub,
             'success' => true,
             'message' => 'Subscription Data!'
         ]);
+    }
+    public function unsubscribe(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required', // Token must be a non-empty string
+            'subscription_id' => 'required', // Subscription ID must exist in subscriptions table
+        ]);
 
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->all(),
+                'success' => false
+            ], 400);
+        }
+        try {
+            $subscriptionId = $request->input('subscription_id');
+            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            $subscription = \Stripe\Subscription::retrieve($subscriptionId);
+            $subscription->cancel(['at_period_end' => true]);
+
+            // Optional: mark as cancelled in your DB
+            $VendorSub=VendorSubscription::where('id',$request->id)->get();
+            $VendorSub->status="0";
+            $VendorSub->save();
+            return response()->json(['message' => 'Subscription cancelled successfully.','success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }

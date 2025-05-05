@@ -24,15 +24,30 @@ class Order extends Model
     }
     public function OrderitemDartaWithOrder()
     {
-        return $this->hasMany(OrderItem::class,'order_id','id');
+        return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
     public function CustomerDartaWithOrder()
     {
-        return $this->hasone(User::class,'id','customer_id');
+        return $this->hasone(User::class, 'id', 'customer_id');
     }
     public function VendorDartaWithOrder()
     {
-        return $this->hasone(User::class,'id','vendor_id');
+        return $this->hasone(User::class, 'id', 'vendor_id');
     }
-
+    public function VendorAreaData()
+    {
+        return $this->hasone(VendorServiceArea::class, 'id', 'area_id');
+    }
+    public function getCustomerData($id)
+    {
+        return($this->CustomerDartaWithOrder()->whereId($id)->first())? $this->CustomerDartaWithOrder()->whereId($id)->first():'';
+    }
+    public function getVendorData($id)
+    {
+        return($this->VendorDartaWithOrder()->whereId($id)->first())? $this->VendorDartaWithOrder()->whereId($id)->first():'';
+    }
+    public function getVendorAreaData($id)
+    {
+        return($this->VendorAreaData()->whereId($id)->first())? $this->VendorAreaData()->whereId($id)->first():'';
+    }
 }

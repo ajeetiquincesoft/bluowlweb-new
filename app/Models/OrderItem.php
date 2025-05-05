@@ -11,6 +11,10 @@ class OrderItem extends Model
     protected $guarded = [];
     public function ServiceCalegoryDataWithOrderitem()
     {
-        return $this->hasone(ServiceCategory::class,'id','service_categories_id');
+        return $this->hasone(ServiceCategory::class, 'id', 'service_categories_id');
+    }
+    public function getServiceCategoryData($id)
+    {
+        return ($this->ServiceCalegoryDataWithOrderitem()->whereId($id)->first()) ? $this->ServiceCalegoryDataWithOrderitem()->whereId($id)->first() : '';
     }
 }

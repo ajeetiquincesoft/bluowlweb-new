@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\ChangeForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VendorController;
@@ -14,10 +13,9 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TermConditionController;
 use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\HelpController;
-use App\Http\Controllers\MasterApiController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ManageOrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +100,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::GET('subscription', [SubscriptionController::class, 'index'])->name('subscription');
     Route::POST('addSubscription', [SubscriptionController::class, 'addSubscription'])->name('addSubscription');
     Route::POST('editSubscription/{id}', [SubscriptionController::class, 'editSubscription'])->name('editSubscription');
+
+    Route::GET('ShowOrderdatadetails/{id}', [ManageOrdersController::class, 'ShowOrderdatadetails'])->name('ShowOrderdatadetails');
     // Route::post('/pay', [MasterApiController::class, 'pay'])->name('pay-with-card');
     // Route::GET('/Payment', [PaymentController::class, 'index'])->name('Payment');
     // Route::view('/vendors-details', 'vendors-details');

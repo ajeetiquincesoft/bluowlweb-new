@@ -408,42 +408,49 @@
                                                 <th scope="col" style="width: 50px;">
 
                                                 </th>
-                                                <th  data-sort="order_id">Order Id </th>
-                                                <th  data-sort="customer_name">Company Name</th>
-                                                <th  data-sort="email"> Date</th>
-                                                <th  data-sort="phone">Customer Name </th>
-                                                <th  data-sort="date">Amount ($)</th>
-                                                <th  data-sort="status">Status</th>
-                                                <th >Action</th>
+                                                <th data-sort="order_id">Order Id </th>
+                                                <th data-sort="customer_name">Company Name</th>
+                                                <th data-sort="email"> Date</th>
+                                                <th data-sort="phone">Customer Name </th>
+                                                <th data-sort="date">Amount ($)</th>
+                                                <th data-sort="status">Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody class="list form-check-all">
-                                            @foreach($orderData as $data)
-                                            <tr>
-                                                <th scope="row">
+                                            @foreach ($orderData as $data)
+                                                <tr>
+                                                    <th scope="row">
 
-                                                </th>
-                                                <th class="order_id">#{{$data->id}}</th>
-                                                <td class="id" style="display:none;"><a href="javascript:void(0);"
-                                                        class="fw-medium link-primary">#VZ10</a></td>
-                                                <td class="customer_name">Timothy Smith</td>
-                                                <td class="email">timothysmith@velzon.com</td>
-                                                <td class="phone">973-277-6950</td>
-                                                <td class="date">$10</td>
-                                                <td class="status"><span
-                                                        class="badge badge-soft-success text-uppercase">Active</span>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex gap-2">
-                                                        <div class="edit">
-                                                            <button class="btn btn-sm btn-success edit-item-btn"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#showModal">View</button>
+                                                    </th>
+                                                    <th class="order_id">#{{ $data->id }}</th>
+                                                    <td class="customer_name">
+                                                        {{ $data->getVendorData($data->vendor_id)->name }}</td>
+                                                    <td class="date">{{ $data->created_at->format('M-d-y') }}</td>
+                                                    <td class="customer_name">
+                                                        {{ $data->getCustomerData($data->customer_id)->name }}</td>
+                                                    <td class="date">${{ $data->total_amount }}</td>
+                                                    <td class="status">
+                                                        @if ($data->status == 0)
+                                                            <span class="badge badge-soft-warning">Pending</span>
+                                                        @elseif ($data->status == 1)
+                                                            <span class="badge badge-soft-success">Complete</span>
+                                                        @elseif ($data->status == 2)
+                                                            <span class="badge badge-soft-success">Due To Payment</span>
+                                                            <p></p>
+                                                        @elseif ($data->status == 3)
+                                                            <span class="badge badge-soft-danger">Cancelled</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex gap-2">
+                                                            <a
+                                                                href="{{ route('ShowOrderdatadetails', ['id' => Crypt::encrypt($data->id)]) }}"><button
+                                                                    title="view"
+                                                                    class="btn btn-sm btn-success edit-item-btn">View</button></a>
                                                         </div>
-
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
