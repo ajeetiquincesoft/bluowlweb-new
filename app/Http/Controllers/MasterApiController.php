@@ -1394,9 +1394,7 @@ class MasterApiController extends Controller
             $subscriptionId = $request->input('subscription_id');
             \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             $subscription = \Stripe\Subscription::retrieve($subscriptionId);
-            $subscription = \Stripe\Subscription::update($subscriptionId, [
-                'cancel_at_period_end' => true,
-            ]);
+            $subscription->cancel();
 
             // Optional: mark as cancelled in your DB
             $VendorSub=VendorSubscription::findorFail($request->id);
