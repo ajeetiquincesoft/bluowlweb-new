@@ -494,6 +494,8 @@ class MasterApiController extends Controller
                 'service_id'      => 'required',
                 'licence_number'      => 'required',
                 'cetegory_id'     => 'required|array',
+                'name'     => 'required|array',
+                'phone'     => 'required|array',
 
             ]);
             if ($validator->fails()) {
@@ -506,6 +508,8 @@ class MasterApiController extends Controller
             $user->yelp_url = $request->yelp ?? $user->yelp_url;
             $user->website_url = $request->website ?? $user->website_url;
             $user->licence_number = $request->licence_number ?? $user->licence_number;
+            $user->name = $request->name;
+            $user->phone = $request->phone;
 
             $user->about_service = $request->service_note ?? $user->about_service;
             if ($request->profile_pic) {
