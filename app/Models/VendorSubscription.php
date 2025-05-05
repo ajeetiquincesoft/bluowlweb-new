@@ -12,7 +12,7 @@ class VendorSubscription extends Model
 
     public function plan()
     {
-        return $this->belongsTo(Subscription::class, 'subscriptions_id');
+        return $this->hasOne(Subscription::class,'id','subscriptions_id');
     }
 
     public function vendor()

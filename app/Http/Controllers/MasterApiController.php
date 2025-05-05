@@ -1367,4 +1367,14 @@ class MasterApiController extends Controller
             'message' => 'Subscription created successfully!'
         ]);
     }
+    public function getVendorSubscriptionData()
+    {
+        $sub=VendorSubscription::with('plan')->where('vendor_id',Auth::id())->get();
+        return response()->json([
+            'VendorSubscription'=>$sub,
+            'success' => true,
+            'message' => 'Subscription Data!'
+        ]);
+
+    }
 }
