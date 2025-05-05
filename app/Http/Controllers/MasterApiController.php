@@ -494,8 +494,8 @@ class MasterApiController extends Controller
                 'service_id'      => 'required',
                 'licence_number'      => 'required',
                 'cetegory_id'     => 'required|array',
-                'name'     => 'required|array',
-                'phone'     => 'required|array',
+                'name'     => 'required',
+                'phone'     => 'required',
 
             ]);
             if ($validator->fails()) {
