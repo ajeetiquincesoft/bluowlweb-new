@@ -467,20 +467,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-end">
-                                    <div class="pagination-wrap hstack gap-2" style="display: flex;">
-                                        <a class="page-item pagination-prev disabled" href="javascrpit:void(0)">
-                                            Previous
-                                        </a>
-                                        <ul class="pagination listjs-pagination mb-0">
-                                            <li class="active"><a class="page" href="#" data-i="1"
-                                                    data-page="8">1</a></li>
-                                            <li><a class="page" href="#" data-i="2" data-page="8">2</a>
-                                            </li>
-                                        </ul>
-                                        <a class="page-item pagination-next" href="javascrpit:void(0)">
-                                            Next
-                                        </a>
-                                    </div>
+                                    {{ $orderData->links('vendor.pagination.custom') }}
                                 </div>
                             </div>
                         </div><!-- end card -->

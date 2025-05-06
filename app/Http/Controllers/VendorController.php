@@ -18,7 +18,7 @@ class VendorController extends Controller
     //
     public function vendors(Request $request)
     {
-        $vendors = User::with('services.offers')->where('role', 'vendor')->orderBy('id', 'DESC')->paginate(10);
+        $vendors = User::with('services.offers')->where('role', 'vendor')->orderBy('id', 'DESC')->paginate(getenv('PAGE_LIMIT'));
         return view('vendors', [
             'vendors' => $vendors
         ]);
@@ -33,7 +33,7 @@ class VendorController extends Controller
     public function vendordetail(Request $request, $id)
     {
         $vendor_id = Crypt::decrypt($id);
-        $orderData=Order::with('OrderitemDartaWithOrder')->where('vendor_id',$vendor_id)->get();
+        $orderData=Order::with('OrderitemDartaWithOrder')->where('vendor_id',$vendor_id)->paginate(getenv('PAGE_LIMIT'));
         $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithemployee', 'vendorwithgallery')->where('id', $vendor_id)->first();
         return view('vendor-details-page', compact('userMeta','orderData'));
     }

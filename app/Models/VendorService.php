@@ -12,5 +12,9 @@ class VendorService extends Model
     {
         return $this->hasOne(Service::class,'id','service_id');
     }
+    public function getServiceData($id)
+    {
+        return($this->vendorserviveUserwithvendor()->whereId($id)->first())? $this->vendorserviveUserwithvendor()->whereId($id)->first():'';
+    }
 
 }

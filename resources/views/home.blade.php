@@ -23,7 +23,7 @@
                                             </p>
                                             <div class="d-flex align-items-center mb-3">
                                                 <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
-                                                        data-target="{{$customer_count}}">0</span></h4>
+                                                        data-target="{{ $customer_count }}">0</span></h4>
 
                                             </div>
                                         </div>
@@ -45,7 +45,7 @@
                                             <p class="text-uppercase fw-medium text-muted mb-3">Total Vendors</p>
                                             <div class="d-flex align-items-center mb-3">
                                                 <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
-                                                        data-target="{{$vendor_count}}">0</span></h4>
+                                                        data-target="{{ $vendor_count }}">0</span></h4>
 
                                             </div>
                                         </div>
@@ -136,240 +136,59 @@
                 <div class="col-xl-7">
                     <div class="card card-height-100">
                         <div class="card-header d-flex align-items-center">
-                            <h4 class="card-title flex-grow-1 mb-0">Recent Activity</h4>
-                            <div class="flex-shrink-0">
-                                <a href="javascript:void(0);" class="btn btn-soft-info btn-sm">Export Report</a>
-                            </div>
+                            <h4 class="card-title flex-grow-1 mb-0">Recent Orders</h4>
+
                         </div><!-- end cardheader -->
                         <div class="card-body">
                             <div class="table-responsive table-card">
                                 <table class="table table-nowrap table-centered align-middle">
                                     <thead class="bg-light text-muted">
                                         <tr>
-                                            <th scope="col">Project Name</th>
-                                            <th scope="col">Project Lead</th>
-                                            <th scope="col">Progress</th>
-                                            <th scope="col">Assignee</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col" style="width: 10%;">Due Date</th>
+                                            <th scope="col">Order Id</th>
+                                            <th data-sort="customer_name">Company Name</th>
+                                            <th data-sort="email"> Date</th>
+                                            <th data-sort="phone">Customer Name </th>
+                                            <th data-sort="date">Amount ($)</th>
+                                            <th data-sort="status">Status</th>
+                                            <th data-sort="status">Action</th>
                                         </tr><!-- end tr -->
                                     </thead><!-- thead -->
 
                                     <tbody>
-                                        <tr>
-                                            <td class="fw-medium">Brand Logo Design</td>
-                                            <td>
-                                                <img src="assets/images/users/avatar-1.jpg"
-                                                    class="avatar-xxs rounded-circle me-1" alt="">
-                                                <a href="javascript: void(0);" class="text-reset">Donald Risher</a>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-1 text-muted fs-13">53%</div>
-                                                    <div class="progress progress-sm  flex-grow-1" style="width: 68%;">
-                                                        <div class="progress-bar bg-primary rounded" role="progressbar"
-                                                            style="width: 53%" aria-valuenow="53" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
+                                        @foreach ($orderData as $data)
+                                            <tr>
+                                                <th class="order_id">#{{ $data->id }}</th>
+                                                <td class="customer_name">
+                                                    {{ $data->getVendorData($data->vendor_id)->name }}</td>
+                                                <td class="date">{{ $data->created_at->format('M-d-y') }}</td>
+                                                <td class="customer_name">
+                                                    {{ $data->getCustomerData($data->customer_id)->name }}</td>
+                                                <td class="date">${{ $data->total_amount }}</td>
+                                                <td class="status">
+                                                    @if ($data->status == 0)
+                                                        <span class="badge badge-soft-warning">Pending</span>
+                                                    @elseif ($data->status == 1)
+                                                        <span class="badge badge-soft-success">Complete</span>
+                                                    @elseif ($data->status == 2)
+                                                        <span class="badge badge-soft-success">Due To Payment</span>
+                                                        <p></p>
+                                                    @elseif ($data->status == 3)
+                                                        <span class="badge badge-soft-danger">Cancelled</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <a
+                                                            href="{{ route('ShowOrderdatadetails', ['id' => Crypt::encrypt($data->id)]) }}"><button
+                                                                title="view"
+                                                                class="btn btn-sm btn-success edit-item-btn">View</button></a>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group flex-nowrap">
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-1.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-2.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-3.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge badge-soft-warning">Inprogress</span></td>
-                                            <td class="text-muted">06 Sep 2021</td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="fw-medium">Redesign - Landing Page</td>
-                                            <td>
-                                                <img src="assets/images/users/avatar-2.jpg"
-                                                    class="avatar-xxs rounded-circle me-1" alt="">
-                                                <a href="javascript: void(0);" class="text-reset">Prezy William</a>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 text-muted me-1">0%</div>
-                                                    <div class="progress progress-sm flex-grow-1" style="width: 68%;">
-                                                        <div class="progress-bar bg-primary rounded" role="progressbar"
-                                                            style="width: 0%" aria-valuenow="0" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group">
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-5.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-6.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge badge-soft-danger">Pending</span></td>
-                                            <td class="text-muted">13 Nov 2021</td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="fw-medium">Multipurpose Landing Template</td>
-                                            <td>
-                                                <img src="assets/images/users/avatar-3.jpg"
-                                                    class="avatar-xxs rounded-circle me-1" alt="">
-                                                <a href="javascript: void(0);" class="text-reset">Boonie Hoynas</a>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 text-muted me-1">100%</div>
-                                                    <div class="progress progress-sm flex-grow-1" style="width: 68%;">
-                                                        <div class="progress-bar bg-primary rounded" role="progressbar"
-                                                            style="width: 100%" aria-valuenow="100" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group">
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-7.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-8.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge badge-soft-success">Completed</span></td>
-                                            <td class="text-muted">26 Nov 2021</td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="fw-medium">Chat Application</td>
-                                            <td>
-                                                <img src="assets/images/users/avatar-5.jpg"
-                                                    class="avatar-xxs rounded-circle me-1" alt="">
-                                                <a href="javascript: void(0);" class="text-reset">Pauline Moll</a>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 text-muted me-1">64%</div>
-                                                    <div class="progress flex-grow-1 progress-sm" style="width: 68%;">
-                                                        <div class="progress-bar bg-primary rounded" role="progressbar"
-                                                            style="width: 64%" aria-valuenow="64" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group">
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-2.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge badge-soft-warning">Progress</span></td>
-                                            <td class="text-muted">15 Dec 2021</td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="fw-medium">Create Wireframe</td>
-                                            <td>
-                                                <img src="assets/images/users/avatar-6.jpg"
-                                                    class="avatar-xxs rounded-circle me-1" alt="">
-                                                <a href="javascript: void(0);" class="text-reset">James Bangs</a>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 text-muted me-1">77%</div>
-                                                    <div class="progress flex-grow-1 progress-sm" style="width: 68%;">
-                                                        <div class="progress-bar bg-primary rounded" role="progressbar"
-                                                            style="width: 77%" aria-valuenow="77" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group">
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-1.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-6.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                    <div class="avatar-group-item">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="assets/images/users/avatar-4.jpg" alt=""
-                                                                class="rounded-circle avatar-xxs">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge badge-soft-warning">Progress</span></td>
-                                            <td class="text-muted">21 Dec 2021</td>
-                                        </tr><!-- end tr -->
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody><!-- end tbody -->
                                 </table><!-- end table -->
                             </div>
-
-                            <div class="align-items-center mt-xl-3 mt-4 justify-content-between d-flex">
-                                <div class="flex-shrink-0">
-                                    <div class="text-muted">Showing <span class="fw-semibold">5</span> of <span
-                                            class="fw-semibold">25</span> Results </div>
-                                </div>
-                                <ul class="pagination pagination-separated pagination-sm mb-0">
-                                    <li class="page-item disabled">
-                                        <a href="#" class="page-link">←</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">1</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">→</a>
-                                    </li>
-                                </ul>
-                            </div>
-
                         </div><!-- end card body -->
                     </div><!-- end card -->
                 </div><!-- end col -->
@@ -400,153 +219,43 @@
                                     <thead class="table-light text-muted">
                                         <tr>
                                             <th scope="col">Member</th>
-                                            <th scope="col">Hours</th>
-                                            <th scope="col">Tasks</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Joining Date</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Licence Number</th>
+                                            <th scope="col">Phone </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="d-flex">
-                                                <img src="assets/images/users/avatar-1.jpg" alt=""
-                                                    class="avatar-xs rounded-3 me-2">
-                                                <div>
-                                                    <h5 class="fs-13 mb-0">Donald Risher</h5>
-                                                    <p class="fs-12 mb-0 text-muted">Product Manager</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 class="mb-0">110h : <span class="text-muted">150h</span></h6>
-                                            </td>
-                                            <td>
-                                                258
-                                            </td>
-                                            <td style="width:5%;">
-                                                <div id="radialBar_chart_1" data-colors='["--vz-primary"]'
-                                                    data-chart-series="50" class="apex-charts" dir="ltr"></div>
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="d-flex">
-                                                <img src="assets/images/users/avatar-2.jpg" alt=""
-                                                    class="avatar-xs rounded-3 me-2">
-                                                <div>
-                                                    <h5 class="fs-13 mb-0">Jansh Brown</h5>
-                                                    <p class="fs-12 mb-0 text-muted">Lead Developer</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 class="mb-0">83h : <span class="text-muted">150h</span></h6>
-                                            </td>
-                                            <td>
-                                                105
-                                            </td>
-                                            <td>
-                                                <div id="radialBar_chart_2" data-colors='["--vz-primary"]'
-                                                    data-chart-series="45" class="apex-charts" dir="ltr"></div>
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="d-flex">
-                                                <img src="assets/images/users/avatar-7.jpg" alt=""
-                                                    class="avatar-xs rounded-3 me-2">
-                                                <div>
-                                                    <h5 class="fs-13 mb-0">Carroll Adams</h5>
-                                                    <p class="fs-12 mb-0 text-muted">Lead Designer</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 class="mb-0">58h : <span class="text-muted">150h</span></h6>
-                                            </td>
-                                            <td>
-                                                75
-                                            </td>
-                                            <td>
-                                                <div id="radialBar_chart_3" data-colors='["--vz-primary"]'
-                                                    data-chart-series="75" class="apex-charts" dir="ltr"></div>
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="d-flex">
-                                                <img src="assets/images/users/avatar-4.jpg" alt=""
-                                                    class="avatar-xs rounded-3 me-2">
-                                                <div>
-                                                    <h5 class="fs-13 mb-0">William Pinto</h5>
-                                                    <p class="fs-12 mb-0 text-muted">UI/UX Designer</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 class="mb-0">96h : <span class="text-muted">150h</span></h6>
-                                            </td>
-                                            <td>
-                                                85
-                                            </td>
-                                            <td>
-                                                <div id="radialBar_chart_4" data-colors='["--vz-warning"]'
-                                                    data-chart-series="25" class="apex-charts" dir="ltr"></div>
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="d-flex">
-                                                <img src="assets/images/users/avatar-6.jpg" alt=""
-                                                    class="avatar-xs rounded-3 me-2">
-                                                <div>
-                                                    <h5 class="fs-13 mb-0">Garry Fournier</h5>
-                                                    <p class="fs-12 mb-0 text-muted">Web Designer</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 class="mb-0">76h : <span class="text-muted">150h</span></h6>
-                                            </td>
-                                            <td>
-                                                69
-                                            </td>
-                                            <td>
-                                                <div id="radialBar_chart_5" data-colors='["--vz-primary"]'
-                                                    data-chart-series="60" class="apex-charts" dir="ltr"></div>
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="d-flex">
-                                                <img src="assets/images/users/avatar-5.jpg" alt=""
-                                                    class="avatar-xs rounded-3 me-2">
-                                                <div>
-                                                    <h5 class="fs-13 mb-0">Susan Denton</h5>
-                                                    <p class="fs-12 mb-0 text-muted">Lead Designer</p>
-                                                </div>
-                                            </td>
+                                        @foreach ($vendorData as $item)
+                                            {{-- {{dd($item)}} --}}
+                                            <tr>
+                                                <td class="d-flex">
+                                                    <img src="{{ asset('storage/uploads/' . ($item->profile_pic ?? 'default.png')) }}"
+                                                        alt="" class="avatar-xs rounded-3 me-2">
+                                                    <div>
+                                                        <h5 class="fs-13 mb-0">{{ $item->name }}</h5>
+                                                        <p class="fs-12 mb-0 text-muted">
+                                                            {{ $item->vendorservicedata->getServiceData($item->vendorservicedata->service_id)->name }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="text-muted">{{ $item->created_at->format('M-d-Y') }}</p>
+                                                </td>
+                                                <td>
+                                                    <h6 class="mb-0 text-muted">{{ $item->email }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6 class="mb-0 text-muted">{{ $item->licence_number }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6 class="mb-0 text-muted">{{ $item->phone }}</h6>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
-                                            <td>
-                                                <h6 class="mb-0">123h : <span class="text-muted">150h</span></h6>
-                                            </td>
-                                            <td>
-                                                658
-                                            </td>
-                                            <td>
-                                                <div id="radialBar_chart_6" data-colors='["--vz-success"]'
-                                                    data-chart-series="85" class="apex-charts" dir="ltr"></div>
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td class="d-flex">
-                                                <img src="assets/images/users/avatar-3.jpg" alt=""
-                                                    class="avatar-xs rounded-3 me-2">
-                                                <div>
-                                                    <h5 class="fs-13 mb-0">Joseph Jackson</h5>
-                                                    <p class="fs-12 mb-0 text-muted">React Developer</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 class="mb-0">117h : <span class="text-muted">150h</span></h6>
-                                            </td>
-                                            <td>
-                                                125
-                                            </td>
-                                            <td>
-                                                <div id="radialBar_chart_7" data-colors='["--vz-primary"]'
-                                                    data-chart-series="70" class="apex-charts" dir="ltr"></div>
-                                            </td>
-                                        </tr><!-- end tr -->
+
                                     </tbody><!-- end tbody -->
                                 </table><!-- end table -->
                             </div>
@@ -559,19 +268,26 @@
         </div>
         <!-- container-fluid -->
     </div>
+
     <script>
+        // Laravel data to JS
+        const serviceLabels = @json($serviceOrders->pluck('service_name'));
+        const serviceData = @json($serviceOrders->pluck('total_orders'));
+
         const ctx = document.getElementById('topServicesChart').getContext('2d');
         const topServicesChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['Locksmith', 'Plumber', 'Electrician'],
+                labels: serviceLabels,
                 datasets: [{
                     label: 'Order Numbers',
-                    data: [25, 30, 15],
+                    data: serviceData,
                     backgroundColor: [
-                        '#36A2EB', // blue
-                        '#FF6384', // red
-                        '#FFCE56' // yellow
+                        '#36A2EB',
+                        '#FF6384',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#9966FF'
                     ],
                     borderColor: '#fff',
                     borderWidth: 2
