@@ -28,10 +28,11 @@
                                 <div class="card">
                                     <div class="row g-0">
                                         <div class="col-md-4">
-                                            <img class="rounded-start img-fluid h-100 object-cover"
-                                                src="{{ $value->profile_pic ? asset('storage/uploads/' . $value->profile_pic) : asset('storage/uploads/17436829592146840487PI.png') }}"
-                                                alt="Vendor Profile image">
-
+                                            <div class="profile-img-wrapper" style="width: 150px; height: 150px; overflow: hidden;">
+                                                <img class="rounded-circle w-100 h-100 object-fit-cover"
+                                                    src="{{ $value->profile_pic ? asset('storage/uploads/' . $value->profile_pic) : asset('storage/uploads/17436829592146840487PI.png') }}"
+                                                    alt="Vendor Profile image">
+                                            </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-header">
