@@ -196,7 +196,7 @@
                 <div class="col-xl-5">
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1 py-1">My Tasks</h4>
+                            <h4 class="card-title mb-0 flex-grow-1 py-1">Top Services</h4>
                         </div><!-- end card header -->
                         <div class="card-body">
                             <canvas id="topServicesChart" width="400" height="400"></canvas>

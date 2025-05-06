@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,5 +93,11 @@ class UserController extends Controller
             return redirect()->back();
         }
 
+    }
+    public function showCustomerOrder($id)
+    {
+        $customer_id = Crypt::decrypt($id);
+        $orderData=Order::with('OrderitemDartaWithOrder')->where('customer_id',$customer_id)->paginate(getenv('PAGE_LIMIT'));
+        return view('viewCustomerAllOrderData',compact('orderData'));
     }
 }

@@ -73,6 +73,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(ServicePricing::class,'vendor_user_id','id');
     }
+    public function OrderWithUser()
+    {
+        return $this->hasMany(Order::class,'customer_id','id');
+    }
 
 
 }

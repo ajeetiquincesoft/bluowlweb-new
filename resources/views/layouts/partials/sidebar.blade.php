@@ -47,13 +47,13 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('customers') ? 'active' : '' }}" href="{{route('customers')}}">
+                    <a class="nav-link menu-link {{ request()->is('customers') ? 'active' : '' }}{{ request()->is('ShowCustomerOrder*') ? 'active' : '' }}" href="{{route('customers')}}">
                         <i class="fas fa-users" style="font-size: 20px;"></i> <span data-key="">Customer</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('vendors') ? 'active' : '' }}" href="{{route('vendors')}}">
+                    <a class="nav-link menu-link {{ request()->is('vendors') ? 'active' : '' }} {{ request()->is('vendor-details*') ? 'active' : '' }}" href="{{route('vendors')}}">
                         <i class="fas fa-user-cog" style="font-size: 20px;"></i> <span data-key="">Vendors</span>
                     </a>
                 </li>
@@ -92,6 +92,13 @@
                         <i class="fas fa-file-invoice-dollar" style="font-size: 20px;"></i> <span data-key="t-widgets">Transactions</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link  {{ request()->is('Order') ? 'active' : '' }}" href="{{route('Order')}}">
+                        <i class=" ri-shopping-bag-line" style="font-size: 20px;"></i> <span data-key="t-widgets">Orders</span>
+                    </a>
+                </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link menu-link  {{ request()->is('subscription') ? 'active' : '' }}" href="{{route('subscription')}}">

@@ -16,6 +16,7 @@ use App\Http\Controllers\HelpController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ManageOrdersController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('changepassword', [UserController::class, 'changepassword'])->name('changepassword');
     Route::POST('Profile_Image_update', [UserController::class, 'profileImageUpdate'])->name('Profile_Image_update');
     Route::POST('update_profile', [UserController::class, 'updateProfile'])->name('update_profile');
+    Route::GET('ShowCustomerOrder/{id}', [UserController::class, 'showCustomerOrder'])->name('ShowCustomerOrder');
 
     //ServiceCategoriesController
     Route::get('/service-category', [ServiceCategoriesController::class, 'index'])->name('service-category');
@@ -102,6 +104,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::POST('editSubscription/{id}', [SubscriptionController::class, 'editSubscription'])->name('editSubscription');
 
     Route::GET('ShowOrderdatadetails/{id}', [ManageOrdersController::class, 'ShowOrderdatadetails'])->name('ShowOrderdatadetails');
+
+    //OrderController
+    Route::GET('Order', [OrderController::class, 'index'])->name('Order');
     // Route::post('/pay', [MasterApiController::class, 'pay'])->name('pay-with-card');
     // Route::GET('/Payment', [PaymentController::class, 'index'])->name('Payment');
     // Route::view('/vendors-details', 'vendors-details');

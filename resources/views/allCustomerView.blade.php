@@ -48,11 +48,11 @@
                                                         <div class="col-lg-4 col">
                                                             <div class="row text-muted text-center">
                                                                 <div class="col-6 border-end border-end-dashed">
-                                                                    <h5 class="mb-1 projects-num">225</h5>
+                                                                    <h5 class="mb-1 projects-num">{{$customerdata->OrderWithUser->count()}}</h5>
                                                                     <p class="text-muted mb-0">Enquiries</p>
                                                                 </div>
                                                                 <div class="col-6">
-                                                                    <h5 class="mb-1 tasks-num">$ 197</h5>
+                                                                    <h5 class="mb-1 tasks-num">$ {{ $customerdata->OrderWithUser->sum('total_amount') }}</h5>
                                                                     <p class="text-muted mb-0">Totel Payout</p>
                                                                 </div>
                                                             </div>
@@ -123,19 +123,19 @@
                                                 <h5 class="fs-15 profile-name">{{ $customerdata->name }}</h5>
                                                 <p class="text-muted profile-designation">Customer</p>
                                             </div>
-
                                         </div>
+
                                         <div class="row g-0 text-center">
                                             <div class="col-6">
                                                 <div class="p-3 border border-dashed border-start-0">
-                                                    <h5 class="mb-1 profile-project">124</h5>
+                                                    <h5 class="mb-1 profile-project">{{$customerdata->OrderWithUser->count()}}</h5>
                                                     <p class="text-muted mb-0">Enquiries</p>
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-6">
                                                 <div class="p-3 border border-dashed border-start-0">
-                                                    <h5 class="mb-1 profile-task">81</h5>
+                                                    <h5 class="mb-1 profile-task">$ {{ $customerdata->OrderWithUser->sum('total_amount') }}</h5>
                                                     <p class="text-muted mb-0">Totel Payout</p>
                                                 </div>
                                             </div>
@@ -152,12 +152,15 @@
                                                 <p class="text-muted text-uppercase fw-semibold fs-12 mb-2">Email</p>
                                                 <h6>{{ $customerdata->email }}</h6>
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <p class="text-muted text-uppercase fw-semibold fs-12 mb-2">Location</p>
                                                 <h6 class="mb-0"></h6>
-                                            </div>
+                                            </div> --}}
                                         </div>
-
+                                    </div>
+                                    <div class="offcanvas-foorter border p-3 hstack gap-3 text-center position-relative">
+                                        {{-- <button class="btn btn-light w-100"><i class="ri-question-answer-fill align-bottom ms-1"></i> Send Message</button> --}}
+                                        <a href="{{ route('ShowCustomerOrder', ['id' => Crypt::encrypt($customerdata->id)]) }}" class="btn btn-primary w-100"> View Orders</a>
                                     </div>
                                     <!--end offcanvas-body-->
                                 </div>

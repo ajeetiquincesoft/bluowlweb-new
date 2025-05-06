@@ -11,7 +11,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = User::where('role', "customer")->get();
+        $customers = User::with('OrderWithUser')->where('role', "customer")->get();
         return view("allCustomerView", compact('customers'));
     }
     public function ChangeCustomerStatus(Request $request,$id)
