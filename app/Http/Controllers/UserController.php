@@ -36,6 +36,22 @@ class UserController extends Controller
     //         return back()->withSuccess('Old password is Invalid.');
     //     }
     // }
+    public function updateToken(Request $request)
+    {
+        try {
+            $AuthUser = Auth::user();
+            $AuthUser->fcm_token = $request->fcmtoken;
+            $AuthUser->save();
+            return response()->json([
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            report($e);
+            return response()->json([
+                'success' => false,
+            ], 500);
+        }
+    }
 
     public function changepassword(Request $request)
     {

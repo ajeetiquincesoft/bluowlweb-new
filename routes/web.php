@@ -44,11 +44,13 @@ Route::post('set_password/{id}', [ChangeForgotPasswordController::class, 'set_pa
 Route::get('Term_Conditions', [TermConditionController::class, 'index'])->name('Term_Conditions');
 Route::get('PrivacyPolicy', [PrivacyPolicyController::class, 'index'])->name('PrivacyPolicy');
 
+
 Auth::routes();
 Route::middleware(['auth', 'admin'])->group(function () {
     //HomeController
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/setting', [HomeController::class, 'setting'])->name('setting');
+    Route::POST('/fcm-token', [UserController::class, 'updateToken'])->name('fcmToken');
 
     //VendorController
     Route::get('/vendors', [VendorController::class, 'index'])->name('vendors');

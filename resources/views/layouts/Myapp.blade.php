@@ -62,6 +62,7 @@
     <!--Swiper slider js-->
     <script src="{{ asset('assets/libs/swiper/swiper-bundle.min.js') }}"></script>
 
+
     <!-- Dashboard init -->
     <script src="{{ asset('assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
 
@@ -71,7 +72,81 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
         integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js"></script>
 
+    <script>
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyBYKwxAi3gRg8Vh6gbfHN56inKG_m5CDFM",
+            authDomain: "blueowl-c5879.firebaseapp.com",
+            projectId: "blueowl-c5879",
+            storageBucket: "blueowl-c5879.appspot.com",
+            messagingSenderId: "902164999109",
+            appId: "1:902164999109:web:af67af0db05aa4f6cb39ac",
+            measurementId: "G-HWQX2YENS2"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+
+        // Request notification permission
+        function requestPermission() {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted.');
+                    messaging.getToken({
+                        vapidKey: 'BCTBStB5JjqQOCqTq4zNxVH_tNbmMlkH4LIuyZKjECmzeFMzjTGa4j9pU1g_K155CK233Kvp4r7wpkL8KpUvHWI'
+                    }).then((token) => {
+                        console.log("FCM Token:", token);
+                        $.ajax({
+                            url: '{{ route('fcmToken') }}', // Replace with your server endpoint
+                            type: 'POST',
+                            data: {
+                                fcmtoken: token,
+                                _token: '{{ csrf_token() }}' // Include CSRF token if using Laravel
+                            },
+                            success: function(response) {
+                                console.log("Token saved successfully:", response);
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error saving token:", error);
+                            }
+                        });
+                        // Send this token to your server using fetch or axios
+                    }).catch((err) => {
+                        console.error("Error getting token:", err);
+                    });
+                } else {
+                    console.error('Notification permission not granted.');
+                }
+            });
+        }
+
+        // Handle foreground messages
+        messaging.onMessage((payload) => {
+            console.log('Message received:', payload);
+            // alert(payload.notification.title + ": " + payload.notification.body);
+            if (payload.notification) {
+                const notificationTitle = payload.notification.title;
+                const notificationOptions = {
+                    body: payload.notification.body,
+                    icon: payload.notification.icon ||
+                        'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png', // Add fallback icon
+                };
+
+                // Create the notification
+                new Notification(notificationTitle, notificationOptions);
+            } else {
+                console.log('No notification data found in payload');
+            }
+        });
+
+        // Call the function
+        requestPermission();
+    </script>
 </body>
 
 </html>
