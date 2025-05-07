@@ -1229,6 +1229,7 @@ class MasterApiController extends Controller
             ]);
 
             if ($charge->status === 'succeeded') {
+                $send= sendnotification('2',"Order Create","Order Reciive");
                 $orderData->status = "0";
                 $orderData->save();
                 $Payment = Payment::make();
