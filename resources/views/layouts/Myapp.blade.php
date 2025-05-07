@@ -75,18 +75,17 @@
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js"></script>
-
     <script>
         // Firebase config
-        $firebaseConfig = [
-            'apiKey' => getenv('FIREBASE_API_KEY'),
-            'authDomain' => getenv('FIREBASE_AUTH_DOMAIN'),
-            'projectId' => getenv('FIREBASE_PROJECT_ID'),
-            'storageBucket' => getenv('FIREBASE_STORAGE_BUCKET'),
-            'messagingSenderId' => getenv('FIREBASE_MESSAGING_SENDER_ID'),
-            'appId' => getenv('FIREBASE_APP_ID'),
-            'measurementId' => getenv('FIREBASE_MEASUREMENT_ID'),
-        ];
+        const firebaseConfig = {
+            apiKey: "{{ getenv('FIREBASE_API_KEY') }}",
+            authDomain: "{{ getenv('FIREBASE_AUTH_DOMAIN') }}",
+            projectId: "{{ getenv('FIREBASE_PROJECT_ID') }}",
+            storageBucket: "{{ getenv('FIREBASE_STORAGE_BUCKET') }}",
+            messagingSenderId: "{{ getenv('FIREBASE_MESSAGING_SENDER_ID') }}",
+            appId: "{{ getenv('FIREBASE_APP_ID') }}",
+            measurementId: "{{ getenv('FIREBASE_MEASUREMENT_ID') }}"
+        };
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -98,7 +97,7 @@
                 if (permission === 'granted') {
                     console.log('Notification permission granted.');
                     messaging.getToken({
-                        vapidKey: getenv('Firebase_Valid_key')
+                        vapidKey: 'BCTBStB5JjqQOCqTq4zNxVH_tNbmMlkH4LIuyZKjECmzeFMzjTGa4j9pU1g_K155CK233Kvp4r7wpkL8KpUvHWI'
                     }).then((token) => {
                         console.log("FCM Token:", token);
                         $.ajax({
