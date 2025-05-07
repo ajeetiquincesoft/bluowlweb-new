@@ -87,11 +87,11 @@
                     </div>
                 </li> <!-- end Dashboard Menu -->
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link  {{ request()->is('transactions') ? 'active' : '' }}" href="{{route('transactions')}}">
                         <i class="fas fa-file-invoice-dollar" style="font-size: 20px;"></i> <span data-key="t-widgets">Transactions</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link menu-link  {{ request()->is('Order') ? 'active' : '' }}" href="{{route('Order')}}">
