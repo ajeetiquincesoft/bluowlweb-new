@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Notification as ModelsNotification;
 use App\Models\User;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
@@ -17,6 +18,12 @@ if (!function_exists('upload_image')) {
 if (!function_exists('sendnotification')) {
     function sendnotification($user_id,$title,$body)
     {
+        $notification=ModelsNotification::make();
+        $notification->user_id=$user_id??"2";
+        $notification->title=$title??"Got Gas";
+        $notification->description=$body ??"Got Gas Notification";
+        $notification->save();
+
         $user = User::find($user_id);
         if (!$user || !$user->fcm_token) {
             return response()->json(['error' => 'User or token not found'], 404);
@@ -32,4 +39,5 @@ if (!function_exists('sendnotification')) {
 
     }
 }
+
 ?>

@@ -1229,7 +1229,6 @@ class MasterApiController extends Controller
             ]);
 
             if ($charge->status === 'succeeded') {
-                $send= sendnotification('2',"Order Create","Order Reciive");
                 $orderData->status = "0";
                 $orderData->save();
                 $Payment = Payment::make();
@@ -1238,6 +1237,10 @@ class MasterApiController extends Controller
                 $Payment->data =  json_encode($charge);
                 $Payment->status = "1";
                 $Payment->save();
+                $user=User::where('role',"admin")->first();
+                // sendnotification($orderData->vendor_id, "New Order Received", "You have received a new order.");
+                // sendnotification($orderData->customer_id, "New Order Received", "new order.");
+                sendnotification($user->id, "New Order Received", "You have received a new order.");
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Payment successful!',

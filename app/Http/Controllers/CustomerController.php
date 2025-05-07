@@ -11,6 +11,8 @@ class CustomerController extends Controller
 {
     public function index()
     {
+      $send= sendnotification('2',"demo","demo001");
+      $insert=InsertNotification('2',"demo","demo001");
         $customers = User::with('OrderWithUser')->where('role', "customer")->get();
         return view("allCustomerView", compact('customers'));
     }
