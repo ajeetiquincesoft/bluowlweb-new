@@ -98,7 +98,7 @@
                 if (permission === 'granted') {
                     console.log('Notification permission granted.');
                     messaging.getToken({
-                        vapidKey:{{getenv('Firebase_Valid_key')}}
+                        vapidKey:BCTBStB5JjqQOCqTq4zNxVH_tNbmMlkH4LIuyZKjECmzeFMzjTGa4j9pU1g_K155CK233Kvp4r7wpkL8KpUvHWI
                     }).then((token) => {
                         console.log("FCM Token:", token);
                         $.ajax({
