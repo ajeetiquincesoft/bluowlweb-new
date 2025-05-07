@@ -78,15 +78,15 @@
 
     <script>
         // Firebase config
-        const firebaseConfig = {
-            apiKey: "AIzaSyBYKwxAi3gRg8Vh6gbfHN56inKG_m5CDFM",
-            authDomain: "blueowl-c5879.firebaseapp.com",
-            projectId: "blueowl-c5879",
-            storageBucket: "blueowl-c5879.appspot.com",
-            messagingSenderId: "902164999109",
-            appId: "1:902164999109:web:af67af0db05aa4f6cb39ac",
-            measurementId: "G-HWQX2YENS2"
-        };
+        $firebaseConfig = [
+            'apiKey' => getenv('FIREBASE_API_KEY'),
+            'authDomain' => getenv('FIREBASE_AUTH_DOMAIN'),
+            'projectId' => getenv('FIREBASE_PROJECT_ID'),
+            'storageBucket' => getenv('FIREBASE_STORAGE_BUCKET'),
+            'messagingSenderId' => getenv('FIREBASE_MESSAGING_SENDER_ID'),
+            'appId' => getenv('FIREBASE_APP_ID'),
+            'measurementId' => getenv('FIREBASE_MEASUREMENT_ID'),
+        ];
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -98,7 +98,7 @@
                 if (permission === 'granted') {
                     console.log('Notification permission granted.');
                     messaging.getToken({
-                        vapidKey:'BCTBStB5JjqQOCqTq4zNxVH_tNbmMlkH4LIuyZKjECmzeFMzjTGa4j9pU1g_K155CK233Kvp4r7wpkL8KpUvHWI'
+                        vapidKey: getenv('Firebase_Valid_key')
                     }).then((token) => {
                         console.log("FCM Token:", token);
                         $.ajax({

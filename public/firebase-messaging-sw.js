@@ -5,13 +5,13 @@ importScripts('https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-comp
 
 // Your Firebase config
 firebase.initializeApp({
-    apiKey: "AIzaSyBYKwxAi3gRg8Vh6gbfHN56inKG_m5CDFM",
-    authDomain: "blueowl-c5879.firebaseapp.com",
-    projectId: "blueowl-c5879",
-    storageBucket: "blueowl-c5879.appspot.com",
-    messagingSenderId: "902164999109",
-    appId: "1:902164999109:web:af67af0db05aa4f6cb39ac",
-    measurementId: "G-HWQX2YENS2"
+    apiKey:  getenv('FIREBASE_API_KEY'),,
+    authDomain:  getenv('FIREBASE_AUTH_DOMAIN'),
+    projectId:getenv('FIREBASE_PROJECT_ID'),
+    storageBucket: getenv('FIREBASE_STORAGE_BUCKET'),
+    messagingSenderId: getenv('FIREBASE_MESSAGING_SENDER_ID'),
+    appId: getenv('FIREBASE_APP_ID'),
+    measurementId: getenv('FIREBASE_MEASUREMENT_ID')
 });
 
 const messaging = firebase.messaging();
