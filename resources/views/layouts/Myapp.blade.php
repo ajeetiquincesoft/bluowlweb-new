@@ -79,13 +79,13 @@
     <script>
         // Firebase config
         const firebaseConfig = {
-            apiKey: "AIzaSyBYKwxAi3gRg8Vh6gbfHN56inKG_m5CDFM",
-            authDomain: "blueowl-c5879.firebaseapp.com",
-            projectId: "blueowl-c5879",
-            storageBucket: "blueowl-c5879.appspot.com",
-            messagingSenderId: "902164999109",
-            appId: "1:902164999109:web:af67af0db05aa4f6cb39ac",
-            measurementId: "G-HWQX2YENS2"
+            // apiKey: "AIzaSyBYKwxAi3gRg8Vh6gbfHN56inKG_m5CDFM",
+            // authDomain: "blueowl-c5879.firebaseapp.com",
+            // projectId: "blueowl-c5879",
+            // storageBucket: "blueowl-c5879.appspot.com",
+            // messagingSenderId: "902164999109",
+            // appId: "1:902164999109:web:af67af0db05aa4f6cb39ac",
+            // measurementId: "G-HWQX2YENS2"
         };
 
         // Initialize Firebase
