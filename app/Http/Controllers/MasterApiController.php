@@ -1245,7 +1245,7 @@ class MasterApiController extends Controller
                     'status' => 'success',
                     'message' => 'Payment successful!',
                     'charge_id' => $charge->id,
-                    'success' => true
+                    'success' => false
                 ]);
             } else {
                 $Payment = Payment::make();
