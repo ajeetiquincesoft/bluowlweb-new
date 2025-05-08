@@ -75,6 +75,9 @@
                             </div><!-- end col -->
                         @endforeach
                     </div><!-- end row -->
+                    <div class="d-flex justify-content-center">
+                        {{ $userMeta->links('vendor.pagination.custom') }}
+                    </div>
                     <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">

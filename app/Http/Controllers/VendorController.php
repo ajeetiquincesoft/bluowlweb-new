@@ -25,11 +25,9 @@ class VendorController extends Controller
     }
     public function index()
     {
-        $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithgallery')->where('role', "vendor")->get();
+        $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithgallery')->where('role', "vendor")->paginate(getenv('PAGE_LIMIT'));
         return view('vendorsdata', compact('userMeta'));
     }
-
-
     public function vendordetail(Request $request, $id)
     {
         $vendor_id = Crypt::decrypt($id);

@@ -69,6 +69,9 @@
                                         </div>
                                     @endforeach
                                 </div>
+                                <div class="d-flex justify-content-end">
+                                    {{ $customers->links('vendor.pagination.custom') }}
+                                </div>
                             </div>
                             @foreach ($customers as $customerdata)
                                 <div class="offcanvas offcanvas-end border-0" tabindex="-1"

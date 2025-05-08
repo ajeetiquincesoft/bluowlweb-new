@@ -11,8 +11,8 @@ class CustomerController extends Controller
 {
     public function index()
     {
-      $send= sendnotification('2',"demo","demo001");
-        $customers = User::with('OrderWithUser')->where('role', "customer")->get();
+    //   $send= sendnotification('2',"demo","demo001");
+        $customers = User::with('OrderWithUser')->where('role', "customer")->paginate(getenv('PAGE_LIMIT'));
         return view("allCustomerView", compact('customers'));
     }
     public function ChangeCustomerStatus(Request $request,$id)
