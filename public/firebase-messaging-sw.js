@@ -22,7 +22,7 @@ messaging.onBackgroundMessage(function(payload) {
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
         body: payload.notification.body,
-        icon: 'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png' // optional
+        icon: 'https://blueowl.stagingweb3.net/assets/images/blue-owl.png' // optional
     };
 
     self.registration.showNotification(notificationTitle, notificationOptions);

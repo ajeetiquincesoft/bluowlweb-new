@@ -133,7 +133,7 @@
                 const notificationOptions = {
                     body: payload.notification.body,
                     icon: payload.notification.icon ||
-                        'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png', // Add fallback icon
+                        'https://blueowl.stagingweb3.net/assets/images/blue-owl.png', // Add fallback icon
                 };
 
                 // Create the notification

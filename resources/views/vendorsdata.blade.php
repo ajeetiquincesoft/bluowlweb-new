@@ -114,7 +114,7 @@
                                         <!-- Phone -->
                                         <div class="mb-3">
                                             <label for="phone-field" class="form-label">Phone</label>
-                                            <input type="text" name="phone" id="phone-field" class="form-control" placeholder="Enter Phone no." required />
+                                            <input type="text" name="phone" id="phone-field" class="form-control" placeholder="(123) 456-7890" required />
                                         </div>
 
                                         <!-- Yelp Profile -->
@@ -127,7 +127,7 @@
                                     <div class="modal-footer">
                                         <div class="hstack gap-2 justify-content-end">
                                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-success" id="add-btn">Add Customer</button>
+                                            <button type="submit" class="btn btn-success" id="add-btn">Add Vendor</button>
                                         </div>
                                     </div>
                                 </form>
@@ -138,4 +138,20 @@
             </div><!-- end row -->
         </div>
     </div>
+    <script>
+        document.getElementById('phone-field').addEventListener('input', function (e) {
+            let input = e.target.value.replace(/\D/g, '').substring(0, 10); // Remove non-digits
+            let areaCode = input.substring(0, 3);
+            let middle = input.substring(3, 6);
+            let last = input.substring(6, 10);
+
+            if (input.length > 6) {
+                e.target.value = `(${areaCode}) ${middle}-${last}`;
+            } else if (input.length > 3) {
+                e.target.value = `(${areaCode}) ${middle}`;
+            } else if (input.length > 0) {
+                e.target.value = `(${areaCode}`;
+            }
+        });
+        </script>
 @endsection

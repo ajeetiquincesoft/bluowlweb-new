@@ -52,7 +52,6 @@ class UserController extends Controller
             ], 500);
         }
     }
-
     public function changepassword(Request $request)
     {
         if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {

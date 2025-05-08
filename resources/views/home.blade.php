@@ -236,7 +236,11 @@
                                                     <div>
                                                         <h5 class="fs-13 mb-0">{{ $item->name }}</h5>
                                                         <p class="fs-12 mb-0 text-muted">
-                                                            {{ $item->vendorservicedata->getServiceData($item->vendorservicedata->service_id)->name }}
+                                                            @if ($item->vendorservicedata && $item->vendorservicedata->getServiceData($item->vendorservicedata->service_id))
+                                                                {{ $item->vendorservicedata->getServiceData($item->vendorservicedata->service_id)->name }}
+                                                            @else
+                                                               <b>N/A</b>
+                                                            @endif
                                                         </p>
                                                     </div>
                                                 </td>
