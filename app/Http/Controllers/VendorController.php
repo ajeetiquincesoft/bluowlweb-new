@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\VendorServiceArea;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -31,9 +32,10 @@ class VendorController extends Controller
     public function vendordetail(Request $request, $id)
     {
         $vendor_id = Crypt::decrypt($id);
+        $vendor_areas=VendorServiceArea::where('user_id',$vendor_id)->get();
         $orderData=Order::with('OrderitemDartaWithOrder')->where('vendor_id',$vendor_id)->paginate(getenv('PAGE_LIMIT'));
         $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithemployee', 'vendorwithgallery')->where('id', $vendor_id)->first();
-        return view('vendor-details-page', compact('userMeta','orderData'));
+        return view('vendor-details-page', compact('userMeta','orderData','vendor_areas'));
     }
     public function ChangeVendorStatus(Request $request, $id)
     {

@@ -368,28 +368,11 @@
                                 </div>
                                 <div class="tab-pane" id="area" role="tabpanel">
                                     <div class="scroll-wrapper d-flex flex-nowrap overflow-auto py-3" style="gap: 1rem;">
-
-                                        <!-- Location 1 -->
-                                        <div style="min-width: 300px;">
-                                            <div style="width:250px; height:250px" id="map"></div>
-                                        </div>
-
-                                        <!-- Location 2 -->
-                                        {{-- <div style="min-width: 300px;">
-                                            <iframe src="https://www.google.com/maps/embed?pb=YOUR_SECOND_LOCATION_URL"
-                                                width="100%" height="200" style="border:0;" allowfullscreen=""
-                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                        </div>
-
-                                        <!-- Location 3 -->
-                                        <div style="min-width: 300px;">
-                                            <iframe src="https://www.google.com/maps/embed?pb=YOUR_SECOND_LOCATION_URL"
-                                                width="100%" height="200" style="border:0;" allowfullscreen=""
-                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                        </div> --}}
-
-                                        <!-- Add more locations the same way -->
-
+                                        @foreach ($vendor_areas as $index => $area)
+                                            <div style="min-width: 250px;">
+                                                <div id="map-{{ $index }}" style="width: 250px; height: 250px;"></div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <!-- Add more as needed -->
@@ -472,54 +455,6 @@
                             </div>
                         </div><!-- end card -->
                     </div>
-
-                    {{-- <h2>Stripe Card Payment</h2>
-                    <form id="payment-form">
-                        <div id="card-element"><!-- Stripe Card input will be inserted here --></div>
-                        <button type="submit" id="submit">Pay</button>
-                    </form>
-
-                    <div id="payment-message"></div>
-
-                    <script>
-                        const stripe = Stripe('{{ env("STRIPE_KEY") }}');
-                        const elements = stripe.elements();
-                        const card = elements.create('card');
-                        card.mount('#card-element');
-
-                        const form = document.getElementById('payment-form');
-                        const message = document.getElementById('payment-message');
-
-                        form.addEventListener('submit', async (event) => {
-                            event.preventDefault();
-
-                            const { token, error } = await stripe.createToken(card);
-
-                            if (error) {
-                                message.textContent = error.message;
-                            } else {
-                                // Send token to backend
-                                fetch("{{ route('pay-with-card') }}", {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                    },
-                                    body: JSON.stringify({
-                                        token_id: token.id,
-                                        amount: 50 // $0.50 as example
-                                    })
-                                })
-                                .then(res => res.json())
-                                .then(data => {
-                                    message.textContent = data.message;
-                                })
-                                .catch(err => {
-                                    message.textContent = 'Error: ' + err.message;
-                                });
-                            }
-                        });
-                    </script> --}}
                 </div><!-- end card-body -->
             </div>
         </div>
@@ -537,32 +472,35 @@
         }
     </script>
     <script>
+        const vendorAreas = @json($vendor_areas);
+
         function initMap() {
-            const dummyLocation = {
-                lat: 37.7749,
-                lng: -122.4194
-            }; // San Francisco
+            vendorAreas.forEach((area, index) => {
+                const location = {
+                    lat: parseFloat(area.latitude),
+                    lng: parseFloat(area.longitude)
+                };
 
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 10,
-                center: dummyLocation,
-            });
+                const map = new google.maps.Map(document.getElementById(`map-${index}`), {
+                    zoom:9,
+                    center: location
+                });
 
-            const marker = new google.maps.Marker({
-                position: dummyLocation,
-                map: map,
-            });
+                const marker = new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
 
-            // Add 10 km radius circle
-            const circle = new google.maps.Circle({
-                strokeColor: "#FF0000",
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: "#FF0000",
-                fillOpacity: 0.2,
-                map: map,
-                center: dummyLocation,
-                radius: 10000, // in meters
+                const circle = new google.maps.Circle({
+                    strokeColor: "#FF0000",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: "#FF0000",
+                    fillOpacity: 0.2,
+                    map: map,
+                    center: location,
+                    radius: 16000 // 10 km
+                });
             });
         }
     </script>
