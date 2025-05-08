@@ -1418,14 +1418,16 @@ class MasterApiController extends Controller
     public function FcmToken(Request $request)
     {
         try {
-            $user = auth('api')->user();
+            $user_id = Auth::id();
             $validator = Validator::make($request->all(), [
                 'fcmtoken' => 'required',
             ]);
             if ($validator->fails()) {
                 return response()->json(['message' => $validator->errors()->all(), 'success' => false], 400);
             }
-            $user->update(['fcm_token' => $request->fcmtoken]);
+            $User=User::findorFail($user_id);
+            $User->fcm_token=$request->fcmtoken;
+            $User->save();
             return response()->json(['message' => 'Token Update Successfully', 'success' => true]);
         } catch (QueryException $e) {
             return response()->json(['message' => 'Database error occurred', 'success' => false], 500);
