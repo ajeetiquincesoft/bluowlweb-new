@@ -1218,7 +1218,7 @@ class MasterApiController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors()->all(),
-                    'success' => true
+                    'success' => false
                 ], 400);
             }
             $orderData = Order::withoutGlobalScope('excludeStatus4')->find($request->order_id);
@@ -1246,7 +1246,7 @@ class MasterApiController extends Controller
                     'status' => 'success',
                     'message' => 'Payment successful!',
                     'charge_id' => $charge->id,
-                    'success' => false
+                    'success' => true
                 ]);
             } else {
                 $Payment = Payment::make();
