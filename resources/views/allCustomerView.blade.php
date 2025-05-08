@@ -24,10 +24,10 @@
                                                         <div class="col-lg-4 mt-3 col">
                                                             <div class="team-profile-img">
                                                                 <div
-                                                                    class="avatar-lg img-thumbnail rounded-circle flex-shrink-0">
+                                                                    class="avatar-lg position-relative img-thumbnail rounded-circle flex-shrink-0">
                                                                     <img src="{{ $customerdata->profile_pic ? asset('storage/uploads/' . $customerdata->profile_pic) : asset('storage/uploads/17436829592146840487PI.png') }}"
                                                                         alt=""
-                                                                        class="member-img img-fluid d-block rounded-circle">
+                                                                        class="member-img w-100 h-100 img-fluid d-block rounded-circle" >
                                                                 </div>
                                                                 <div class="team-content"> <a class="member-name"
                                                                         data-bs-toggle="offcanvas"
