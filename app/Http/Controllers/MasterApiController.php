@@ -29,6 +29,7 @@ use App\Models\VendorService;
 use App\Models\VendorServiceArea;
 use App\Models\VendorServiceOffere;
 use App\Models\VendorSubscription;
+use App\Models\Notification;
 use Illuminate\Support\Facades\DB;
 use Stripe\Stripe;
 use Stripe\Token;
@@ -1237,7 +1238,7 @@ class MasterApiController extends Controller
                 $Payment->data =  json_encode($charge);
                 $Payment->status = "1";
                 $Payment->save();
-                $user=User::where('role',"admin")->first();
+                $user = User::where('role', "admin")->first();
                 // sendnotification($orderData->vendor_id, "New Order Received", "You have received a new order.");
                 // sendnotification($orderData->customer_id, "New Order Received", "new order.");
                 sendnotification($user->id, "New Order Received", "You have received a new order.");
@@ -1412,6 +1413,87 @@ class MasterApiController extends Controller
             return response()->json(['message' => 'Subscription cancelled successfully.', 'success' => true]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    public function FcmToken(Request $request)
+    {
+        try {
+            $user = auth('api')->user();
+            $validator = Validator::make($request->all(), [
+                'fcmtoken' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['message' => $validator->errors()->all(), 'success' => false], 400);
+            }
+            $user->update(['fcm_token' => $request->fcmtoken]);
+            return response()->json(['message' => 'Token Update Successfully', 'success' => true]);
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error occurred', 'success' => false], 500);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An unexpected error occurred', 'success' => false], 500);
+        }
+    }
+    public function getUserNotificationData()
+    {
+        $notification = Notification::where('status', "0")->where('user_id', Auth::id())->latest()->take(20)->get();
+        return response()->json(
+            [
+                'data' => $notification,
+                'message' => 'Token Update Successfully',
+                'success' => true
+            ]
+        );
+    }
+    public function CountUnreadStatus()
+    {
+        $user = auth('api')->user();
+        $CountNotification = Notification::whereStatus(0)->where('user_id', $user->id)->count();
+        return response()->json(['data' => $CountNotification, 'message' => 'Notification Count', 'success' => true]);
+    }
+    public function markAsRead(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'notofication_id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->all(),
+                    'success' => false
+                ], 400);
+            }
+            $notificationData = Notification::findorFail($request->notofication_id);
+            $notificationData->status = "1";
+            $notificationData->save();
+
+            return response()->json([
+                'message' => 'Status Changed successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
+        }
+    }
+    public function markAllAsRead()
+    {
+        DB::beginTransaction();
+        try {
+            Notification::where('user_id', Auth::id())->update(['status' => 0]);
+            return response()->json([
+                'message' => ' All Status Changed successfully',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'error'   => $e->getMessage(),
+                'success' => false
+            ], 500);
         }
     }
 }

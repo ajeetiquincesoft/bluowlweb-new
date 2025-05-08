@@ -73,6 +73,11 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'auth'], function ($router
     Route::POST('createVendorSubscription', [MasterApiController::class, 'createVendorSubscription']);
     Route::GET('getVendorSubscriptionData', [MasterApiController::class, 'getVendorSubscriptionData']);
     Route::post('unsubscribe', [MasterApiController::class, 'unsubscribe']);
+    Route::POST('FcmToken', [MasterApiController::class, 'FcmToken']);
+    Route::GET('getUserNotificationData', [MasterApiController::class, 'getUserNotificationData']);
+    Route::GET('CountUnreadStatus', [MasterApiController::class, 'CountUnreadStatus']);
+    Route::POST('markAsRead', [MasterApiController::class, 'markAsRead']);
+    Route::GET('markAllAsRead', [MasterApiController::class, 'markAllAsRead']);
 });
 // Route::post('login', [UserController::class, 'login']);
 // Route::post('logout', [UserController::class, 'logout']);
