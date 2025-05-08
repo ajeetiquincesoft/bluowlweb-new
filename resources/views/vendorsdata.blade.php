@@ -27,8 +27,8 @@
                             <div class="col-xxl-6 col-md-12 col-sm-12">
                                 <div class="card">
                                     <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img class="rounded-start img-fluid h-100 object-cover"
+                                        <div class="col-md-4 position-relative">
+                                            <img class="rounded-start img-fluid h-100 object-cover position-absolute w-100"
                                                 src="{{ $value->profile_pic ? asset('storage/uploads/' . $value->profile_pic) : asset('storage/uploads/17436829592146840487PI.png') }}"
                                                 alt="Vendor Profile image">
 
