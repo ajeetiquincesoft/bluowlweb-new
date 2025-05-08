@@ -65,7 +65,7 @@
                         aria-haspopup="true" aria-expanded="false">
                         <i class='bx bx-bell fs-22'></i>
                         <span
-                            class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger"><span
+                            class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">{{ $unread }}<span
                                 class="visually-hidden">unread messages</span></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
@@ -78,8 +78,7 @@
                                         <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
                                     </div>
                                     <div class="col-auto dropdown-tabs">
-                                        <button class="badge bg-danger read_all badge-soft-light fs-13">Read
-                                            all</button>
+                                        <button class=" bg-danger read_all badge-soft-light fs-13">Read all</button>
                                     </div>
                                 </div>
                             </div>
@@ -89,11 +88,47 @@
                                     <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab"
                                             role="tab" aria-selected="true">
-                                            All
+                                            All ({{ $unread }})
                                         </a>
                                     </li>
 
                                 </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-content position-relative" id="notificationItemsTabContent">
+                            <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
+                                <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                    @foreach ($notifications as $item)
+                                        <div id="{{ $item->id }}"
+                                            class="text-reset notification notification-item d-block dropdown-item position-relative">
+                                            <div class="d-flex">
+                                                <div class="avatar-xs me-3">
+                                                    <span
+                                                        class="avatar-title bg-soft-info text-info rounded-circle fs-16">
+                                                        <i class="bx bx-badge-check"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <a href="#!" class="stretched-link">
+                                                        <h6 class="mt-0 mb-2 lh-base">
+                                                            {{ $item->title }}
+                                                        </h6>
+                                                    </a>
+                                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                        {{ $item->description }}
+                                                    </p>
+                                                    <p class="mb-0 fs-11 fw-medium  text-muted">
+                                                        <span><i class="mdi mdi-clock-outline"></i>
+                                                            {{ formatDate($item->created_at) }}</span>
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,3 +229,36 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+    $('body').on('click', '.notification', function() {
+        var id = $(this).attr('id');
+        $.ajax({
+            url: "{{ route('notification_update') }}",
+            type: "POST",
+            data: {
+                ids: id,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                if (response.statusCode == 201) {
+                    location.href = "{{ route('Order') }}";
+                }
+            }
+
+        });
+    });
+</script>
+<script>
+    $('body').on('click', '.read_all', function() {
+        $.ajax({
+            url: "{{ route('read_all_notification') }}",
+            type: "GET",
+            success: function(response) {
+                if (response.statusCode == 201) {
+                    location.href = "{{ route('Order') }}";
+                }
+            }
+
+        });
+    });
+</script>

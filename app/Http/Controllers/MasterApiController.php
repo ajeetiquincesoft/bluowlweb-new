@@ -1218,7 +1218,7 @@ class MasterApiController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors()->all(),
-                    'success' => false
+                    'success' => true
                 ], 400);
             }
             $orderData = Order::withoutGlobalScope('excludeStatus4')->find($request->order_id);

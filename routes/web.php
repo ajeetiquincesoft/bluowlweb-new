@@ -17,6 +17,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ManageOrdersController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,8 @@ Route::post('set_password/{id}', [ChangeForgotPasswordController::class, 'set_pa
 
 Route::get('Term_Conditions', [TermConditionController::class, 'index'])->name('Term_Conditions');
 Route::get('PrivacyPolicy', [PrivacyPolicyController::class, 'index'])->name('PrivacyPolicy');
-
+Route::POST('notification_update', [UserNotificationController::class, 'index'])->name('notification_update');
+Route::get('read_all_notification', [UserNotificationController::class, 'ReadAllNotification'])->name('read_all_notification');
 
 Auth::routes();
 Route::middleware(['auth', 'admin'])->group(function () {

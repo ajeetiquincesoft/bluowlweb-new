@@ -5,6 +5,7 @@ use App\Models\User;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
+use Carbon\Carbon;
 
 if (!function_exists('upload_image')) {
     function upload_image($data)
@@ -39,5 +40,9 @@ if (!function_exists('sendnotification')) {
 
     }
 }
-
+function formatDate($date)
+{
+    $carbonDate = Carbon::parse($date);
+    return $carbonDate->diffForHumans();
+}
 ?>
