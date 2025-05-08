@@ -367,13 +367,11 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="area" role="tabpanel">
-                                    <div class="scroll-wrapper d-flex flex-nowrap overflow-auto py-3" style="gap: 1rem;">
-                                        @foreach ($vendor_areas as $index => $area)
-                                            <div style="min-width: 250px;">
-                                                <div id="map-{{ $index }}" style="width: 250px; height: 250px;"></div>
-                                            </div>
-                                        @endforeach
+
+                                    <div class="tab-pane" id="area" role="tabpanel">
+                                        <div id="vendorMap" style="width: 100%; height: 300px;"></div>
                                     </div>
+
                                 </div>
                                 <!-- Add more as needed -->
 
@@ -462,7 +460,7 @@
     </div>
     <!-- container-fluid -->
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap" async defer>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap">
     </script>
 
     <script>
@@ -471,38 +469,55 @@
             document.getElementById('statusForm').submit();
         }
     </script>
-    <script>
-        const vendorAreas = @json($vendor_areas);
+  <script>
+    function getRandomColor() {
+        // Generate a random hex color
+        return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    }
 
-        function initMap() {
-            vendorAreas.forEach((area, index) => {
-                const location = {
-                    lat: parseFloat(area.latitude),
-                    lng: parseFloat(area.longitude)
-                };
+    const vendorAreas = @json($vendor_areas);
 
-                const map = new google.maps.Map(document.getElementById(`map-${index}`), {
-                    zoom:9,
-                    center: location
-                });
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById("vendorMap"), {
+            zoom: 10,
+            center: { lat: 0, lng: 0 },
+        });
 
-                const marker = new google.maps.Marker({
-                    position: location,
-                    map: map
-                });
+        const bounds = new google.maps.LatLngBounds();
 
-                const circle = new google.maps.Circle({
-                    strokeColor: "#FF0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#FF0000",
-                    fillOpacity: 0.2,
-                    map: map,
-                    center: location,
-                    radius: 16000 // 10 km
-                });
+        vendorAreas.forEach(area => {
+            const location = {
+                lat: parseFloat(area.latitude),
+                lng: parseFloat(area.longitude)
+            };
+
+            const randomColor = getRandomColor(); // ✅ Assign random color here
+
+            // Add marker
+            new google.maps.Marker({
+                position: location,
+                map: map
             });
+
+            // Add circle with random color
+            new google.maps.Circle({
+                strokeColor: randomColor,
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: randomColor,
+                fillOpacity: 0.2,
+                map: map,
+                center: location,
+                radius: 10000 // 10 km
+            });
+
+            bounds.extend(location);
+        });
+
+        if (!bounds.isEmpty()) {
+            map.fitBounds(bounds);
         }
-    </script>
+    }
+</script>
 
 @endsection
