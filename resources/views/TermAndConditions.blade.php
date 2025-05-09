@@ -29,9 +29,9 @@
                             <div class="bg-soft-warning position-relative">
                                 <div class="card-body p-5">
                                     <div class="text-center">
-                                        <h3>{{ $data->title }}</h3>
+                                        <h3>{{ $data->title??"" }}</h3>
                                         <p class="mb-0 text-muted">Last update:
-                                            {{ date('d M,Y', strtotime($data->updated_at)) }}</p>
+                                            {{ date('d M,Y', strtotime($data->updated_at ??"")) }}</p>
                                     </div>
                                 </div>
                                 <div class="shape">
@@ -143,7 +143,7 @@
                                     </p>
                                 </div> --}}
                                 <div>
-                                    {!!$data->content!!}
+                                    {!! $data->content ?? '<em>Data is not available</em>' !!}
                                 </div>
                             </div>
                         </div>
