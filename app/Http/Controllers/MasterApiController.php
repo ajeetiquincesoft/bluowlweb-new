@@ -1128,8 +1128,12 @@ class MasterApiController extends Controller
             $orderData->status = "1";
             $orderData->save();
 
+
             DB::commit();
 
+            $user = User::where('role', "admin")->first();
+            sendnotification($user->id, "Order completed", "The customer's order has been completed by the vendor.");
+            sendnotification($orderData->customer_id,"Order completed", "Your order has been completed.");
             return response()->json([
                 'message' => 'Order completed.',
                 'success' => true,
