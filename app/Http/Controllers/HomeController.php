@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Service;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ class HomeController extends Controller
     {
         $customer_count=User::where('role',"customer")->count();
         $vendor_count=User::where('role',"vendor")->count();
+        $totelService=Service::count();
         $orderData = Order::with('OrderitemDartaWithOrder')->latest()->take(7)->get();
         $vendorData=User::with('vendorservicedata','vendorwithserviceoffer')->where('role',"vendor")->latest()->take(10)->get();
         $serviceOrders  = DB::table('orders')
@@ -40,7 +42,7 @@ class HomeController extends Controller
         ->orderByDesc('total_orders')
         ->limit(5)
         ->get();
-        return view('home',compact('customer_count','vendor_count','orderData','vendorData','serviceOrders'));
+        return view('home',compact('totelService','customer_count','vendor_count','orderData','vendorData','serviceOrders'));
     }
     public function setting()
     {
