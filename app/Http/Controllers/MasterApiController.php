@@ -1244,7 +1244,7 @@ class MasterApiController extends Controller
                 $Payment->save();
                 $user = User::where('role', "admin")->first();
                  sendnotification($orderData->vendor_id, "New Order Received", "You have received a new order.");
-                // sendnotification($orderData->customer_id, "New Order Received", "new order.");
+                 sendnotification($orderData->customer_id, "New Order Received", "new order.");
                 sendnotification($user->id, "New Order Received", "You have received a new order.");
                 return response()->json([
                     'status' => 'success',
