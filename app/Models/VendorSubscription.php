@@ -19,4 +19,8 @@ class VendorSubscription extends Model
     {
         return $this->belongsTo(User::class, 'vendor_id');
     }
+    public function VendorSubscribeSubscriptionData()
+    {
+        return $this->hasOne(Subscription::class,'id','subscriptions_id');
+    }
 }

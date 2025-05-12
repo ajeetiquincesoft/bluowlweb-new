@@ -120,13 +120,47 @@
                             <!-- Tab panes -->
                             <div class="tab-content text-muted">
                                 <div class="tab-pane active show" id="home1" role="tabpanel">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1 ms-2">
-                                            {{ $userMeta->about_service }}
-
+                                    <div class="row g-3">
+                                        <div class="mb-2">
+                                            <span class="fw-bold text-primary">About Service:</span><br>
+                                            <span class="text-dark">{{ $userMeta->about_service }}</span>
                                         </div>
-                                        <div class="flex-shrink-0">
-                                            <i class="ri-checkbox-multiple-blank-fill text-success"></i>
+                                        <!-- Subscription Name Card -->
+                                        <div class="col-md-4">
+                                            <div class="card h-100 shadow-sm">
+                                                <div class="card-body text-center">
+                                                    <h6 class="card-title text-primary">Subscription Name</h6>
+                                                    <p class="card-text fs-5 fw-semibold">
+                                                        {{ $VendorSubscription->VendorSubscribeSubscriptionData->name ?? 'N/A' }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Start Date Card -->
+                                        <div class="col-md-4">
+                                            <div class="card h-100 shadow-sm">
+                                                <div class="card-body text-center">
+                                                    <h6 class="card-title text-success">Start Date</h6>
+                                                    <p class="card-text fs-5 fw-semibold">
+
+                                                        {{ $VendorSubscription->starts_at ? \Carbon\Carbon::parse($VendorSubscription->starts_at)->format('d M Y') : 'N/A' }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- End Date Card -->
+                                        <div class="col-md-4">
+                                            <div class="card h-100 shadow-sm">
+                                                <div class="card-body text-center">
+                                                    <h6 class="card-title text-danger">End Date</h6>
+                                                    <p class="card-text fs-5 fw-semibold">
+
+                                                        {{ $VendorSubscription->ends_at ? \Carbon\Carbon::parse($VendorSubscription->ends_at)->format('d M Y') : 'N/A' }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <h4 class=" px-2 py-4">Gallery</h4>
@@ -469,55 +503,58 @@
             document.getElementById('statusForm').submit();
         }
     </script>
-  <script>
-    function getRandomColor() {
-        // Generate a random hex color
-        return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
-    }
-
-    const vendorAreas = @json($vendor_areas);
-
-    function initMap() {
-        const map = new google.maps.Map(document.getElementById("vendorMap"), {
-            zoom: 10,
-            center: { lat: 0, lng: 0 },
-        });
-
-        const bounds = new google.maps.LatLngBounds();
-
-        vendorAreas.forEach(area => {
-            const location = {
-                lat: parseFloat(area.latitude),
-                lng: parseFloat(area.longitude)
-            };
-
-            const randomColor = getRandomColor(); // ✅ Assign random color here
-
-            // Add marker
-            new google.maps.Marker({
-                position: location,
-                map: map
-            });
-
-            // Add circle with random color
-            new google.maps.Circle({
-                strokeColor: randomColor,
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: randomColor,
-                fillOpacity: 0.2,
-                map: map,
-                center: location,
-                radius: 10000 // 10 km
-            });
-
-            bounds.extend(location);
-        });
-
-        if (!bounds.isEmpty()) {
-            map.fitBounds(bounds);
+    <script>
+        function getRandomColor() {
+            // Generate a random hex color
+            return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
         }
-    }
-</script>
+
+        const vendorAreas = @json($vendor_areas);
+
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("vendorMap"), {
+                zoom: 10,
+                center: {
+                    lat: 0,
+                    lng: 0
+                },
+            });
+
+            const bounds = new google.maps.LatLngBounds();
+
+            vendorAreas.forEach(area => {
+                const location = {
+                    lat: parseFloat(area.latitude),
+                    lng: parseFloat(area.longitude)
+                };
+
+                const randomColor = getRandomColor(); // ✅ Assign random color here
+
+                // Add marker
+                new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+
+                // Add circle with random color
+                new google.maps.Circle({
+                    strokeColor: randomColor,
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: randomColor,
+                    fillOpacity: 0.2,
+                    map: map,
+                    center: location,
+                    radius: 10000 // 10 km
+                });
+
+                bounds.extend(location);
+            });
+
+            if (!bounds.isEmpty()) {
+                map.fitBounds(bounds);
+            }
+        }
+    </script>
 
 @endsection

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\VendorServiceArea;
+use App\Models\VendorSubscription;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -35,7 +36,10 @@ class VendorController extends Controller
         $vendor_areas=VendorServiceArea::where('user_id',$vendor_id)->get();
         $orderData=Order::with('OrderitemDartaWithOrder')->where('vendor_id',$vendor_id)->paginate(getenv('PAGE_LIMIT'));
         $userMeta = User::with('vendorservicedata.vendorserviveUserwithvendor', 'vendorwithserviceoffer.vendorserviceofferdata', 'vendorwithemployee', 'vendorwithgallery')->where('id', $vendor_id)->first();
-        return view('vendor-details-page', compact('userMeta','orderData','vendor_areas'));
+        $VendorSubscription = VendorSubscription::with('VendorSubscribeSubscriptionData')->where('vendor_id',$vendor_id )
+            ->latest() // by default, uses 'created_at' column
+            ->first();
+        return view('vendor-details-page', compact('userMeta','orderData','vendor_areas','VendorSubscription'));
     }
     public function ChangeVendorStatus(Request $request, $id)
     {

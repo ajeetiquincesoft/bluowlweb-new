@@ -1133,7 +1133,7 @@ class MasterApiController extends Controller
 
             $user = User::where('role', "admin")->first();
             sendnotification($user->id, "Order completed", "The customer's order has been completed by the vendor.");
-            sendnotification($orderData->customer_id,"Order completed", "Your order has been completed.");
+            sendnotification($orderData->customer_id, "Order completed", "Your order has been completed.");
             return response()->json([
                 'message' => 'Order completed.',
                 'success' => true,
@@ -1243,8 +1243,8 @@ class MasterApiController extends Controller
                 $Payment->status = "1";
                 $Payment->save();
                 $user = User::where('role', "admin")->first();
-                 sendnotification($orderData->vendor_id, "New Order Received", "You have received a new order.");
-                 sendnotification($orderData->customer_id, "New Order Received", "new order.");
+                sendnotification($orderData->vendor_id, "New Order Received", "You have received a new order.");
+                sendnotification($orderData->customer_id, "New Order Received", "new order.");
                 sendnotification($user->id, "New Order Received", "You have received a new order.");
                 return response()->json([
                     'status' => 'success',
@@ -1287,7 +1287,8 @@ class MasterApiController extends Controller
             }
             $OrderData = Order::with([
                 'OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem',
-                'CustomerDartaWithOrder','OrderPaymentData',
+                'CustomerDartaWithOrder',
+                'OrderPaymentData',
                 'VendorDartaWithOrder.vendorservicedata.vendorserviveUserwithvendor'
             ])->where('id', $request->order_id)->first();
             return response()->json([
@@ -1368,6 +1369,10 @@ class MasterApiController extends Controller
             $VendorSubscription->ends_at = now()->addDays($subscription->duration);
             $VendorSubscription->status = "1";
             $VendorSubscription->save();
+
+            $user = User::where('role', "admin")->first();
+            sendnotification($user->id, "Blue Owl", "Vendor Subscription created");
+            sendnotification(Auth::id(), "Blue Owl", "Vendor Subscription created");
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -1429,8 +1434,8 @@ class MasterApiController extends Controller
             if ($validator->fails()) {
                 return response()->json(['message' => $validator->errors()->all(), 'success' => false], 400);
             }
-            $User=User::findorFail($user_id);
-            $User->fcm_token=$request->fcmtoken;
+            $User = User::findorFail($user_id);
+            $User->fcm_token = $request->fcmtoken;
             $User->save();
             return response()->json(['message' => 'Token Update Successfully', 'success' => true]);
         } catch (QueryException $e) {
