@@ -1472,7 +1472,7 @@ class MasterApiController extends Controller
             $notificationData = Notification::findorFail($request->notofication_id);
             $notificationData->status = "1";
             $notificationData->save();
-
+            DB::commit();
             return response()->json([
                 'message' => 'Status Changed successfully',
                 'success' => true,
@@ -1490,6 +1490,7 @@ class MasterApiController extends Controller
         DB::beginTransaction();
         try {
             Notification::where('user_id', Auth::id())->update(['status' => 0]);
+            DB::commit();
             return response()->json([
                 'message' => ' All Status Changed successfully',
                 'success' => true,
