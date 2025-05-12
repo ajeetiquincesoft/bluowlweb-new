@@ -777,7 +777,7 @@ class MasterApiController extends Controller
                 ], 400);
             }
             $serviceVendor = VendorService::where('service_id', $request->service_id)->pluck('user_id');
-            $vendorArea = VendorServiceArea::whereIn('user_id', $serviceVendor)
+            $vendorArea = VendorServiceArea::with('getVendorSubscription')->whereIn('user_id', $serviceVendor)
                 ->where('status', '1')
                 ->get();
 
