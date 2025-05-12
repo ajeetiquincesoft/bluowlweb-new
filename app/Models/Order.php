@@ -26,6 +26,10 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
+    public function OrderPaymentData()
+    {
+        return $this->hasone(Payment::class, 'order_id', 'id');
+    }
     public function CustomerDartaWithOrder()
     {
         return $this->hasone(User::class, 'id', 'customer_id');

@@ -1287,7 +1287,7 @@ class MasterApiController extends Controller
             }
             $OrderData = Order::with([
                 'OrderitemDartaWithOrder.ServiceCalegoryDataWithOrderitem',
-                'CustomerDartaWithOrder',
+                'CustomerDartaWithOrder','OrderPaymentData',
                 'VendorDartaWithOrder.vendorservicedata.vendorserviveUserwithvendor'
             ])->where('id', $request->order_id)->first();
             return response()->json([
