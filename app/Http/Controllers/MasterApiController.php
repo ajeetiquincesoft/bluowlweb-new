@@ -1441,7 +1441,7 @@ class MasterApiController extends Controller
     }
     public function getUserNotificationData()
     {
-        $notification = Notification::where('status', "0")->where('user_id', Auth::id())->latest()->take(20)->get();
+        $notification = Notification::where('user_id', Auth::id())->latest()->take(20)->get();
         return response()->json(
             [
                 'data' => $notification,
