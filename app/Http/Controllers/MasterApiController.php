@@ -1391,7 +1391,10 @@ class MasterApiController extends Controller
     }
     public function getVendorSubscriptionData()
     {
-        $sub = VendorSubscription::with('plan')->where('vendor_id', Auth::id())->latest()->first();
+        $sub = VendorSubscription::with('plan')
+            ->where('vendor_id', Auth::id())
+            ->latest()
+            ->first();
         return response()->json([
             'VendorSubscription' => $sub,
             'success' => true,
