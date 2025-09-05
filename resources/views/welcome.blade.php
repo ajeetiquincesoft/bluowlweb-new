@@ -85,7 +85,7 @@
         <div class="row d-flex justify-content-between g-1">
             <div class="col-md-2 col-6">
                 <div class="service-card ">
-                    <img src="{{ asset('assets/images/locksmith.png') }}" class="static-img" alt="Locksmith"
+                    <img src="{{ asset('assets/images/Locksmith.png') }}" class="static-img" alt="Locksmith"
                         style="width:45px; height:45px;">
                     <img src="{{ asset('assets/images/LocksmithGIF.gif') }}" class="hover-img" alt="Locksmith"
                         style="width:45px; height:45px;">
