@@ -1,7 +1,190 @@
-/*
-Template Name: Velzon - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://themesbrand.com/
-Contact: support@themesbrand.com
-File: Custom Css File
-*/
+body {
+    font-family: 'Mona Sans', sans-serif;
+    background: #fff;
+}
+
+/* Navbar */
+.navbar {
+    background: #fff;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #0a2c73;
+}
+
+.nav-item {
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.btn-0071BD {
+    background-color: #0071BD;
+    color: #fff;
+
+}
+
+.btn-experience {
+    border-radius: 30px;
+    font-size: 16px;
+}
+
+.hero {
+    background: center;
+    color: #fff;
+    padding: 60px 20px;
+    border-radius: 40px;
+    margin-top: 20px;
+    background-color: #3986ba
+}
+
+.hero h1 {
+    font-weight: bold;
+}
+
+.service-card {
+
+    padding: 20px 21px;
+    border: 2px solid #1A1363;
+    border-radius: 21px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.service-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .static-img {
+    display: none;
+}
+
+.service-card:hover {
+    /* background-image: linear-gradient(135deg, #0071BD 0%, #1A1363 100%); */
+    background-image: url("../images/Component\ 12.png");
+    background-size: cover;
+    background-position: center;
+    color: #fff !important;
+}
+
+.hover-img {
+    display: none;
+}
+
+.service-card:hover .hover-img {
+    display: inline-block;
+
+}
+
+.arrow-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .arrow-icon {
+    transform: translateX(8px);
+}
+
+.info-user-box {
+    background: #C2DDEF;
+    padding: 25px;
+    border-radius: 30px;
+    height: 100%;
+}
+
+.info-vendor-box {
+    background: #C8C7DA;
+    padding: 25px;
+    border-radius: 30px;
+    height: 100%;
+}
+
+.info-vendor-box h5,
+.info-user-box h5 {
+    font-weight: bold;
+}
+
+
+.cta-box {
+    background-image: url("../images/service-frame.png");
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    border-radius: 30px;
+    padding: 50px 20px;
+}
+
+.contact-box {
+    background: #0071BD;
+    padding: 40px;
+    border-radius: 30px;
+    color: #fff;
+}
+
+footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+}
+
+.home-img {
+    height: 60px;
+}
+
+.fw-42 {
+    font-size: 42px;
+}
+
+.fw-20 {
+    font-size: 20px;
+}
+
+.color-1A1363 {
+    color: #1A1363;
+}
+
+ol,
+ul {
+    padding-left: 1rem;
+}
+
+.info-user-box ul li::marker,
+.info-vendor-box ul li::marker {
+    font-size: 26px;
+    color: #1A1363;
+}
+
+.service-heading {
+    padding: 10px 35px;
+}
+
+.service-content {
+    padding: 10px;
+}
+
+.btn-1A1363 {
+    background-color: #1A1363;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 15px;
+}
+
+.btn:hover {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #1A1363;
+}
+
+.input-group-lg>.btn,
+.input-group-lg>.form-control,
+.input-group-lg>.form-select,
+.input-group-lg>.input-group-text {
+    font-size: 16px;
+}

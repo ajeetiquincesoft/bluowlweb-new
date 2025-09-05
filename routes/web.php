@@ -18,6 +18,9 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ManageOrdersController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserNotificationController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\WebUserManageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +33,11 @@ use App\Http\Controllers\UserNotificationController;
 |
 */
 // ~
-Route::get('/', function () {
+Route::GET('/', [LandingPageController::class, 'index']);
+Route::get('/login', function () {
     return redirect('/login');
 });
+Route::GET('/userRegister', [WebUserManageController::class, 'index'])->name('userRegister');
 
 Route::get('/forgotPassword', [ChangeForgotPasswordController::class, 'forgotPasswordChange'])
     ->name('forgotPassword')

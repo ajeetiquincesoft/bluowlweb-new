@@ -1,1034 +1,281 @@
-<!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
-    data-sidebar-image="none" data-preloader="disable">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-
-    <meta charset="utf-8" />
-    <title>Landing | Velzon - Admin & Dashboard Template</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
-
-    <!--Swiper slider css-->
-    <link href="assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Layout config Js -->
-    <script src="assets/js/layout.js"></script>
-    <!-- Bootstrap Css -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
-    <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
-
+    <title>Blueowl - Home & Emergency Services</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link href="https://cdn.jsdelivr.net/gh/github/mona-sans@latest/fonts.css" rel="stylesheet">
 </head>
-<style>
-    .nft-hero {
-        background-image: url("{{ asset('assets/images/banner-image.jpg') }}");
-        padding: 100px 0 126px 0;
-    }
 
-    .nft-hero .bg-overlay {
-        background-color: #16276a9e;
-        opacity: .85;
-    }
+<body>
 
-    .service-hero {
-        background-image: url("{{ asset('assets/images/section-hero.jpg') }}");
-    }
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid home-img" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="gap: 10px;">
+                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+                <form class="d-none d-lg-flex">
+                    <div class="position-relative me-2 input-group-lg w-60">
+                        <!-- Left image -->
+                        <img src="{{ asset('assets/images/location_on.png') }}" class="position-absolute"
+                            style="top: 50%; left: 10px; transform: translateY(-50%); width:20px; height:20px;" />
 
-    .work-section {
-        background-image: url("{{ asset('assets/images/work-section.jpg') }}");
-    }
+                        <!-- Input field -->
+                        <input type="text" class="form-control ps-5 pe-5" placeholder="Location">
 
-    .iphone-mockup {
-        max-width: 100%;
-        height: auto;
-        border-radius: 30px;
-
-    }
-</style>
-
-<body data-bs-spy="scroll" data-bs-target="#navbar-example">
-
-    <!-- Begin page -->
-    <div class="layout-wrapper landing">
-        {{-- <nav class="navbar navbar-expand-lg navbar-landing navbar-light fixed-top" id="navbar">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <img src="{{asset('assets/images/blue-owl.png')}}" class="card-logo card-logo-dark" alt="logo dark" height="70">
-                    <img src="{{asset('assets/images/blue-owl-white.png')}}" class="card-logo card-logo-light" alt="logo light" height="50">
-                </a>
-                <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="mdi mdi-menu"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
-
-                    </ul>
-
-                    <div class="">
-                        <a href="apps-nft-wallet.html" class="btn btn-success">Login</a>
+                        <!-- Right image -->
+                        <img src="{{ asset('assets/images/my_location.png') }}" class="position-absolute"
+                            style="top: 50%; right: 10px; transform: translateY(-50%); width:20px; height:20px;" />
                     </div>
-                </div>
-
+                    <a href="{{ route('login') }}" class="btn btn-0071BD mx-3 btn-md d-flex align-items-center">
+                        <img src="{{ asset('assets/images/account_circle.png') }}" alt="user" class="me-2"
+                            style="width:20px; height:20px;">
+                        Login
+                    </a>
+                    <a href="{{ route('userRegister') }}" class="btn btn-0071BD btn-md d-flex align-items-center">
+                        <img src="{{ asset('assets/images/account_circle.png') }}" alt="user" class="me-2"
+                            style="width:20px; height:20px;">
+                       Register
+                    </a>
+                </form>
             </div>
-        </nav> --}}
-        <div class="bg-overlay bg-overlay-pattern"></div>
-        <!-- end navbar -->
+        </div>
+    </nav>
 
-        <!-- start hero section -->
-        <section class="section nft-hero" id="hero">
-            <div class="bg-overlay"></div>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 col-sm-10">
-                        <div class="text-center">
-                            <div class="text-center  text-white-50" style="margin-bottom:100px">
-                                <div>
-                                    <a class="d-inline-block auth-logo" style="">
-                                        <img src="{{ asset('assets/images/blue-owl-white.png') }}" alt=""
-                                            height="100">
-                                    </a>
-                                </div>
-
-                            </div>
-
-                            <h1 class="display-4 fw-medium mb-4 lh-base text-white">Discover Digital Art & Collect <span
-                                    class="text-success">NFT Marketplace</span></h1>
-                            <p class="lead text-white-50 lh-base mb-4 pb-2">Can artwork be NFT? NFTs (non-fungible
-                                tokens) are one-of-a-kind digital assets. Given they're digital in nature, can physical
-                                works of art be turned into NFTs?.</p>
-
-                            <div class="d-flex gap-2 justify-content-center">
-                                <a href="apps-nft-create.html" class="store-btn google-play">
-                                    <img src="{{ asset('assets/images/play_store.png') }}" alt="Create Own"
-                                        height="50">
-                                </a>
-                                <a href="apps-nft-explore.html" class="store-btn app-store">
-                                    <img src="{{ asset('assets/images/app_store.png') }}" alt="Explore Now"
-                                        height="50">
-                                </a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!-- end row -->
-            </div><!-- end container -->
-        </section><!-- end hero section -->
-
-        <!-- start wallet -->
-        <section class="section service-hero" id="wallet">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <h1 class="mb-4 text-danger">All types of Home Services</h1>
-                        <div class="d-flex flex-column align-items-center align-items-lg-start">
-                            <div class="card  bg-info px-5">
-                                <p class="fw-semibold text-center p-2 m-0 text-white">
-                                    LockSmith
-                                </p>
-                            </div>
-                            <div class="card  bg-info px-5">
-                                <p class="fw-semibold text-center p-2 m-0 text-white">
-                                    LockSmith
-                                </p>
-                            </div>
-                            <div class="card  bg-info px-5">
-                                <p class="fw-semibold text-center p-2 m-0 text-white">
-                                    LockSmith
-                                </p>
-                            </div>
-                            <div class="card  bg-info px-5">
-                                <p class="fw-semibold text-center p-2 m-0 text-white">
-                                    LockSmith
-                                </p>
-                            </div>
-                            <div class="card  bg-info px-5">
-                                <p class="fw-semibold text-center p-2 m-0 text-white">
-                                    LockSmith
-                                </p>
-                            </div>
-                        </div>
-                    </div><!-- end col -->
-                    <div class="col-lg-4">
-                        <img src="{{ asset('assets/images/iphone (2).png') }}" alt="Phone Mockup" class="iphone-mockup">
-                    </div><!-- end col -->
-                </div><!-- end row -->
-
-            </div><!-- end container -->
-        </section><!-- end wallet -->
-
-        <!-- start marketplace -->
-        <section class="section bg-light work-section" id="marketplace">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xxl-12 col-md-12">
-                        <h2 class="text-center text-danger my-3">How it works</h2>
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-pills nav-justified mb-3" role="tablist">
-                            <li class="nav-item waves-effect waves-light">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#user" role="tab">
-                                    User
-                                </a>
-                            </li>
-                            <li class="nav-item waves-effect waves-light">
-                                <a class="nav-link" data-bs-toggle="tab" href="#vendor" role="tab">
-                                    Vendor
-                                </a>
-                            </li>
-
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content text-muted">
-                            <div class="tab-pane fade show active" id="user" role="tabpanel">
-                                <div class="position-relative">
-                                    <div id="userCarousel" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-inner">
-
-                                            <!-- Slide 1 -->
-                                            <div class="carousel-item active">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-6 ">
-                                                        <img src="{{ asset('assets/images/iphone (2).png') }}"
-                                                            class="img-fluid" alt="User 1">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h3>User Name 1</h3>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Vivamus lacinia odio vitae.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-6">
-                                                        <img src="https://picsum.photos/600/300?random=2"
-                                                            class="img-fluid" alt="User 2">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h3>User Name 2</h3>
-                                                        <p>Curabitur non nulla sit amet nisl tempus convallis quis ac
-                                                            lectus.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Slide 3 -->
-                                            <div class="carousel-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-6">
-                                                        <img src="https://picsum.photos/600/300?random=3"
-                                                            class="img-fluid" alt="User 3">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h3>User Name 3</h3>
-                                                        <p>Praesent sapien massa, convallis a pellentesque nec, egestas
-                                                            non nisi.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Bottom Center Controls -->
-                                        <div
-                                            class="carousel-control-wrapper mt-3  justify-content-center d-flex gap-3">
-                                            <button class="btn btn-outline-primary" type="button"
-                                                data-bs-target="#userCarousel" data-bs-slide="prev">
-                                                ‹ Prev
-                                            </button>
-                                            <button class="btn btn-outline-primary" type="button"
-                                                data-bs-target="#userCarousel" data-bs-slide="next">
-                                                Next ›
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Vendor Carousel -->
-                            <div class="tab-pane fade" id="vendor" role="tabpanel">
-                                <div class="position-relative">
-                                    <div id="vendorCarousel" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-inner">
-
-                                            <!-- Slide 1 -->
-                                            <div class="carousel-item active">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-6">
-                                                        <img src="https://picsum.photos/600/300?random=4"
-                                                            class="img-fluid" alt="Vendor 1">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h3>Vendor Name 1</h3>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Aliquam tincidunt arcu vel.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-6">
-                                                        <img src="https://picsum.photos/600/300?random=5"
-                                                            class="img-fluid" alt="Vendor 2">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h3>Vendor Name 2</h3>
-                                                        <p>Donec sollicitudin molestie malesuada. Pellentesque in ipsum
-                                                            id orci porta dapibus.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <!-- Bottom Center Controls -->
-                                        <div class="carousel-control-wrapper mt-3 justify-content-center d-flex gap-3">
-                                            <button class="btn btn-outline-success" type="button"
-                                                data-bs-target="#vendorCarousel" data-bs-slide="prev">
-                                                ‹ Prev
-                                            </button>
-                                            <button class="btn btn-outline-success" type="button"
-                                                data-bs-target="#vendorCarousel" data-bs-slide="next">
-                                                Next ›
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div><!-- end card-body -->
-                </div>
-        </section>
-        <!-- end marketplace -->
-
-        <!-- start features -->
-        <section class="section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="text-center mb-5">
-                            <h2 class="mb-3 fw-semibold lh-base">Create and Sell Your NFTs</h2>
-                            <p class="text-muted">The process of creating an NFT may cost less than a dollar, but the
-                                process of selling it can cost up to a thousand dollars. For example, Allen Gannett, a
-                                software developer.</p>
-                        </div>
-                    </div><!-- end col -->
-                </div><!-- end row -->
-
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="card shadow-none">
-                            <div class="card-body">
-                                <img src="assets/images/nft/wallet.png" alt="" class="avatar-sm">
-                                <h5 class="mt-4">Set up your wallet</h5>
-                                <p class="text-muted fs-14">You have to choose whether to use a hot wallet a cold
-                                    wallet.</p>
-                                <a href="#!" class="link-success fs-14">Read More <i
-                                        class="ri-arrow-right-line align-bottom"></i></a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    <div class="col-lg-3">
-                        <div class="card shadow-none">
-                            <div class="card-body">
-                                <img src="assets/images/nft/money.png" alt="" class="avatar-sm">
-                                <h5 class="mt-4">Create your collection</h5>
-                                <p class="text-muted fs-14">Create a collection in Opensea and give it a proper art.
-                                </p>
-                                <a href="#!" class="link-success fs-14">Read More <i
-                                        class="ri-arrow-right-line align-bottom"></i></a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    <div class="col-lg-3">
-                        <div class="card shadow-none">
-                            <div class="card-body">
-                                <img src="assets/images/nft/add.png" alt="" class="avatar-sm">
-                                <h5 class="mt-4">Add your NFT's</h5>
-                                <p class="text-muted fs-14">Go to your profile icon and top right corner creation page.
-                                </p>
-                                <a href="#!" class="link-success fs-14">Read More <i
-                                        class="ri-arrow-right-line align-bottom"></i></a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    <div class="col-lg-3">
-                        <div class="card shadow-none">
-                            <div class="card-body">
-                                <img src="assets/images/nft/sell.png" alt="" class="avatar-sm">
-                                <h5 class="mt-4">Sell Your NFT's</h5>
-                                <p class="text-muted fs-14">Create a collection in Opensea and give Add items and art.
-                                </p>
-                                <a href="#!" class="link-success fs-14">Read More <i
-                                        class="ri-arrow-right-line align-bottom"></i></a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!-- end container -->
-        </section><!-- end features -->
-
-        <!-- start plan -->
-        <section class="section bg-light" id="categories">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5">
-                        <div class="text-center mb-5">
-                            <h2 class="mb-3 fw-semibold lh-base">Trending All Categories</h2>
-                            <p class="text-muted">The process of creating an NFT may cost less than a dollar, but the
-                                process of selling it can cost up to a thousand dollars. For example, Allen Gannett, a
-                                software developer.</p>
-                        </div>
-                    </div><!-- end col -->
-                </div><!-- end row -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <!-- Swiper -->
-                        <div class="swiper mySwiper pb-4">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row g-1 mb-3">
-                                                <div class="col-6">
-                                                    <img src="assets/images/nft/img-06.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-2.gif"
-                                                        alt="" class="img-fluid rounded mt-1">
-                                                </div><!--end col-->
-                                                <div class="col-6">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-5.gif"
-                                                        alt="" class="img-fluid rounded mb-1">
-                                                    <img src="assets/images/nft/img-03.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                            <a href="#!" class="float-end"> View All <i
-                                                    class="ri-arrow-right-line align-bottom"></i></a>
-                                            <h5 class="mb-0 fs-16"><a href="#!">Artwork <span
-                                                        class="badge badge-soft-success">206</span></a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row g-1 mb-3">
-                                                <div class="col-6">
-                                                    <img src="assets/images/nft/img-05.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-1.gif"
-                                                        alt="" class="img-fluid rounded mt-1">
-                                                </div><!--end col-->
-                                                <div class="col-6">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-4.gif"
-                                                        alt="" class="img-fluid rounded mb-1">
-                                                    <img src="assets/images/nft/img-04.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                            <a href="#!" class="float-end"> View All <i
-                                                    class="ri-arrow-right-line align-bottom"></i></a>
-                                            <h5 class="mb-0 fs-16"><a href="#!">Crypto Card <span
-                                                        class="badge badge-soft-success">743</span></a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row g-1 mb-3">
-                                                <div class="col-6">
-                                                    <img src="assets/images/nft/img-02.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-3.gif"
-                                                        alt="" class="img-fluid rounded mt-1">
-                                                </div><!--end col-->
-                                                <div class="col-6">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-1.gif"
-                                                        alt="" class="img-fluid rounded mb-1">
-                                                    <img src="assets/images/nft/img-01.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                            <a href="#!" class="float-end"> View All <i
-                                                    class="ri-arrow-right-line align-bottom"></i></a>
-                                            <h5 class="mb-0 fs-16"><a href="#!">Music <span
-                                                        class="badge badge-soft-success">679</span></a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row g-1 mb-3">
-                                                <div class="col-6">
-                                                    <img src="assets/images/nft/img-03.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-5.gif"
-                                                        alt="" class="img-fluid rounded mt-1">
-                                                </div><!--end col-->
-                                                <div class="col-6">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-2.gif"
-                                                        alt="" class="img-fluid rounded mb-1">
-                                                    <img src="assets/images/nft/img-05.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                            <a href="#!" class="float-end"> View All <i
-                                                    class="ri-arrow-right-line align-bottom"></i></a>
-                                            <h5 class="mb-0 fs-16"><a href="#!">Games <span
-                                                        class="badge badge-soft-success">341</span></a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row g-1 mb-3">
-                                                <div class="col-6">
-                                                    <img src="assets/images/nft/img-02.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-3.gif"
-                                                        alt="" class="img-fluid rounded mt-1">
-                                                </div><!--end col-->
-                                                <div class="col-6">
-                                                    <img src="https://img.themesbrand.com/velzon/images/img-1.gif"
-                                                        alt="" class="img-fluid rounded mb-1">
-                                                    <img src="assets/images/nft/img-01.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                            <a href="#!" class="float-end"> View All <i
-                                                    class="ri-arrow-right-line align-bottom"></i></a>
-                                            <h5 class="mb-0 fs-16"><a href="#!">Photography <span
-                                                        class="badge badge-soft-success">1452</span></a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-pagination swiper-pagination-dark"></div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- end container -->
-        </section>
-        <!-- end plan -->
-
-        <!-- start Discover Items-->
-        <section class="section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <div class="d-flex align-items-center mb-5">
-                            <h2 class="mb-0 fw-semibold lh-base flex-grow-1">Discover Items</h2>
-                            <a href="apps-nft-explore.html" class="btn btn-primary">View All <i
-                                    class="ri-arrow-right-line align-bottom"></i></a>
-                        </div>
-                    </div>
-                </div><!-- end row -->
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="card explore-box card-animate border">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="assets/images/users/avatar-2.jpg" alt=""
-                                        class="avatar-xs rounded-circle">
-                                    <div class="ms-2 flex-grow-1">
-                                        <a href="#!">
-                                            <h6 class="mb-0 fs-15">Nancy Martino</h6>
-                                        </a>
-                                        <p class="mb-0 text-muted fs-13">Owners</p>
-                                    </div>
-                                    <div class="bookmark-icon">
-                                        <button type="button" class="btn btn-icon active" data-bs-toggle="button"
-                                            aria-pressed="true"><i class="mdi mdi-cards-heart fs-16"></i></button>
-                                    </div>
-                                </div>
-                                <div class="explore-place-bid-img overflow-hidden rounded">
-                                    <img src="assets/images/nft/img-05.jpg" alt="" class="explore-img w-100">
-                                    <div class="bg-overlay"></div>
-                                    <div class="place-bid-btn">
-                                        <a href="#!" class="btn btn-success"><i
-                                                class="ri-auction-fill align-bottom me-1"></i> Place Bid</a>
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <p class="fw-medium mb-0 float-end"><i
-                                            class="mdi mdi-heart text-danger align-middle"></i> 19.29k </p>
-                                    <h5 class="text-success"><i class="mdi mdi-ethereum"></i> 97.8 ETH </h5>
-                                    <h6 class="fs-16 mb-0"><a href="apps-nft-item-details.html">Patterns arts &amp;
-                                            culture</a></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card explore-box card-animate border">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="assets/images/users/avatar-9.jpg" alt=""
-                                        class="avatar-xs rounded-circle">
-                                    <div class="ms-2 flex-grow-1">
-                                        <a href="#!">
-                                            <h6 class="mb-0 fs-15">Henry Baird</h6>
-                                        </a>
-                                        <p class="mb-0 text-muted fs-13">Creators</p>
-                                    </div>
-                                    <div class="bookmark-icon">
-                                        <button type="button" class="btn btn-icon" data-bs-toggle="button"
-                                            aria-pressed="true"><i class="mdi mdi-cards-heart fs-16"></i></button>
-                                    </div>
-                                </div>
-                                <div class="explore-place-bid-img overflow-hidden rounded">
-                                    <img src="assets/images/nft/img-03.jpg" alt="" class="explore-img w-100">
-                                    <div class="bg-overlay"></div>
-                                    <div class="place-bid-btn">
-                                        <a href="#!" class="btn btn-success"><i
-                                                class="ri-auction-fill align-bottom me-1"></i> Place Bid</a>
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <p class="fw-medium mb-0 float-end"><i
-                                            class="mdi mdi-heart text-danger align-middle"></i> 31.64k </p>
-                                    <h5 class="text-success"><i class="mdi mdi-ethereum"></i> 475.23 ETH </h5>
-                                    <h6 class="fs-16 mb-0"><a href="apps-nft-item-details.html">Evolved Reality</a>
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card explore-box card-animate border">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="assets/images/users/avatar-10.jpg" alt=""
-                                        class="avatar-xs rounded-circle">
-                                    <div class="ms-2 flex-grow-1">
-                                        <a href="#!">
-                                            <h6 class="mb-0 fs-15">Diana Kohler</h6>
-                                        </a>
-                                        <p class="mb-0 text-muted fs-13">Owners</p>
-                                    </div>
-                                    <div class="bookmark-icon">
-                                        <button type="button" class="btn btn-icon active" data-bs-toggle="button"
-                                            aria-pressed="true"><i class="mdi mdi-cards-heart fs-16"></i></button>
-                                    </div>
-                                </div>
-                                <div class="explore-place-bid-img overflow-hidden rounded">
-                                    <img src="https://img.themesbrand.com/velzon/images/img-1.gif" alt=""
-                                        class="img-fluid explore-img">
-                                    <div class="bg-overlay"></div>
-                                    <div class="place-bid-btn">
-                                        <a href="#!" class="btn btn-success"><i
-                                                class="ri-auction-fill align-bottom me-1"></i> Place Bid</a>
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <p class="fw-medium mb-0 float-end"><i
-                                            class="mdi mdi-heart text-danger align-middle"></i> 8.34k </p>
-                                    <h5 class="text-success"><i class="mdi mdi-ethereum"></i> 701.38 ETH </h5>
-                                    <h6 class="fs-16 mb-0"><a href="apps-nft-item-details.html">Long-tailed
-                                            macaque</a></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </section>
-        <!--end Discover Items-->
-
-        <!-- start Work Process -->
-        <section class="section bg-light" id="creators">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="text-center mb-5">
-                            <h2 class="mb-3 fw-semibold lh-base">Top Creator This Week</h2>
-                            <p class="text-muted">NFTs are valuable because they verify the authenticity of a
-                                non-fungible asset. This makes these assets unique and one of a kind.</p>
-                        </div>
-                    </div>
-                </div><!-- end row -->
-                <div class="row">
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-shink-0">
-                                        <img src="assets/images/nft/img-01.jpg" alt=""
-                                            class="avatar-sm object-cover rounded" />
-                                    </div>
-                                    <div class="ms-3 flex-grow-1">
-                                        <a href="pages-profile.html">
-                                            <h5 class="mb-1">Timothy Smith</h5>
-                                        </a>
-                                        <p class="text-muted mb-0"><i class="mdi mdi-ethereum text-primary fs-14"></i>
-                                            4,754 ETH</p>
-                                    </div>
-                                    <div>
-                                        <div class="dropdown float-end">
-                                            <button class="btn btn-ghost-primary btn-icon dropdown" type="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ri-more-fill align-middle fs-16"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item view-item-btn"
-                                                        href="javascript:void(0);">Share</a></li>
-                                                <li><a class="dropdown-item edit-item-btn" href="#!"
-                                                        data-bs-toggle="modal">Report</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-shink-0">
-                                        <img src="assets/images/users/avatar-5.jpg" alt=""
-                                            class="avatar-sm object-cover rounded">
-                                    </div>
-                                    <div class="ms-3 flex-grow-1">
-                                        <a href="pages-profile.html">
-                                            <h5 class="mb-1">Alexis Clarke</h5>
-                                        </a>
-                                        <p class="text-muted mb-0"><i class="mdi mdi-ethereum text-primary fs-14"></i>
-                                            81,369 ETH</p>
-                                    </div>
-                                    <div>
-                                        <div class="dropdown float-end">
-                                            <button class="btn btn-ghost-primary btn-icon dropdown" type="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ri-more-fill align-middle fs-16"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item view-item-btn"
-                                                        href="javascript:void(0);">Share</a></li>
-                                                <li><a class="dropdown-item edit-item-btn" href="#!"
-                                                        data-bs-toggle="modal">Report</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-shink-0">
-                                        <img src="assets/images/nft/img-06.jpg" alt=""
-                                            class="avatar-sm object-cover rounded">
-                                    </div>
-                                    <div class="ms-3 flex-grow-1">
-                                        <a href="pages-profile.html">
-                                            <h5 class="mb-1">Glen Matney</h5>
-                                        </a>
-                                        <p class="text-muted mb-0"><i class="mdi mdi-ethereum text-primary fs-14"></i>
-                                            13,156 ETH</p>
-                                    </div>
-                                    <div>
-                                        <div class="dropdown float-end">
-                                            <button class="btn btn-ghost-primary btn-icon dropdown" type="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ri-more-fill align-middle fs-16"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item view-item-btn"
-                                                        href="javascript:void(0);">Share</a></li>
-                                                <li><a class="dropdown-item edit-item-btn" href="#!"
-                                                        data-bs-toggle="modal">Report</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end col-->
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-shink-0">
-                                        <img src="https://img.themesbrand.com/velzon/images/img-5.gif" alt=""
-                                            class="avatar-sm object-cover rounded">
-                                    </div>
-                                    <div class="ms-3 flex-grow-1">
-                                        <a href="pages-profile.html">
-                                            <h5 class="mb-1">Herbert Stokes</h5>
-                                        </a>
-                                        <p class="text-muted mb-0"><i class="mdi mdi-ethereum text-primary fs-14"></i>
-                                            34,754 ETH</p>
-                                    </div>
-                                    <div>
-                                        <div class="dropdown float-end">
-                                            <button class="btn btn-ghost-primary btn-icon dropdown" type="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ri-more-fill align-middle fs-16"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item view-item-btn"
-                                                        href="javascript:void(0);">Share</a></li>
-                                                <li><a class="dropdown-item edit-item-btn" href="#!"
-                                                        data-bs-toggle="modal">Report</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end col-->
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-shink-0">
-                                        <img src="assets/images/users/avatar-8.jpg" alt=""
-                                            class="avatar-sm object-cover rounded">
-                                    </div>
-                                    <div class="ms-3 flex-grow-1">
-                                        <a href="pages-profile.html">
-                                            <h5 class="mb-1">Michael Morris</h5>
-                                        </a>
-                                        <p class="text-muted mb-0"><i class="mdi mdi-ethereum text-primary fs-14"></i>
-                                            13,841 ETH</p>
-                                    </div>
-                                    <div>
-                                        <div class="dropdown float-end">
-                                            <button class="btn btn-ghost-primary btn-icon dropdown" type="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ri-more-fill align-middle fs-16"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item view-item-btn"
-                                                        href="javascript:void(0);">Share</a></li>
-                                                <li><a class="dropdown-item edit-item-btn" href="#!"
-                                                        data-bs-toggle="modal">Report</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end col-->
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-shink-0">
-                                        <img src="assets/images/nft/img-02.jpg" alt=""
-                                            class="avatar-sm object-cover rounded">
-                                    </div>
-                                    <div class="ms-3 flex-grow-1">
-                                        <a href="pages-profile.html">
-                                            <h5 class="mb-1">James Morris</h5>
-                                        </a>
-                                        <p class="text-muted mb-0"><i class="mdi mdi-ethereum text-primary fs-14"></i>
-                                            63,710 ETH</p>
-                                    </div>
-                                    <div>
-                                        <div class="dropdown float-end">
-                                            <button class="btn btn-ghost-primary btn-icon dropdown" type="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ri-more-fill align-middle fs-16"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item view-item-btn"
-                                                        href="javascript:void(0);">Share</a></li>
-                                                <li><a class="dropdown-item edit-item-btn" href="#!"
-                                                        data-bs-toggle="modal">Report</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end col-->
-                </div>
-            </div><!-- end container -->
-        </section><!-- end Work Process -->
-
-        <!-- start cta -->
-        <section class="py-5 bg-primary position-relative">
-            <div class="bg-overlay bg-overlay-pattern opacity-50"></div>
-            <div class="container">
-                <div class="row align-items-center gy-4">
-                    <div class="col-sm">
-                        <div>
-                            <h4 class="text-white mb-0 fw-semibold">Create and Sell Your NFT's</h4>
-                        </div>
-                    </div>
-                    <!-- end col -->
-                    <div class="col-sm-auto">
-                        <div>
-                            <a href="apps-nft-create.html" class="btn bg-gradient btn-danger">Create NFT</a>
-                            <a href="apps-nft-explore.html" class="btn bg-gradient btn-info">Discover More</a>
-                        </div>
-                    </div>
-                    <!-- end col -->
-                </div>
-                <!-- end row -->
+    <!-- Hero -->
+    <section class="container hero" style="background-image: url('{{ asset('assets/images/Frame.png') }}');">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="fw-42">Blueowl – Your One-Stop Platform for Home & Emergency Services</h1>
+                <p class="mt-3 fw-20">Find trusted locksmiths, plumbers, electricians, and general service providers
+                    near you –
+                    fast,
+                    reliable, and affordable.</p>
             </div>
-            <!-- end container -->
-        </section>
-        <!-- end cta -->
-
-        <!-- Start footer -->
-        <footer class="custom-footer bg-dark py-5 position-relative">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 mt-4">
-                        <div>
-                            <div>
-                                <img src="assets/images/logo-light.png" alt="logo light" height="17">
-                            </div>
-                            <div class="mt-4">
-                                <p>Premium Multipurpose Admin & Dashboard Template</p>
-                                <p>You can build any type of web application like eCommerce, CRM, CMS, Project
-                                    management apps, Admin Panels, etc using Velzon.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-7 ms-lg-auto">
-                        <div class="row">
-                            <div class="col-sm-4 mt-4">
-                                <h5 class="text-white mb-0">Company</h5>
-                                <div class="text-muted mt-3">
-                                    <ul class="list-unstyled ff-secondary footer-list">
-                                        <li><a href="pages-profile.html">About Us</a></li>
-                                        <li><a href="pages-gallery.html">Gallery</a></li>
-                                        <li><a href="apps-projects-overview.html">Projects</a></li>
-                                        <li><a href="pages-timeline.html">Timeline</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 mt-4">
-                                <h5 class="text-white mb-0">Apps Pages</h5>
-                                <div class="text-muted mt-3">
-                                    <ul class="list-unstyled ff-secondary footer-list">
-                                        <li><a href="pages-pricing.html">Calendar</a></li>
-                                        <li><a href="apps-mailbox.html">Mailbox</a></li>
-                                        <li><a href="apps-chat.html">Chat</a></li>
-                                        <li><a href="apps-crm-deals.html">Deals</a></li>
-                                        <li><a href="apps-tasks-kanban.html">Kanban Board</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 mt-4">
-                                <h5 class="text-white mb-0">Support</h5>
-                                <div class="text-muted mt-3">
-                                    <ul class="list-unstyled ff-secondary footer-list">
-                                        <li><a href="pages-faqs.html">FAQ</a></li>
-                                        <li><a href="pages-faqs.html">Contact</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+            <div class="col-md-4 d-flex flex-column justify-content-end text-md-start text-center">
+                <div class=" mb-1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                        height="45" class="me-2">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                        height="45">
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="row text-center text-sm-start align-items-center mt-5">
-                    <div class="col-sm-6">
+    <!-- Services -->
+    <section class="container my-5">
+        <h3 class="color-1A1363 fw-bold mb-4">Customer Services</h3>
+        <div class="row d-flex justify-content-between g-1">
+            <div class="col-md-2 col-6">
+                <div class="service-card ">
+                    <img src="{{ asset('assets/images/locksmith.png') }}" class="static-img" alt="Locksmith"
+                        style="width:45px; height:45px;">
+                    <img src="{{ asset('assets/images/LocksmithGIF.gif') }}" class="hover-img" alt="Locksmith"
+                        style="width:45px; height:45px;">
+                    <p class="mt-2 p-0 mt-2 m-0"><b>Locksmith <i class="fa-solid fa-arrow-right arrow-icon"></i></b></p>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="service-card ">
+                    <img src="{{ asset('assets/images/Plumber.png') }}" class="static-img" alt="Plumber"
+                        style="width:45px; height:45px;">
+                    <img src="{{ asset('assets/images/PlumberGIF.gif') }}" class="hover-img" alt="Plumber"
+                        style="width:45px; height:45px;">
+                    <p class="mt-2 p-0 mt-2 m-0"><b>Plumber <i class="fa-solid fa-arrow-right arrow-icon"></i></b></p>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="service-card ">
+                    <img src="{{ asset('assets/images/General Contractor.png') }}" class="static-img"
+                        alt="Contractor" style="width:45px; height:45px;">
+                    <img src="{{ asset('assets/images/General ContractorGIF.gif') }}" class="hover-img"
+                        alt="Contractor" style="width:45px; height:45px;">
+                    <p class="mt-2 p-0 mt-2 m-0"><b>Contractor <i class="fa-solid fa-arrow-right arrow-icon"></i></b>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="service-card ">
+                    <img src="{{ asset('assets/images/Electrician.png') }}" class="static-img" alt="Electrician"
+                        style="width:45px; height:45px;">
+                    <img src="{{ asset('assets/images/ElectricianGIF.gif') }}" class="hover-img" alt="Electrician"
+                        style="width:45px; height:45px;">
+                    <p class="mt-2 p-0 mt-2 m-0"><b>Electrician <i class="fa-solid fa-arrow-right arrow-icon"></i></b>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="service-card ">
+                    <img src="{{ asset('assets/images/Others.png') }}" class="static-img" alt="Other"
+                        style="width:45px; height:45px;">
+                    <img src="{{ asset('assets/images/OthersGIF.gif') }}" class="hover-img" alt="Other"
+                        style="width:45px; height:45px;">
+                    <p class="mt-2 p-0 mt-2 m-0"><b>Other <i class="fa-solid fa-arrow-right arrow-icon"></i></b></p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Why Blueowl -->
+    <section class="container my-5">
+        <div class="row g-5 align-items-start">
+            <div class="col-md-6 ">
+                <div class="row info-user-box ">
+                    <div class="col-md-8">
                         <div>
-                            <p class="copy-rights mb-0">
-                                <script>
-                                    document.write(new Date().getFullYear())
-                                </script> © Velzon - Themesbrand
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="text-sm-end mt-3 mt-sm-0">
-                            <ul class="list-inline mb-0 footer-social-link">
-                                <li class="list-inline-item">
-                                    <a href="javascript: void(0);" class="avatar-xs d-block">
-                                        <div class="avatar-title rounded-circle">
-                                            <i class="ri-facebook-fill"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="javascript: void(0);" class="avatar-xs d-block">
-                                        <div class="avatar-title rounded-circle">
-                                            <i class="ri-github-fill"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="javascript: void(0);" class="avatar-xs d-block">
-                                        <div class="avatar-title rounded-circle">
-                                            <i class="ri-linkedin-fill"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="javascript: void(0);" class="avatar-xs d-block">
-                                        <div class="avatar-title rounded-circle">
-                                            <i class="ri-google-fill"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="javascript: void(0);" class="avatar-xs d-block">
-                                        <div class="avatar-title rounded-circle">
-                                            <i class="ri-dribbble-line"></i>
-                                        </div>
-                                    </a>
-                                </li>
+                            <h5>Why Blueowl App As An User?</h5>
+                            <ul style="line-height: 1.5;">
+                                <li>All services in one app</li>
+                                <li>Instant & reliable bookings</li>
+                                <li>Verified, trusted professionals</li>
+                                <li>Transparent pricing, no surprises</li>
+                                <li>Track & manage requests anytime</li>
                             </ul>
+                            <button class="btn btn-0071BD btn-experience">Login to book now
+                                <i class="fa-solid fa-arrow-right arrow-icon" style="  font-size: 12px;"></i>
+                            </button>
                         </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        <img src="{{ asset('assets/images/User mockup.png') }}" style="height: 79%;" alt="User App"
+                            class="img-fluid phone-img">
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- end footer -->
+            <div class="col-md-6">
+                <div class="row info-vendor-box  ">
+                    <div class="col-md-8">
+                        <div>
+                            <h5>Why Blueowl App As A Vendor?</h5>
+                            <ul style="line-height: 1.5;">
+                                <li>Get more customers easily</li>
+                                <li>Simple app-based service requests</li>
+                                <li>Fast & transparent payments</li>
+                                <li>Build reputation with reviews</li>
+                                <li>Work when you want, earn more</li>
+                            </ul>
+                            <button class="btn btn-0071BD btn-experience">Login to book now
+                                <i class="fa-solid fa-arrow-right arrow-icon" style="  font-size: 12px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        <img src="{{ asset('assets/images/User mockup.png') }}" style="height: 79%;" alt="User App"
+                            class="img-fluid phone-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!--start back-to-top-->
-        <button onclick="topFunction()" class="btn btn-danger btn-icon landing-back-top" id="back-to-top">
-            <i class="ri-arrow-up-line"></i>
-        </button>
-        <!--end back-to-top-->
+    <!-- CTA -->
+    <section class="cta-box container my-5">
+        <div class="row">
+            <div class="col-md-3 service-heading">
+                <h2>Book a Service Now</h2>
+            </div>
+            <div class="col-md-6 service-content">
+                <p>
+                    Connect instantly with trusted locksmiths, plumbers, electricians, and more.
+                    Fast, reliable, and affordable services right at your doorstep.
+                </p>
+                <button class="btn btn-0071BD">Book Now <i class="fa-solid fa-arrow-right arrow-icon"
+                        style="font-size:12px;"></i></button>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </section>
 
-    </div>
-    <!-- end layout wrapper -->
+    <!-- Contact -->
+    <section class="container my-5">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <h3 class="color-1A1363 fw-bold">Get in Touch with Blueowl</h3>
+                <p class="mt-4">Have a question or need support? We're here to help you connect with trusted
+                    locksmiths,
+                    plumbers,
+                    electricians, and more.</p>
+                <p class="mt-4">Fill out the form below, and our team will get back to you shortly.</p>
+                <div class="mt-4 text-center text-lg-start">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                        height="45" class="me-2 mb-2">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                        height="45" class="mb-2">
+                </div>
 
+                <div class="mt-4 text-center text-lg-start">
+                    <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid home-img" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="contact-box ">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Last Name">
+                            </div>
 
-    <!-- JAVASCRIPT -->
-    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="assets/libs/node-waves/waves.min.js"></script>
-    <script src="assets/libs/feather-icons/feather.min.js"></script>
-    <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
-    <script src="assets/js/plugins.js"></script>
+                            <div class="col-md-12">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
 
-    <!--Swiper slider js-->
-    <script src="assets/libs/swiper/swiper-bundle.min.js"></script>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Phone">
+                            </div>
 
-    <script src="assets/js/pages/nft-landing.init.js"></script>
+                            <div class="col-md-12">
+                                <select class="form-select">
+                                    <option selected disabled>Select Service</option>
+                                    <option>Locksmith</option>
+                                    <option>Plumber</option>
+                                    <option>Electrician</option>
+                                    <option>General Contractor</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12">
+                                <textarea class="form-control" rows="4" placeholder="Service Request Details"></textarea>
+                            </div>
+
+                            <div class="col-md-12 text-center text-lg-start">
+                                <button type="submit" class="btn btn-1A1363">Send Message <i
+                                        class="fa-solid fa-arrow-right arrow-icon"
+                                        style="font-size:12px;"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        © Copyright by Blueowl 2025. All rights reserved
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
